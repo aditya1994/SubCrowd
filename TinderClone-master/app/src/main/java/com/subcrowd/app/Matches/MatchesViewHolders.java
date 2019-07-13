@@ -1,4 +1,4 @@
-package com.simcoder.tinder.Matches;
+package com.subcrowd.app.Matches;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,8 +7,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.simcoder.tinder.Chat.ChatActivity;
-import com.simcoder.tinder.R;
+import com.subcrowd.app.Chat.ChatActivity;
+import com.subcrowd.app.R;
 
 /**
  * Created by manel on 10/31/2017.

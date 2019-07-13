@@ -1,4 +1,4 @@
-package com.simcoder.tinder;
+package com.subcrowd.app;
 
 import org.junit.Test;
 

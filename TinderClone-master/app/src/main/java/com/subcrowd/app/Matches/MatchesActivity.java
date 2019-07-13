@@ -1,4 +1,4 @@
-package com.simcoder.tinder.Matches;
+package com.subcrowd.app.Matches;
 
 
 import android.os.Bundle;
@@ -12,7 +12,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.simcoder.tinder.R;
+import com.subcrowd.app.R;
 
 import java.util.ArrayList;
 import java.util.List;

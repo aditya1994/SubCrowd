@@ -1,4 +1,4 @@
-package com.simcoder.tinder.Chat;
+package com.subcrowd.app.Chat;
 
 /**
  * Created by manel on 10/31/2017.

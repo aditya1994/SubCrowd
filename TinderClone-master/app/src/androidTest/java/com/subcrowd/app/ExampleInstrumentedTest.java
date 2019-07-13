@@ -1,4 +1,4 @@
-package com.simcoder.tinder;
+package com.subcrowd.app;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

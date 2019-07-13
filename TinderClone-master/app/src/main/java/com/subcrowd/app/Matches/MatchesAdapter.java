@@ -1,4 +1,4 @@
-package com.simcoder.tinder.Matches;
+package com.subcrowd.app.Matches;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
-import com.simcoder.tinder.R;
+import com.subcrowd.app.R;
 
 import java.util.List;
 
