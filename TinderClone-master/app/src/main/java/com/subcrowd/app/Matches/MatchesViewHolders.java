@@ -2,10 +2,12 @@ package com.subcrowd.app.Matches;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
+
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.subcrowd.app.Chat.ChatActivity;
 import com.subcrowd.app.R;
