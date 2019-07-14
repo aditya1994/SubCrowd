@@ -134,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
     public void checkUserSex(){
 
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        DatabaseReference userDb = usersDb.child("Male").child(user.getUid());
+        DatabaseReference userDb = usersDb.child(user.getUid());
 
         userDb.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -168,15 +168,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void getOppositeSexUsers(final String oppositeUserSex){
-        DatabaseReference userDb = usersDb.child(oppositeUserSex);
-
-        userDb.addChildEventListener(new ChildEventListener() {
+        usersDb.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 if (dataSnapshot.child("sex").getValue() != null) {
                     Log.d("CardSearch", "getOppositeSex called");
 
-                    if (dataSnapshot.exists() && !dataSnapshot.child("connections").child("nope").hasChild(currentUId) && !dataSnapshot.child("connections").child("yeps").hasChild(currentUId) && dataSnapshot.child("name").child("sex").getValue().toString().equals(oppositeUserSex)) {
+                    if (dataSnapshot.exists() && !dataSnapshot.child("connections").child("nope").hasChild(currentUId) && !dataSnapshot.child("connections").child("yeps").hasChild(currentUId) && dataSnapshot.child("sex").getValue().toString().equals(oppositeUserSex)) {
                         String profileImageUrl = "default";
                         if (!dataSnapshot.child("profileImageUrl").getValue().equals("default")) {
                             profileImageUrl = dataSnapshot.child("profileImageUrl").getValue().toString();
