@@ -45,8 +45,6 @@ public class MatchesActivity extends AppCompatActivity {
 
 
 
-
-
     }
 
     private void getUserMatchId() {
