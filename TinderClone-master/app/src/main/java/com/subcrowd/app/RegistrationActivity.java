@@ -87,15 +87,15 @@ public class RegistrationActivity extends AppCompatActivity {
                             Toast.makeText(RegistrationActivity.this, "sign up error", Toast.LENGTH_SHORT).show();
                         }else{
                             String userId = mAuth.getCurrentUser().getUid();
-                            DatabaseReference currentUserDb = FirebaseDatabase.getInstance().getReference().child("Users").child(radioButton.getText().toString()).child(userId).child("name");
+                            DatabaseReference currentUserDb = FirebaseDatabase.getInstance().getReference().child("Users").child(radioButton.getText().toString());
 
                             Log.d("DB_debug", FirebaseDatabase.getInstance().getReference().getDatabase()+"");
-                         /*   Map userInfo = new HashMap<>();
+                            Map userInfo = new HashMap<>();
                             userInfo.put("name", name);
                             userInfo.put("sex", radioButton.getText().toString());
                             userInfo.put("profileImageUrl", "default");
-                            currentUserDb.updateChildren(userInfo);*/
-                            currentUserDb.setValue("asdfssadfasd");
+                            currentUserDb.updateChildren(userInfo);
+                           // currentUserDb.setValue("asdfssadfasd");
                         }
                     }
                 });
