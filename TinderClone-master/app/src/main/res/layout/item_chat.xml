@@ -9,16 +9,16 @@
         android:id="@+id/container">
         <TextView
             android:paddingBottom="20sp"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Text"
             android:id="@+id/message"
-            android:background="@drawable/my_message"
+
             android:textColor="#fff"
             android:padding="10dp"
             android:elevation="2dp"
             android:textSize="18dp"
-            android:layout_alignParentRight="true"
+
             />
 
     </LinearLayout>
