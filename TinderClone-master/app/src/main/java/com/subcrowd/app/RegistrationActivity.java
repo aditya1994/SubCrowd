@@ -5,10 +5,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -28,7 +30,7 @@ import java.util.Map;
 public class RegistrationActivity extends AppCompatActivity {
 
     private Button mRegister;
-    private EditText mEmail, mPassword, mName;
+    private EditText mEmail, mPassword, mName, mBudget;
 
     private RadioGroup mRadioGroup;
 
@@ -54,30 +56,42 @@ public class RegistrationActivity extends AppCompatActivity {
             }
         };
 
-
+        mBudget = (EditText) findViewById(R.id.budget);
         mRegister = (Button) findViewById(R.id.register);
 
         mEmail = (EditText) findViewById(R.id.email);
         mPassword = (EditText) findViewById(R.id.password);
         mName = (EditText) findViewById(R.id.name);
 
-        mRadioGroup = (RadioGroup) findViewById(R.id.radioGroup);
+        final Spinner spinner_need = (Spinner) findViewById(R.id.spinner_need);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.services, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        spinner_need.setAdapter(adapter);
+
+        final Spinner spinner_give = (Spinner) findViewById(R.id.spinner_give);
+        ArrayAdapter<CharSequence> adapter_give = ArrayAdapter.createFromResource(this,
+                R.array.services, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        spinner_give.setAdapter(adapter_give);
 
         mRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int selectId = mRadioGroup.getCheckedRadioButtonId();
-
-                final RadioButton radioButton = (RadioButton) findViewById(selectId);
-
-                if(radioButton.getText() == null){
-                    return;
-                }
+//                int selectId = mRadioGroup.getCheckedRadioButtonId();
+//
+//                final RadioButton radioButton = (RadioButton) findViewById(selectId);
+//
+//                if(radioButton.getText() == null){
+//                    return;
+//                }
 
                 final String email = mEmail.getText().toString();
                 final String password = mPassword.getText().toString();
                 final String name = mName.getText().toString();
-
+                final String budget = mBudget.getText().toString();
 
 
                 mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(RegistrationActivity.this, new OnCompleteListener<AuthResult>() {
@@ -92,7 +106,9 @@ public class RegistrationActivity extends AppCompatActivity {
                             Log.d("DB_debug", FirebaseDatabase.getInstance().getReference().getDatabase()+"");
                             Map userInfo = new HashMap<>();
                             userInfo.put("name", name);
-                            userInfo.put("sex", radioButton.getText().toString());
+                            userInfo.put("give", spinner_give.getSelectedItem().toString());
+                            userInfo.put("need", spinner_need.getSelectedItem().toString());
+                            userInfo.put("budget", budget);
                             userInfo.put("profileImageUrl", "default");
                             currentUserDb.updateChildren(userInfo);
                            // currentUserDb.setValue("asdfssadfasd");

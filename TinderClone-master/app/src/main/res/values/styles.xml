@@ -17,8 +17,8 @@
         <!--<item name="android:statusBarColor">@color/color_status_bar</item>-->
         <!-- Global type attributes -->
         <item name="textAppearanceButton">@style/AppTextAppearance.Button</item>
-        <item name="fontFamily">@font/roboto_mono_regular</item>
-        <item name="android:fontFamily">@font/roboto_mono_regular</item>
+
+
         <!-- Global shape attributes -->
         <item name="shapeAppearanceSmallComponent">@style/AppShapeAppearance.SmallComponent</item>
         <item name="shapeAppearanceMediumComponent">@style/AppShapeAppearance.MediumComponent</item>
@@ -47,17 +47,17 @@
 
     <style name="AppShapeAppearance.SmallComponent" parent="ShapeAppearance.MaterialComponents.SmallComponent">
         <item name="cornerFamily">cut</item>
-        <item name="cornerSize">8dp</item>
+        <item name="cornerSize">2dp</item>
     </style>
 
     <style name="AppShapeAppearance.MediumComponent" parent="ShapeAppearance.MaterialComponents.MediumComponent">
         <item name="cornerFamily">cut</item>
-        <item name="cornerSize">8dp</item>
+        <item name="cornerSize">2dp</item>
     </style>
 
     <style name="AppShapeAppearance.LargeComponent" parent="ShapeAppearance.MaterialComponents.LargeComponent">
         <item name="cornerFamily">cut</item>
-        <item name="cornerSize">8dp</item>
+        <item name="cornerSize">2dp</item>
     </style>
 
     <!-- NOTE: Chips don't seem to pick up on the theme fontFamily attributes, so these styles are necessary -->

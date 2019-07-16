@@ -18,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -163,8 +164,9 @@ public class SettingsActivity extends AppCompatActivity {
             uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    Uri downloadUrl = taskSnapshot.getUploadSessionUri();
-
+                    Task<Uri> uri = taskSnapshot.getStorage().getDownloadUrl();
+                    while(!uri.isComplete());
+                    Uri downloadUrl = uri.getResult();
                     Map userInfo = new HashMap();
                     userInfo.put("profileImageUrl", downloadUrl.toString());
                     mUserDatabase.updateChildren(userInfo);

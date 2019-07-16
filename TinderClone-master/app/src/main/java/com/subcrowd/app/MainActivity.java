@@ -129,8 +129,8 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private String userSex;
-    private String oppositeUserSex;
+    private String userNeed, userGive;
+    private String oppositeUserNeed, oppositeUserGive;
     public void checkUserSex(){
 
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -142,21 +142,16 @@ public class MainActivity extends AppCompatActivity {
                 Log.d("CardSearch", dataSnapshot.toString());
 
                 if (dataSnapshot.exists()){
-                    if (dataSnapshot.child("sex").getValue() != null){
+                    if (dataSnapshot.child("need").getValue() != null){
                        // Log.d("CardSearch", "exists coloumn called");
 
-                        userSex = dataSnapshot.child("sex").getValue().toString();
+                        userNeed = dataSnapshot.child("need").getValue().toString();
+                        userGive = dataSnapshot.child("give").getValue().toString();
                       //  Log.d("CardSearch", "datachange called");
 
-                        switch (userSex){
-                            case "Male":
-                                oppositeUserSex = "Female";
-                                break;
-                            case "Female":
-                                oppositeUserSex = "Male";
-                                break;
-                        }
-                        getOppositeSexUsers(oppositeUserSex);
+                        oppositeUserGive = userNeed;
+                        oppositeUserNeed = userGive;
+                        getOppositeSexUsers(oppositeUserGive, oppositeUserNeed);
                     }
                 }
             }
@@ -167,14 +162,23 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void getOppositeSexUsers(final String oppositeUserSex){
+    public void getOppositeSexUsers(final String oppositeUserGive, final String oppositeUserNeed){
         usersDb.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                if (dataSnapshot.child("sex").getValue() != null) {
+                if (dataSnapshot.child("give").getValue() != null) {
                     Log.d("CardSearch", "getOppositeSex called");
 
-                    if (dataSnapshot.exists() && !dataSnapshot.child("connections").child("nope").hasChild(currentUId) && !dataSnapshot.child("connections").child("yeps").hasChild(currentUId) && dataSnapshot.child("sex").getValue().toString().equals(oppositeUserSex)) {
+                    if (dataSnapshot.exists() && !dataSnapshot.child("connections").child("nope").hasChild(currentUId) && !dataSnapshot.child("connections").child("yeps").hasChild(currentUId) && dataSnapshot.child("give").getValue().toString().equals(oppositeUserGive) && dataSnapshot.child("need").getValue().toString().equals(oppositeUserNeed)) {
+                        String profileImageUrl = "default";
+                        if (!dataSnapshot.child("profileImageUrl").getValue().equals("default")) {
+                            profileImageUrl = dataSnapshot.child("profileImageUrl").getValue().toString();
+                        }
+                        cards item = new cards(dataSnapshot.getKey(), dataSnapshot.child("name").getValue().toString(), profileImageUrl);
+                        rowItems.add(item);
+                        arrayAdapter.notifyDataSetChanged();
+                    }
+                    else if(dataSnapshot.exists() && !dataSnapshot.child("connections").child("nope").hasChild(currentUId) && !dataSnapshot.child("connections").child("yeps").hasChild(currentUId) && dataSnapshot.child("give").getValue().toString().equals(oppositeUserGive)){
                         String profileImageUrl = "default";
                         if (!dataSnapshot.child("profileImageUrl").getValue().equals("default")) {
                             profileImageUrl = dataSnapshot.child("profileImageUrl").getValue().toString();
