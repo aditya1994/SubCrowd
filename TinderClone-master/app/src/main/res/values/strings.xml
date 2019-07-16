@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name" translatable="false">SubCrowd</string>
+        <string-array name="services">
+            <item>Netflix</item>
+            <item>Amazon Prime</item>
+            <item>Hulu</item>
+            <item>Vudu</item>
+            <item>HBO Now</item>
+            <item>Youtube Originals</item>
+
+        </string-array>
 </resources>
