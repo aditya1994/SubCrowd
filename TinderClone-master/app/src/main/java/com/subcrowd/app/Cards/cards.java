@@ -8,10 +8,16 @@ public class cards {
     private String userId;
     private String name;
     private String profileImageUrl;
-    public cards (String userId, String name, String profileImageUrl){
+    private String need;
+    private String give;
+    private String budget;
+    public cards (String userId, String name, String profileImageUrl, String need, String give, String budget){
         this.userId = userId;
         this.name = name;
         this.profileImageUrl = profileImageUrl;
+        this.need = need;
+        this.give = give;
+        this.budget = budget;
     }
 
     public String getUserId(){
@@ -30,6 +36,27 @@ public class cards {
 
     public String getProfileImageUrl(){
         return profileImageUrl;
+    }
+    public String getNeed(){
+        return need;
+    }
+    public String getGive(){
+        return give;
+    }
+
+    public void setNeed(String need) {
+        this.need = need;
+    }
+
+    public void setGive(String give){
+        this.give = give;
+    }
+
+    public void setBudget(String budget){
+        this.budget = budget;
+    }
+    public String getBudget(){
+        return budget;
     }
     public void setProfileImageUrl(String profileImageUrl){
         this.profileImageUrl = profileImageUrl;

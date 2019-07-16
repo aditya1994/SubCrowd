@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
     private cards cards_data[];
     private com.subcrowd.app.Cards.arrayAdapter arrayAdapter;
     private int i;
-
+    private  String tag;
     private FirebaseAuth mAuth;
 
     private String currentUId;
@@ -46,12 +46,18 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
+        tag = "MainActivity";
         usersDb = FirebaseDatabase.getInstance().getReference().child("Users");
 
         mAuth = FirebaseAuth.getInstance();
-        currentUId = mAuth.getCurrentUser().getUid();
-        Log.d("CardSearch", "onCreate " + currentUId);
+        if(mAuth != null)
+            currentUId = mAuth.getCurrentUser().getUid();
+        else{
+            Log.d(tag, "Authorization failed");
+            Toast.makeText(getApplicationContext(), "Auth failed", Toast.LENGTH_LONG).show();
+        }
+
+        Log.d(tag, "onCreate " + currentUId);
 
         checkUserSex();
 
@@ -65,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
         flingContainer.setFlingListener(new SwipeFlingAdapterView.onFlingListener() {
             @Override
             public void removeFirstObjectInAdapter() {
-                Log.d("LIST", "removed object!");
+                Log.d(tag, "removed object!");
                 rowItems.remove(0);
                 arrayAdapter.notifyDataSetChanged();
             }
@@ -174,7 +180,7 @@ public class MainActivity extends AppCompatActivity {
                         if (!dataSnapshot.child("profileImageUrl").getValue().equals("default")) {
                             profileImageUrl = dataSnapshot.child("profileImageUrl").getValue().toString();
                         }
-                        cards item = new cards(dataSnapshot.getKey(), dataSnapshot.child("name").getValue().toString(), profileImageUrl);
+                        cards item = new cards(dataSnapshot.getKey(), dataSnapshot.child("name").getValue().toString(), profileImageUrl, dataSnapshot.child("need").getValue().toString(), dataSnapshot.child("give").getValue().toString(), dataSnapshot.child("budget").getValue().toString());
                         rowItems.add(item);
                         arrayAdapter.notifyDataSetChanged();
                     }
@@ -183,7 +189,7 @@ public class MainActivity extends AppCompatActivity {
                         if (!dataSnapshot.child("profileImageUrl").getValue().equals("default")) {
                             profileImageUrl = dataSnapshot.child("profileImageUrl").getValue().toString();
                         }
-                        cards item = new cards(dataSnapshot.getKey(), dataSnapshot.child("name").getValue().toString(), profileImageUrl);
+                        cards item = new cards(dataSnapshot.getKey(), dataSnapshot.child("name").getValue().toString(), profileImageUrl, dataSnapshot.child("need").getValue().toString(), dataSnapshot.child("give").getValue().toString(),  dataSnapshot.child("budget").getValue().toString());
                         rowItems.add(item);
                         arrayAdapter.notifyDataSetChanged();
                     }

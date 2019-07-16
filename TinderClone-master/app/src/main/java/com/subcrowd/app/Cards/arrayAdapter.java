@@ -33,8 +33,15 @@ public class arrayAdapter extends ArrayAdapter<cards>{
 
         TextView name = (TextView) convertView.findViewById(R.id.name);
         ImageView image = (ImageView) convertView.findViewById(R.id.image);
+        TextView need = (TextView) convertView.findViewById(R.id.need);
+        TextView give = (TextView) convertView.findViewById(R.id.give);
+        TextView budget = (TextView) convertView.findViewById(R.id.budget);
 
         name.setText(card_item.getName());
+        need.setText(card_item.getNeed());
+        give.setText(card_item.getGive());
+        budget.setText(card_item.getBudget());
+
         switch(card_item.getProfileImageUrl()){
             case "default":
                 Glide.with(convertView.getContext()).load(R.mipmap.ic_launcher).into(image);
