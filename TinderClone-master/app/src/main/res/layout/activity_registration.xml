@@ -38,6 +38,7 @@
         android:layout_marginBottom="578dp"
         android:hint="Select a Streaming..."
         android:visibility="visible"
+        android:spinnerMode="dialog"
        />
 
     <TextView
@@ -60,6 +61,7 @@
         android:layout_marginBottom="462dp"
         android:hint="Select a Streaming service..."
         android:visibility="visible"
+        android:spinnerMode="dialog"
        />
 
     <EditText

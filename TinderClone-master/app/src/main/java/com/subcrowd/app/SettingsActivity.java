@@ -7,10 +7,13 @@ import android.net.Uri;
 import android.provider.MediaStore;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -41,12 +44,13 @@ public class SettingsActivity extends AppCompatActivity {
     private Button mBack, mConfirm;
 
     private ImageView mProfileImage;
-
+    private EditText mbudget;
+    private Spinner need, give;
     private FirebaseAuth mAuth;
     private DatabaseReference mUserDatabase;
 
-    private String userId, name, phone, profileImageUrl, userSex;
-
+    private String userId, name, phone, profileImageUrl, userSex, userBudget, userNeed, userGive;
+    private int needIndex, giveIndex;
     private Uri resultUri;
 
     @Override
@@ -61,11 +65,25 @@ public class SettingsActivity extends AppCompatActivity {
 
         mBack = (Button) findViewById(R.id.back);
         mConfirm = (Button) findViewById(R.id.confirm);
-
+        mbudget = (EditText) findViewById(R.id.budget_setting);
+        need = (Spinner) findViewById(R.id.spinner_need_setting);
+        give = (Spinner) findViewById(R.id.spinner_give_setting);
         mAuth = FirebaseAuth.getInstance();
         userId = mAuth.getCurrentUser().getUid();
 
         mUserDatabase = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
+
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.services, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        need.setAdapter(adapter);
+
+        ArrayAdapter<CharSequence> adapter_give = ArrayAdapter.createFromResource(this,
+                R.array.services, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        give.setAdapter(adapter_give);
 
         getUserInfo();
 
@@ -110,6 +128,28 @@ public class SettingsActivity extends AppCompatActivity {
                     if(map.get("sex")!=null){
                         userSex = map.get("sex").toString();
                     }
+                    if(map.get("budget")!= null){
+                        userBudget = map.get("budget").toString();
+                    }
+                    if(map.get("give") != null){
+                        userGive = map.get("give").toString();
+                    }
+                    if(map.get("need") != null){
+                        userNeed = map.get("need").toString();
+                    }
+                    String[] services = getResources().getStringArray(R.array.services);
+                    needIndex = giveIndex = 0;
+                    for(int i = 0; i< services.length; i++){
+                        if(userNeed.equals(services[i]))
+                            needIndex = i;
+                        if(userGive.equals(services[i]))
+                            giveIndex = i;
+                    }
+                    //Log.d("setting", userNeed);
+                    need.setSelection(needIndex);
+                    give.setSelection(giveIndex);
+                    mbudget.setText(userBudget);
+
                     Glide.clear(mProfileImage);
                     if(map.get("profileImageUrl")!=null){
                         profileImageUrl = map.get("profileImageUrl").toString();
@@ -136,10 +176,16 @@ public class SettingsActivity extends AppCompatActivity {
     private void saveUserInformation() {
         name = mNameField.getText().toString();
         phone = mPhoneField.getText().toString();
+        userBudget = mbudget.getText().toString();
+        userGive = give.getSelectedItem().toString();
+        userNeed = need.getSelectedItem().toString();
 
         Map userInfo = new HashMap();
         userInfo.put("name", name);
         userInfo.put("phone", phone);
+        userInfo.put("need", userNeed);
+        userInfo.put("give", userGive);
+        userInfo.put("budget", userBudget);
         mUserDatabase.updateChildren(userInfo);
         if(resultUri != null){
             StorageReference filepath = FirebaseStorage.getInstance().getReference().child("profileImages").child(userId);

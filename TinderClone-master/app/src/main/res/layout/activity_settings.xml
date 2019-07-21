@@ -47,8 +47,80 @@
             android:hint="Phone"
             android:layout_marginBottom="20sp"
             android:inputType="phone"/>
+    <TextView
+        android:textSize="20dp"
 
-        <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="10dp"
+
+
+        android:text="I want :" />
+
+    <Spinner
+        android:id="@+id/spinner_need_setting"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="10dp"
+
+        android:visibility="visible"
+        android:spinnerMode="dialog"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="10dp"
+
+
+        android:text="I can give :"
+        android:textSize="20dp" />
+
+    <Spinner
+        android:id="@+id/spinner_give_setting"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="10dp"
+
+        android:visibility="visible"
+        android:spinnerMode="dialog"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="10dp"
+            android:layout_weight="0.5"
+
+
+            android:text="Budget:"
+            android:textSize="20dp" />
+
+        <EditText
+            android:layout_marginTop="10dp"
+            android:id="@+id/budget_setting"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:layout_weight="0.5"
+            android:hint="Budget ($)"
+            android:textSize="20dp" />
+
+    </LinearLayout>
+    <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/confirm"
