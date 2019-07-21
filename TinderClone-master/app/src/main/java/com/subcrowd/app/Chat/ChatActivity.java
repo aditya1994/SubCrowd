@@ -139,6 +139,7 @@ public class ChatActivity extends AppCompatActivity {
             }
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
+
             }
             @Override
             public void onChildMoved(DataSnapshot dataSnapshot, String s) {
