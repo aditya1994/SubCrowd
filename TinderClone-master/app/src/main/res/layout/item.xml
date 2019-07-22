@@ -53,11 +53,11 @@
             <TextView
                 android:id="@+id/giveFix"
 
-                android:layout_width="150dp"
+                android:layout_width="77dp"
                 android:layout_height="wrap_content"
                 android:layout_above="@+id/BudgetFix"
-                android:layout_marginEnd="24dp"
-                android:layout_marginBottom="36dp"
+                android:layout_marginEnd="46dp"
+                android:layout_marginBottom="34dp"
                 android:layout_toStartOf="@+id/give"
                 android:text="Give:"
                 android:textColor="@android:color/black"
@@ -79,11 +79,11 @@
             <TextView
                 android:id="@+id/needFix"
 
-                android:layout_width="150dp"
+                android:layout_width="96dp"
                 android:layout_height="wrap_content"
                 android:layout_above="@+id/giveFix"
-                android:layout_marginEnd="24dp"
-                android:layout_marginBottom="29dp"
+                android:layout_marginEnd="38dp"
+                android:layout_marginBottom="28dp"
                 android:layout_toStartOf="@+id/need"
                 android:text="Need: "
                 android:textColor="@android:color/black"
@@ -105,10 +105,10 @@
             <TextView
                 android:id="@+id/BudgetFix"
 
-                android:layout_width="150dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:layout_marginEnd="34dp"
+                android:layout_marginEnd="24dp"
                 android:layout_marginBottom="67dp"
                 android:layout_toStartOf="@+id/budget"
                 android:text="Budget: "

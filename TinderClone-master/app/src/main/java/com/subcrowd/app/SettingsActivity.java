@@ -81,7 +81,7 @@ public class SettingsActivity extends AppCompatActivity {
 
         ArrayAdapter<CharSequence> adapter_give = ArrayAdapter.createFromResource(this,
                 R.array.services, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapter_give.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         give.setAdapter(adapter_give);
 

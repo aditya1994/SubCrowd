@@ -69,24 +69,17 @@ public class RegistrationActivity extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         spinner_need.setAdapter(adapter);
-
+        spinner_need.setSelection(0);
         final Spinner spinner_give = (Spinner) findViewById(R.id.spinner_give);
         ArrayAdapter<CharSequence> adapter_give = ArrayAdapter.createFromResource(this,
                 R.array.services, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapter_give.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         spinner_give.setAdapter(adapter_give);
-
+        spinner_give.setSelection(0);
         mRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                int selectId = mRadioGroup.getCheckedRadioButtonId();
-//
-//                final RadioButton radioButton = (RadioButton) findViewById(selectId);
-//
-//                if(radioButton.getText() == null){
-//                    return;
-//                }
 
                 final String email = mEmail.getText().toString();
                 final String password = mPassword.getText().toString();
@@ -98,7 +91,7 @@ public class RegistrationActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(!task.isSuccessful()){
-                            Toast.makeText(RegistrationActivity.this, "sign up error", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(RegistrationActivity.this, "Password less than 8 char or email already registered!", Toast.LENGTH_LONG).show();
                         }else{
                             String userId = mAuth.getCurrentUser().getUid();
                             DatabaseReference currentUserDb = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
