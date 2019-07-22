@@ -4,13 +4,19 @@ package com.subcrowd.app.Chat;
 import android.os.Bundle;
 
 
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -49,7 +55,9 @@ public class ChatActivity extends AppCompatActivity {
 
         currentUserID = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
+        //chat id current match
         mDatabaseUser = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserID).child("connections").child("matches").child(matchId).child("ChatId");
+        //reference to all the chats
         mDatabaseChat = FirebaseDatabase.getInstance().getReference().child("Chat");
 
         getChatId();
@@ -72,7 +80,49 @@ public class ChatActivity extends AppCompatActivity {
                 sendMessage();
             }
         });
+
+        //toolbar
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
     }
+    //shows options for menu toolbar
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.chat_menu, menu);
+        return true;
+    }
+
+    //unmatch button pressed
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        deleteMatch(matchId);
+        Toast.makeText(this,"Unmatch successful", Toast.LENGTH_LONG).show();
+        return super.onOptionsItemSelected(item);
+    }
+    public void deleteMatch(String matchId) {
+        DatabaseReference matchId_in_UserId_dbReference = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserID).child("connections").child("matches").child(matchId);
+        DatabaseReference userId_in_matchId_dbReference = FirebaseDatabase.getInstance().getReference().child("Users").child(matchId).child("connections").child("matches").child(currentUserID);
+        DatabaseReference yeps_in_matchId_dbReference = FirebaseDatabase.getInstance().getReference().child("Users").child(matchId).child("connections").child("yeps").child(currentUserID);
+        DatabaseReference yeps_in_userId_dbReference = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserID).child("connections").child("yeps").child(matchId);
+
+        DatabaseReference matchId_chat_dbReference = FirebaseDatabase.getInstance().getReference().child("Chat").child(chatId);
+
+        //delete the chatId in chat->chatId
+        matchId_chat_dbReference.removeValue();
+        //delete the matchId in Users->userId->connections->matches->matchId
+        matchId_in_UserId_dbReference.removeValue();
+        //delete the userId in Users->matchId->connections->matches->matchId
+        userId_in_matchId_dbReference.removeValue();
+        //delete yeps in matchId
+        yeps_in_matchId_dbReference.removeValue();
+        //delete yeps in curruserId
+        yeps_in_userId_dbReference.removeValue();
+
+
+    }
+
+
 
     private void sendMessage() {
         String sendMessageText = mSendEditText.getText().toString();
@@ -139,6 +189,7 @@ public class ChatActivity extends AppCompatActivity {
             }
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
+
             }
             @Override
             public void onChildMoved(DataSnapshot dataSnapshot, String s) {
