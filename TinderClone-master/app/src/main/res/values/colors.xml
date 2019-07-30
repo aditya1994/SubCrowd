@@ -14,4 +14,14 @@
     <color name="color_on_background">#000000</color>
     <color name="color_status_bar">#000000</color>
     <color name="color_bubble">#25d366</color>
+
+    <color name="white">#ffffff</color>
+    <color name="transparentPink">#99FF4081</color>
+    <color name="light_grey">#eeeeee</color>
+    <color name="colorPrimary">#d13135</color>
+    <color name="colorPrimaryDark">#d13135</color>
+    <color name="colorAccent">#D81B60</color>
+
+
+
 </resources>
