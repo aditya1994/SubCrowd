@@ -56,27 +56,27 @@ public class RegistrationActivity extends AppCompatActivity {
             }
         };
 
-        mBudget = (EditText) findViewById(R.id.budget);
+        //mBudget = (EditText) findViewById(R.id.budget);
         mRegister = (Button) findViewById(R.id.register);
 
         mEmail = (EditText) findViewById(R.id.email);
         mPassword = (EditText) findViewById(R.id.password);
         mName = (EditText) findViewById(R.id.name);
 
-        final Spinner spinner_need = (Spinner) findViewById(R.id.spinner_need);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.services, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        spinner_need.setAdapter(adapter);
-        spinner_need.setSelection(0);
-        final Spinner spinner_give = (Spinner) findViewById(R.id.spinner_give);
-        ArrayAdapter<CharSequence> adapter_give = ArrayAdapter.createFromResource(this,
-                R.array.services, android.R.layout.simple_spinner_item);
-        adapter_give.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        spinner_give.setAdapter(adapter_give);
-        spinner_give.setSelection(0);
+//        final Spinner spinner_need = (Spinner) findViewById(R.id.spinner_need);
+//        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+//                R.array.services, android.R.layout.simple_spinner_item);
+//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//
+//        spinner_need.setAdapter(adapter);
+//        spinner_need.setSelection(0);
+//        final Spinner spinner_give = (Spinner) findViewById(R.id.spinner_give);
+//        ArrayAdapter<CharSequence> adapter_give = ArrayAdapter.createFromResource(this,
+//                R.array.services, android.R.layout.simple_spinner_item);
+//        adapter_give.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//
+//        spinner_give.setAdapter(adapter_give);
+//        spinner_give.setSelection(0);
         mRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -84,7 +84,7 @@ public class RegistrationActivity extends AppCompatActivity {
                 final String email = mEmail.getText().toString();
                 final String password = mPassword.getText().toString();
                 final String name = mName.getText().toString();
-                final String budget = mBudget.getText().toString();
+                //final String budget = mBudget.getText().toString();
 
 
                 mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(RegistrationActivity.this, new OnCompleteListener<AuthResult>() {
@@ -99,9 +99,9 @@ public class RegistrationActivity extends AppCompatActivity {
                             Log.d("DB_debug", FirebaseDatabase.getInstance().getReference().getDatabase()+"");
                             Map userInfo = new HashMap<>();
                             userInfo.put("name", name);
-                            userInfo.put("give", spinner_give.getSelectedItem().toString());
-                            userInfo.put("need", spinner_need.getSelectedItem().toString());
-                            userInfo.put("budget", budget);
+//                            userInfo.put("give", spinner_give.getSelectedItem().toString());
+//                            userInfo.put("need", spinner_need.getSelectedItem().toString());
+//                            userInfo.put("budget", budget);
                             userInfo.put("profileImageUrl", "default");
                             currentUserDb.updateChildren(userInfo);
                            // currentUserDb.setValue("asdfssadfasd");
