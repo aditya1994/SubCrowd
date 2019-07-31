@@ -128,23 +128,24 @@ public class SettingsActivity extends AppCompatActivity {
                     if(map.get("sex")!=null){
                         userSex = map.get("sex").toString();
                     }
-                    if(map.get("budget")!= null){
-                        userBudget = map.get("budget").toString();
-                    }
-                    if(map.get("give") != null){
-                        userGive = map.get("give").toString();
-                    }
-                    if(map.get("need") != null){
-                        userNeed = map.get("need").toString();
-                    }
+//                    if(map.get("budget")!= null){
+//                        userBudget = map.get("budget").toString();
+//                    }
+//                    if(map.get("give") != null){
+//                        userGive = map.get("give").toString();
+//                    }
+//                    if(map.get("need") != null){
+//                        userNeed = map.get("need").toString();
+//                    }
                     String[] services = getResources().getStringArray(R.array.services);
                     needIndex = giveIndex = 0;
-                    for(int i = 0; i< services.length; i++){
-                        if(userNeed.equals(services[i]))
-                            needIndex = i;
-                        if(userGive.equals(services[i]))
-                            giveIndex = i;
-                    }
+                    userBudget = "0";
+//                    for(int i = 0; i< services.length; i++){
+//                        if(userNeed.equals(services[i]))
+//                            needIndex = i;
+//                        if(userGive.equals(services[i]))
+//                            giveIndex = i;
+//                    }
                     //Log.d("setting", userNeed);
                     need.setSelection(needIndex);
                     give.setSelection(giveIndex);
