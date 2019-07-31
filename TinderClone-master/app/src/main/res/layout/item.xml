@@ -33,49 +33,74 @@
                 android:layout_height="128dp"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
-                android:layout_marginEnd="163dp"
-                android:layout_marginBottom="422dp"
+                android:layout_marginEnd="155dp"
+                android:layout_marginBottom="429dp"
                 android:scaleType="centerCrop" />
 
             <TextView
                 android:id="@+id/name"
-                android:layout_width="137dp"
-                android:layout_height="81dp"
+                android:layout_width="97dp"
+                android:layout_height="71dp"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
-                android:layout_marginEnd="11dp"
-                android:layout_marginBottom="457dp"
+                android:layout_marginEnd="21dp"
+                android:layout_marginBottom="470dp"
                 android:gravity="center|left"
+                android:padding="5dp"
                 android:paddingLeft="20sp"
+                android:text="Name"
+                android:textSize="28dp"
                 android:textColor="@android:color/black"
-                android:textSize="30sp"
-                tools:text="hello" />
+                android:textStyle="bold" />
+            <!--<TextView-->
+                <!--android:id="@+id/name"-->
+                <!--android:layout_width="137dp"-->
+                <!--android:layout_height="81dp"-->
+                <!--android:layout_alignParentEnd="true"-->
+                <!--android:layout_alignParentBottom="true"-->
+                <!--android:layout_marginEnd="11dp"-->
+                <!--android:layout_marginBottom="457dp"-->
+                <!--android:gravity="center|left"-->
+                <!--android:paddingLeft="20sp"-->
+                <!--android:textColor="@android:color/black"-->
+                <!--android:textSize="30sp"-->
+                <!--tools:text="hello" />-->
 
             <TextView
                 android:id="@+id/giveFix"
 
-                android:layout_width="77dp"
+                android:layout_width="96dp"
                 android:layout_height="wrap_content"
                 android:layout_above="@+id/BudgetFix"
-                android:layout_marginEnd="46dp"
-                android:layout_marginBottom="34dp"
+                android:layout_marginEnd="45dp"
+                android:layout_marginBottom="90dp"
                 android:layout_toStartOf="@+id/give"
                 android:text="Give:"
                 android:textColor="@android:color/black"
-                android:textSize="30sp" />
+                android:textSize="30sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/give"
 
-                android:layout_width="130dp"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_above="@+id/budget"
                 android:layout_alignParentEnd="true"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="36dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginBottom="90dp"
                 android:textColor="@android:color/black"
                 android:textSize="30sp"
+                android:textStyle="bold"
                 tools:text="give" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="318dp"
+                android:background="@color/colorAccent" />
 
             <TextView
                 android:id="@+id/needFix"
@@ -83,25 +108,35 @@
                 android:layout_width="96dp"
                 android:layout_height="wrap_content"
                 android:layout_above="@+id/giveFix"
-                android:layout_marginEnd="38dp"
-                android:layout_marginBottom="28dp"
+                android:layout_marginEnd="45dp"
+                android:layout_marginBottom="90dp"
                 android:layout_toStartOf="@+id/need"
                 android:text="Need: "
                 android:textColor="@android:color/black"
-                android:textSize="30sp" />
+                android:textSize="30sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/need"
 
-                android:layout_width="130dp"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_above="@+id/give"
                 android:layout_alignParentEnd="true"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="29dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginBottom="90dp"
                 android:textColor="@android:color/black"
                 android:textSize="30sp"
+                android:textStyle="bold"
                 tools:text="need" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="185dp"
+                android:background="@color/colorAccent" />
 
             <TextView
                 android:id="@+id/BudgetFix"
@@ -109,12 +144,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:layout_marginEnd="24dp"
-                android:layout_marginBottom="67dp"
+                android:layout_marginEnd="45dp"
+                android:layout_marginBottom="90dp"
                 android:layout_toStartOf="@+id/budget"
                 android:text="Budget: "
                 android:textColor="@android:color/black"
-                android:textSize="30sp" />
+                android:textSize="30sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/budget"
@@ -123,11 +159,20 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
-                android:layout_marginEnd="45dp"
-                android:layout_marginBottom="69dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginBottom="90dp"
                 android:textColor="@android:color/black"
                 android:textSize="30sp"
+                android:textStyle="bold"
                 tools:text="budget" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="62dp"
+                android:background="@color/colorAccent" />
 
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
