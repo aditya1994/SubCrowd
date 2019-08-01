@@ -71,7 +71,7 @@ public class SettingsActivity extends AppCompatActivity {
         need = (Spinner) findViewById(R.id.spinner_need_setting);
         give = (Spinner) findViewById(R.id.spinner_give_setting);
         mAuth = FirebaseAuth.getInstance();
-        if(mAuth != null)
+        if(mAuth != null && mAuth.getCurrentUser()!= null)
             userId = mAuth.getCurrentUser().getUid();
         else {
 
@@ -152,7 +152,6 @@ public class SettingsActivity extends AppCompatActivity {
                         userNeed = "";
                     String[] services = getResources().getStringArray(R.array.services);
                     needIndex = giveIndex = 0;
-                    userBudget = "0";
                     for(int i = 0; i< services.length; i++){
                         if(userNeed.equals(services[i]))
                             needIndex = i;

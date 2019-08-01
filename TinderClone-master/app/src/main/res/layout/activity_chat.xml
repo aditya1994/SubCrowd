@@ -22,7 +22,10 @@
         android:layout_height="match_parent"
         android:id="@+id/messagesLayout"
         android:layout_above="@+id/sendLayout"
-        android:layout_below="@+id/toolbarLayout">
+        android:layout_below="@+id/toolbarLayout"
+
+        android:orientation="horizontal"
+        >
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
