@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -28,6 +29,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.subcrowd.app.Matches.MatchesObject;
 import com.subcrowd.app.R;
 
 import java.util.ArrayList;
@@ -41,10 +43,12 @@ public class ChatActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager mChatLayoutManager;
 
     private EditText mSendEditText;
+    private ImageButton mBack;
 
     private ImageButton mSendButton;
 
     private String currentUserID, matchId, chatId;
+    private String matchName;
 
     DatabaseReference mDatabaseUser, mDatabaseChat;
     @Override
@@ -53,6 +57,7 @@ public class ChatActivity extends AppCompatActivity {
         setContentView(R.layout.activity_chat);
 
         matchId = getIntent().getExtras().getString("matchId");
+        matchName = getIntent().getExtras().getString("matchName");
 
         currentUserID = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
@@ -74,6 +79,7 @@ public class ChatActivity extends AppCompatActivity {
         mRecyclerView.setAdapter(mChatAdapter);
 
         mSendEditText = findViewById(R.id.message);
+        mBack = findViewById(R.id.chatBack);
 
         mSendButton = findViewById(R.id.send);
 
@@ -101,9 +107,15 @@ public class ChatActivity extends AppCompatActivity {
             }
         });
 
-
+        mBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+                return;
+            }
+        });
         //toolbar
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.chatToolbar);
         setSupportActionBar(toolbar);
 
     }
@@ -112,6 +124,8 @@ public class ChatActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.chat_menu, menu);
+        TextView mMatchNameTextView= (TextView) findViewById(R.id.toolbartag);
+        mMatchNameTextView.setText(matchName);
         return true;
     }
 

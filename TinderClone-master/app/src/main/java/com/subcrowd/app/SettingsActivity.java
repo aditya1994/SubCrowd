@@ -8,6 +8,9 @@ import android.provider.MediaStore;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -15,9 +18,11 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -115,8 +120,28 @@ public class SettingsActivity extends AppCompatActivity {
                 return;
             }
         });
+        //toolbar
+        Toolbar toolbar = findViewById(R.id.settingsToolbar);
+        setSupportActionBar(toolbar);
+    }
+    //shows options for menu toolbar
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.settings_menu, menu);
+        return true;
     }
 
+    //logout button pressed
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        mAuth.signOut();
+        Toast.makeText(this,"Log Out successful", Toast.LENGTH_LONG).show();
+        Intent intent = new Intent(SettingsActivity.this, ChooseLoginRegistrationActivity.class);
+        startActivity(intent);
+        finish();
+        return super.onOptionsItemSelected(item);
+    }
 
     private void getUserInfo() {
         mUserDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -249,11 +274,12 @@ public class SettingsActivity extends AppCompatActivity {
         }
     }
 
-    public void logoutUser(View view) {
+    //now logout is done using the toolbar button
+   /* public void logoutUser(View view) {
         mAuth.signOut();
         Intent intent = new Intent(SettingsActivity.this, ChooseLoginRegistrationActivity.class);
         startActivity(intent);
         finish();
         return;
-    }
+    }*/
 }

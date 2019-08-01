@@ -14,7 +14,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent">
         <include
-            android:id="@+id/toolbar"
+            android:id="@+id/chatToolbar"
             layout="@layout/toolbar" />
     </LinearLayout>
     <LinearLayout
