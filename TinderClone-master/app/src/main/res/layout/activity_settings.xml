@@ -23,7 +23,8 @@
                     android:layout_height="100sp"
                     android:id="@+id/profileImage"
                     android:src="@mipmap/ic_launcher"
-                    android:layout_marginBottom="20sp" />
+                    android:layout_marginBottom="20sp"
+                    android:background="@drawable/round_pic"/>
                 <View
                     android:layout_width="0dp"
                     android:layout_height="0dp"
