@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 
@@ -41,8 +42,8 @@ public class SettingsActivity extends AppCompatActivity {
 
     private EditText mNameField, mPhoneField;
 
-    private Button mBack, mConfirm;
-
+    private Button mConfirm;
+    private ImageButton mBack;
     private ImageView mProfileImage;
     private EditText mbudget;
     private Spinner need, give;
@@ -63,7 +64,8 @@ public class SettingsActivity extends AppCompatActivity {
 
         mProfileImage = (ImageView) findViewById(R.id.profileImage);
 
-        mBack = (Button) findViewById(R.id.back);
+        mBack = findViewById(R.id.back);
+
         mConfirm = (Button) findViewById(R.id.confirm);
         mbudget = (EditText) findViewById(R.id.budget_setting);
         need = (Spinner) findViewById(R.id.spinner_need_setting);
