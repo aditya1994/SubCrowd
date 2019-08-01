@@ -116,23 +116,26 @@ public class MainActivity extends AppCompatActivity {
 
     private void isConnectionMatch(String userId) {
         DatabaseReference currentUserConnectionsDb = usersDb.child(currentUId).child("connections").child("yeps").child(userId);
-        currentUserConnectionsDb.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()){
-                    Toast.makeText(MainActivity.this, "new Connection", Toast.LENGTH_LONG).show();
+        if(!currentUId.equals(userId)) {
+            currentUserConnectionsDb.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.exists()) {
+                        Toast.makeText(MainActivity.this, "New Connection", Toast.LENGTH_LONG).show();
 
-                    String key = FirebaseDatabase.getInstance().getReference().child("Chat").push().getKey();
+                        String key = FirebaseDatabase.getInstance().getReference().child("Chat").push().getKey();
 
-                    usersDb.child(dataSnapshot.getKey()).child("connections").child("matches").child(currentUId).child("ChatId").setValue(key);
-                    usersDb.child(currentUId).child("connections").child("matches").child(dataSnapshot.getKey()).child("ChatId").setValue(key);
+                        usersDb.child(dataSnapshot.getKey()).child("connections").child("matches").child(currentUId).child("ChatId").setValue(key);
+                        usersDb.child(currentUId).child("connections").child("matches").child(dataSnapshot.getKey()).child("ChatId").setValue(key);
+                    }
                 }
-            }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-        });
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                }
+
+            });
+        }
     }
 
     private String userNeed, userGive;

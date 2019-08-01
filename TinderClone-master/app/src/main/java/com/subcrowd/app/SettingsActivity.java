@@ -69,7 +69,12 @@ public class SettingsActivity extends AppCompatActivity {
         need = (Spinner) findViewById(R.id.spinner_need_setting);
         give = (Spinner) findViewById(R.id.spinner_give_setting);
         mAuth = FirebaseAuth.getInstance();
-        userId = mAuth.getCurrentUser().getUid();
+        if(mAuth != null)
+            userId = mAuth.getCurrentUser().getUid();
+        else {
+
+            finish();
+        }
 
         mUserDatabase = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
 
@@ -128,24 +133,30 @@ public class SettingsActivity extends AppCompatActivity {
                     if(map.get("sex")!=null){
                         userSex = map.get("sex").toString();
                     }
-//                    if(map.get("budget")!= null){
-//                        userBudget = map.get("budget").toString();
-//                    }
-//                    if(map.get("give") != null){
-//                        userGive = map.get("give").toString();
-//                    }
-//                    if(map.get("need") != null){
-//                        userNeed = map.get("need").toString();
-//                    }
+                    if(map.get("budget")!= null){
+                        userBudget = map.get("budget").toString();
+                    }
+                    else
+                        userBudget = "0";
+                    if(map.get("give") != null){
+                        userGive = map.get("give").toString();
+                    }
+                    else
+                        userGive = "";
+                    if(map.get("need") != null){
+                        userNeed = map.get("need").toString();
+                    }
+                    else
+                        userNeed = "";
                     String[] services = getResources().getStringArray(R.array.services);
                     needIndex = giveIndex = 0;
                     userBudget = "0";
-//                    for(int i = 0; i< services.length; i++){
-//                        if(userNeed.equals(services[i]))
-//                            needIndex = i;
-//                        if(userGive.equals(services[i]))
-//                            giveIndex = i;
-//                    }
+                    for(int i = 0; i< services.length; i++){
+                        if(userNeed.equals(services[i]))
+                            needIndex = i;
+                        if(userGive.equals(services[i]))
+                            giveIndex = i;
+                    }
                     //Log.d("setting", userNeed);
                     need.setSelection(needIndex);
                     give.setSelection(giveIndex);
