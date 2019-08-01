@@ -1,6 +1,7 @@
 package com.subcrowd.app.Chat;
 
 
+import android.os.Build;
 import android.os.Bundle;
 
 
@@ -64,14 +65,16 @@ public class ChatActivity extends AppCompatActivity {
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         mRecyclerView.setNestedScrollingEnabled(false);
-        mRecyclerView.setHasFixedSize(false);
+        mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setFocusable(false);
         mChatLayoutManager = new LinearLayoutManager(ChatActivity.this);
+        //((LinearLayoutManager) mChatLayoutManager).setReverseLayout(true);
         mRecyclerView.setLayoutManager(mChatLayoutManager);
         mChatAdapter = new ChatAdapter(getDataSetChat(), ChatActivity.this);
         mRecyclerView.setAdapter(mChatAdapter);
 
         mSendEditText = findViewById(R.id.message);
+
         mSendButton = findViewById(R.id.send);
 
         mSendButton.setOnClickListener(new View.OnClickListener() {
@@ -81,9 +84,28 @@ public class ChatActivity extends AppCompatActivity {
             }
         });
 
+        mRecyclerView.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+            @Override
+            public void onLayoutChange(View v,
+                                       int left, int top, int right, int bottom,
+                                       int oldLeft, int oldTop, int oldRight, int oldBottom) {
+                if (bottom < oldBottom) {
+                    mRecyclerView.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            mRecyclerView.smoothScrollToPosition(
+                                    mRecyclerView.getAdapter().getItemCount() - 1);
+                        }
+                    }, 100);
+                }
+            }
+        });
+
+
         //toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
     }
     //shows options for menu toolbar
     @Override
@@ -147,6 +169,7 @@ public class ChatActivity extends AppCompatActivity {
                     chatId = dataSnapshot.getValue().toString();
                     mDatabaseChat = mDatabaseChat.child(chatId);
                     getChatMessages();
+
                 }
             }
 
@@ -180,6 +203,11 @@ public class ChatActivity extends AppCompatActivity {
                         ChatObject newMessage = new ChatObject(message, currentUserBoolean);
                         resultsChat.add(newMessage);
                         mChatAdapter.notifyDataSetChanged();
+                        if(mRecyclerView.getAdapter() != null && resultsChat.size() > 0)
+                            mRecyclerView.scrollToPosition(resultsChat.size() - 1);
+                        else
+                            Toast.makeText(getApplicationContext(), "Chat empty", Toast.LENGTH_LONG).show();
+
                     }
                 }
 
@@ -203,6 +231,7 @@ public class ChatActivity extends AppCompatActivity {
 
     private ArrayList<ChatObject> resultsChat = new ArrayList<ChatObject>();
     private List<ChatObject> getDataSetChat() {
+
         return resultsChat;
     }
 }
