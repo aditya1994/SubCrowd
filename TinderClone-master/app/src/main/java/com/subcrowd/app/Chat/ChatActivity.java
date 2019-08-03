@@ -54,7 +54,7 @@ public class ChatActivity extends AppCompatActivity {
     private ImageButton mSendButton;
 
     private String currentUserID, matchId, chatId;
-    private String matchName;
+    private String matchName, matchGive, matchNeed, matchBudget;
 
     DatabaseReference mDatabaseUser, mDatabaseChat;
     @Override
@@ -64,7 +64,9 @@ public class ChatActivity extends AppCompatActivity {
 
         matchId = getIntent().getExtras().getString("matchId");
         matchName = getIntent().getExtras().getString("matchName");
-
+        matchGive = getIntent().getExtras().getString("give");
+        matchNeed = getIntent().getExtras().getString("need");
+        matchBudget = getIntent().getExtras().getString("budget");
         currentUserID = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         //chat id current match
@@ -142,16 +144,16 @@ public class ChatActivity extends AppCompatActivity {
         View popupView = inflater.inflate(R.layout.item, null);
 
 
-        TextView name = (TextView) findViewById(R.id.name);
-        ImageView image = (ImageView) findViewById(R.id.image);
-        TextView need = (TextView) findViewById(R.id.need);
-        TextView give = (TextView) findViewById(R.id.give);
-        TextView budget = (TextView) findViewById(R.id.budget);
+        TextView name = (TextView) popupView.findViewById(R.id.name);
+        ImageView image = (ImageView) popupView.findViewById(R.id.image);
+        TextView need = (TextView) popupView.findViewById(R.id.need);
+        TextView give = (TextView) popupView.findViewById(R.id.give);
+        TextView budget = (TextView) popupView.findViewById(R.id.budget);
 
-//        name.setText(card_item.getName());
-//        need.setText(card_item.getNeed());
-//        give.setText(card_item.getGive());
-//        budget.setText(card_item.getBudget());
+        name.setText(matchName);
+        need.setText(matchNeed);
+        give.setText(matchGive);
+        budget.setText(matchBudget);
         // create the popup window
         int width = LinearLayout.LayoutParams.WRAP_CONTENT;
         int height = LinearLayout.LayoutParams.WRAP_CONTENT;
