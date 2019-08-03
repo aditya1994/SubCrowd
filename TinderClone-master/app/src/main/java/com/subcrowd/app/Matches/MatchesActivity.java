@@ -111,6 +111,7 @@ public class MatchesActivity extends AppCompatActivity {
                         budget = dataSnapshot.child("budget").getValue().toString();
                     }
 
+
                     MatchesObject obj = new MatchesObject(userId, name, profileImageUrl, need, give, budget);
                     resultsMatches.add(obj);
                     mMatchesAdapter.notifyDataSetChanged();

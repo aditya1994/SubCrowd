@@ -13,6 +13,7 @@ public class MatchesObject {
     private String budget;
 
 
+
     public MatchesObject (String userId, String name, String profileImageUrl, String need, String give, String budget){
         this.userId = userId;
         this.name = name;
@@ -20,6 +21,7 @@ public class MatchesObject {
         this.need = need;
         this.budget = budget;
         this.give = give;
+
     }
 
     public String getUserId(){
@@ -40,6 +42,7 @@ public class MatchesObject {
     public void setNeed(String need){
         this.need = need;
     }
+
     public void setGive(String give){
         this.give = give;
     }

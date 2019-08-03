@@ -28,6 +28,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -54,7 +55,7 @@ public class ChatActivity extends AppCompatActivity {
     private ImageButton mSendButton;
 
     private String currentUserID, matchId, chatId;
-    private String matchName, matchGive, matchNeed, matchBudget;
+    private String matchName, matchGive, matchNeed, matchBudget, matchProfile;
 
     DatabaseReference mDatabaseUser, mDatabaseChat;
     @Override
@@ -67,6 +68,7 @@ public class ChatActivity extends AppCompatActivity {
         matchGive = getIntent().getExtras().getString("give");
         matchNeed = getIntent().getExtras().getString("need");
         matchBudget = getIntent().getExtras().getString("budget");
+        matchProfile = getIntent().getExtras().getString("profile");
         currentUserID = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         //chat id current match
@@ -154,6 +156,16 @@ public class ChatActivity extends AppCompatActivity {
         need.setText(matchNeed);
         give.setText(matchGive);
         budget.setText(matchBudget);
+
+        switch(matchProfile){
+            case "default":
+                Glide.with(popupView.getContext()).load(R.mipmap.ic_launcher).into(image);
+                break;
+            default:
+                Glide.clear(image);
+                Glide.with(popupView.getContext()).load(matchProfile).into(image);
+                break;
+        }
         // create the popup window
         int width = LinearLayout.LayoutParams.WRAP_CONTENT;
         int height = LinearLayout.LayoutParams.WRAP_CONTENT;

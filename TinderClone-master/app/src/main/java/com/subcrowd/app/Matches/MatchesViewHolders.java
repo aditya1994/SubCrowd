@@ -18,7 +18,7 @@ import com.subcrowd.app.R;
  */
 
 public class MatchesViewHolders extends RecyclerView.ViewHolder implements View.OnClickListener{
-    public TextView mMatchId, mMatchName, mNeed, mGive, mBudget;
+    public TextView mMatchId, mMatchName, mNeed, mGive, mBudget, mProfile;
     public ImageView mMatchImage;
     public MatchesViewHolders(View itemView) {
         super(itemView);
@@ -30,6 +30,7 @@ public class MatchesViewHolders extends RecyclerView.ViewHolder implements View.
         mGive = (TextView) itemView.findViewById(R.id.giveid);
         mBudget = (TextView) itemView.findViewById(R.id.budgetid);
         mMatchImage = (ImageView) itemView.findViewById(R.id.MatchImage);
+        mProfile = (TextView) itemView.findViewById(R.id.profileid);
     }
 
     @Override
@@ -42,7 +43,7 @@ public class MatchesViewHolders extends RecyclerView.ViewHolder implements View.
         b.putString("need", mNeed.getText().toString());
         b.putString("give", mGive.getText().toString());
         //Log.d("blah", mNeed.getText().toString() );
-
+        b.putString("profile", mProfile.getText().toString());
         intent.putExtras(b);
         view.getContext().startActivity(intent);
     }

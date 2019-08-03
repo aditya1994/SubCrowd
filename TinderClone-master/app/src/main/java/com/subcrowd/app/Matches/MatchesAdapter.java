@@ -43,6 +43,7 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesViewHolders>{
         holder.mMatchId.setText(matchesList.get(position).getUserId());
         holder.mBudget.setText(matchesList.get(position).getBudget());
         holder.mGive.setText(matchesList.get(position).getGive());
+        holder.mProfile.setText(matchesList.get(position).getProfileImageUrl());
         holder.mNeed.setText(matchesList.get(position).getNeed());
         holder.mMatchName.setText(matchesList.get(position).getName());
         if(!matchesList.get(position).getProfileImageUrl().equals("default")){
