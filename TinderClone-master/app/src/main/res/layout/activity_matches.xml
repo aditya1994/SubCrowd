@@ -4,15 +4,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.subcrowd.app.Matches.MatchesActivity">
+    tools:context="com.subcrowd.app.Matches.MatchesActivity"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/matchesToolbar"
+        layout="@layout/toolbar_matches" />
+
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/recyclerView"
             android:scrollbars="vertical" />
+
     </ScrollView>
 
 </LinearLayout>

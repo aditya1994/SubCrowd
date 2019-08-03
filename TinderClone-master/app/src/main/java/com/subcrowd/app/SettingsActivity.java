@@ -69,7 +69,7 @@ public class SettingsActivity extends AppCompatActivity {
 
         mProfileImage = (ImageView) findViewById(R.id.profileImage);
 
-        mBack = findViewById(R.id.back);
+        mBack = findViewById(R.id.settingsBack);
 
         mConfirm = (Button) findViewById(R.id.confirm);
         mbudget = (EditText) findViewById(R.id.budget_setting);

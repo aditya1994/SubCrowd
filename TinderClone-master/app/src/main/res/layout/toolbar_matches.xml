@@ -13,7 +13,7 @@
         android:layout_height="wrap_content">
 
         <ImageButton
-            android:id="@+id/settingsBack"
+            android:id="@+id/matchesBack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -21,12 +21,12 @@
             android:background="@drawable/ic_chevron_left_black_24dp"/>
 
         <TextView
-            android:id="@+id/settings_toolbartag"
+            android:id="@+id/matches_toolbartag"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="10dp"
-            android:text="Settings"
+            android:text="Matches"
             android:textColor="@color/white"
             android:textSize="20sp"
             android:textStyle="bold" />
