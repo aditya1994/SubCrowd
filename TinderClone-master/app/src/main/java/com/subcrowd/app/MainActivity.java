@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
 
         arrayAdapter = new arrayAdapter(this, R.layout.item, rowItems );
 
-        SwipeFlingAdapterView flingContainer = (SwipeFlingAdapterView) findViewById(R.id.frame);
+        final SwipeFlingAdapterView flingContainer = (SwipeFlingAdapterView) findViewById(R.id.frame);
 
         flingContainer.setAdapter(arrayAdapter);
         flingContainer.setFlingListener(new SwipeFlingAdapterView.onFlingListener() {
@@ -106,6 +106,10 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onScroll(float scrollProgressPercent) {
+                View view = flingContainer.getSelectedView();
+                view.findViewById(R.id.item_swipe_right_indicator).setAlpha(scrollProgressPercent < 0 ? -scrollProgressPercent : 0);
+                view.findViewById(R.id.item_swipe_left_indicator).setAlpha(scrollProgressPercent > 0 ? scrollProgressPercent : 0);
+
             }
         });
 
