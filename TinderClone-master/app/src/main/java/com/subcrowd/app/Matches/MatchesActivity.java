@@ -1,7 +1,10 @@
 package com.subcrowd.app.Matches;
 
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageButton;
 
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,7 +17,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.subcrowd.app.ChooseLoginRegistrationActivity;
+import com.subcrowd.app.MainActivity;
 import com.subcrowd.app.R;
+import com.subcrowd.app.SettingsActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +29,8 @@ public class MatchesActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mMatchesAdapter;
     private RecyclerView.LayoutManager mMatchesLayoutManager;
+    private ImageButton mBack;
+
 
     private String cusrrentUserID;
 
@@ -30,6 +38,7 @@ public class MatchesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_matches);
+        mBack = findViewById(R.id.matchesBack);
 
         cusrrentUserID = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
@@ -41,10 +50,16 @@ public class MatchesActivity extends AppCompatActivity {
         mMatchesAdapter = new MatchesAdapter(getDataSetMatches(), MatchesActivity.this);
         mRecyclerView.setAdapter(mMatchesAdapter);
 
+        mBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MatchesActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+                return;
+            }
+        });
         getUserMatchId();
-
-
-
     }
 
     private void getUserMatchId() {

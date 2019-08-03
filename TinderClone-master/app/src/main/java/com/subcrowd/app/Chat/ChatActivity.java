@@ -130,7 +130,7 @@ public class ChatActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.chat_menu, menu);
-        TextView mMatchNameTextView= (TextView) findViewById(R.id.toolbartag);
+        TextView mMatchNameTextView= (TextView) findViewById(R.id.chattoolbartag);
         mMatchNameTextView.setText(matchName);
         return true;
     }
