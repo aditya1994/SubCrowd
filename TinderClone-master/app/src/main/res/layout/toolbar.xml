@@ -30,6 +30,8 @@
             android:text="Chat"
             android:textColor="@color/white"
             android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:onClick="showProfile"
+            android:clickable="true"/>
     </LinearLayout>
 </androidx.appcompat.widget.Toolbar>

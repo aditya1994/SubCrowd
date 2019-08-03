@@ -6,13 +6,19 @@ import android.os.Bundle;
 
 
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -129,6 +135,42 @@ public class ChatActivity extends AppCompatActivity {
         return true;
     }
 
+    public void showProfile(View v){
+        // inflate the layout of the popup window
+        LayoutInflater inflater = (LayoutInflater)
+                getSystemService(LAYOUT_INFLATER_SERVICE);
+        View popupView = inflater.inflate(R.layout.item, null);
+
+
+        TextView name = (TextView) findViewById(R.id.name);
+        ImageView image = (ImageView) findViewById(R.id.image);
+        TextView need = (TextView) findViewById(R.id.need);
+        TextView give = (TextView) findViewById(R.id.give);
+        TextView budget = (TextView) findViewById(R.id.budget);
+
+//        name.setText(card_item.getName());
+//        need.setText(card_item.getNeed());
+//        give.setText(card_item.getGive());
+//        budget.setText(card_item.getBudget());
+        // create the popup window
+        int width = LinearLayout.LayoutParams.WRAP_CONTENT;
+        int height = LinearLayout.LayoutParams.WRAP_CONTENT;
+        boolean focusable = true; // lets taps outside the popup also dismiss it
+        final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
+
+        // show the popup window
+        // which view you pass in doesn't matter, it is only used for the window tolken
+        popupWindow.showAtLocation(v, Gravity.CENTER, 0, 0);
+
+        // dismiss the popup window when touched
+        popupView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                popupWindow.dismiss();
+                return true;
+            }
+        });
+    }
     //unmatch button pressed
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
