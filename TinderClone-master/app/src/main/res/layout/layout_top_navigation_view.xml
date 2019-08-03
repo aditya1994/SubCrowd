@@ -1,0 +1,23 @@
+<!--
+   * DatingApp
+    * https://github.com/quintuslabs/DatingApp
+    * Created on 25-sept-2018.
+    * Created by : Santosh Kumar Dash:- http://santoshdash.epizy.com
+    -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="70dp">
+
+        <com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx
+            android:id="@+id/topNavViewBar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom"
+            android:background="@drawable/white_grey_border_bottom"
+            app:menu="@menu/top_navigation_toolbar">
+
+        </com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx>
+
+</LinearLayout>
+
