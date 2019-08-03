@@ -4,6 +4,8 @@ import android.content.Intent;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -18,6 +20,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 import com.lorentzos.flingswipe.SwipeFlingAdapterView;
 import com.subcrowd.app.Cards.arrayAdapter;
 import com.subcrowd.app.Cards.cards;
@@ -27,6 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+    private static final String TAG = "MainActivity";
     private cards cards_data[];
     private com.subcrowd.app.Cards.arrayAdapter arrayAdapter;
     private int i;
@@ -45,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        setupTopNavigationView();
 
         tag = "MainActivity";
         usersDb = FirebaseDatabase.getInstance().getReference().child("Users");
@@ -65,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
 
         arrayAdapter = new arrayAdapter(this, R.layout.item, rowItems );
 
-        SwipeFlingAdapterView flingContainer = (SwipeFlingAdapterView) findViewById(R.id.frame);
+        final SwipeFlingAdapterView flingContainer = (SwipeFlingAdapterView) findViewById(R.id.frame);
 
         flingContainer.setAdapter(arrayAdapter);
         flingContainer.setFlingListener(new SwipeFlingAdapterView.onFlingListener() {
@@ -100,6 +106,10 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onScroll(float scrollProgressPercent) {
+                View view = flingContainer.getSelectedView();
+                view.findViewById(R.id.item_swipe_right_indicator).setAlpha(scrollProgressPercent < 0 ? -scrollProgressPercent : 0);
+                view.findViewById(R.id.item_swipe_left_indicator).setAlpha(scrollProgressPercent > 0 ? scrollProgressPercent : 0);
+
             }
         });
 
@@ -113,6 +123,41 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+    public void DislikeBtn(View v) {
+        if (rowItems.size() != 0) {
+            cards card_item = rowItems.get(0);
+            String userId = card_item.getUserId();
+            usersDb.child(userId).child("connections").child("nope").child(currentUId).setValue(true);
+            Toast.makeText(MainActivity.this, "Left", Toast.LENGTH_SHORT).show();
+
+            rowItems.remove(0);
+            arrayAdapter.notifyDataSetChanged();
+
+            Intent btnClick = new Intent(MainActivity.this, BtnDislikeActivity.class);
+            btnClick.putExtra("url", card_item.getProfileImageUrl());
+            startActivity(btnClick);
+        }
+    }
+
+    public void LikeBtn(View v) {
+        if (rowItems.size() != 0) {
+            cards card_item = rowItems.get(0);
+            String userId = card_item.getUserId();
+            //check matches
+            usersDb.child(userId).child("connections").child("yeps").child(currentUId).setValue(true);
+            isConnectionMatch(userId);
+            Toast.makeText(MainActivity.this, "Right", Toast.LENGTH_SHORT).show();
+
+            rowItems.remove(0);
+            arrayAdapter.notifyDataSetChanged();
+
+            Intent btnClick = new Intent(MainActivity.this, BtnLikeActivity.class);
+            btnClick.putExtra("url", card_item.getProfileImageUrl());
+            startActivity(btnClick);
+
+        }
+    }
+
 
     private void isConnectionMatch(String userId) {
         DatabaseReference currentUserConnectionsDb = usersDb.child(currentUId).child("connections").child("yeps").child(userId);
@@ -214,15 +259,17 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void goToSettings(View view) {
-        Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
-        startActivity(intent);
-        return;
-    }
 
-    public void goToMatches(View view) {
-        Intent intent = new Intent(MainActivity.this, MatchesActivity.class);
-        startActivity(intent);
-        return;
+    /**
+     * setup top tool bar
+     */
+    private void setupTopNavigationView() {
+        Log.d("", "setupTopNavigationView: setting up TopNavigationView");
+        BottomNavigationViewEx tvEx = findViewById(R.id.topNavViewBar);
+        TopNavigationViewHelper.setupTopNavigationView(tvEx);
+        TopNavigationViewHelper.enableNavigation(MainActivity.this, tvEx);
+        Menu menu = tvEx.getMenu();
+        MenuItem menuItem = menu.getItem(1);
+        menuItem.setChecked(true);
     }
 }
