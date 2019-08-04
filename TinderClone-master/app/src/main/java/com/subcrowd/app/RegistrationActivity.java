@@ -36,6 +36,9 @@ public class RegistrationActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener firebaseAuthStateListener;
+    private String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+    private static final String TAG = "RegisterActivity";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,30 +89,47 @@ public class RegistrationActivity extends AppCompatActivity {
                 final String name = mName.getText().toString();
                 //final String budget = mBudget.getText().toString();
 
+                if (checkInputs(email, name, password)) {
 
-                mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(RegistrationActivity.this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(!task.isSuccessful()){
-                            Toast.makeText(RegistrationActivity.this, "Password less than 8 char or email already registered!", Toast.LENGTH_LONG).show();
-                        }else{
-                            String userId = mAuth.getCurrentUser().getUid();
-                            DatabaseReference currentUserDb = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
+                    mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(RegistrationActivity.this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (!task.isSuccessful()) {
+                                Toast.makeText(RegistrationActivity.this, "Password less than 8 char or email already registered!", Toast.LENGTH_LONG).show();
+                            } else {
+                                String userId = mAuth.getCurrentUser().getUid();
+                                DatabaseReference currentUserDb = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
 
-                            Log.d("DB_debug", FirebaseDatabase.getInstance().getReference().getDatabase()+"");
-                            Map userInfo = new HashMap<>();
-                            userInfo.put("name", name);
+                                Log.d("DB_debug", FirebaseDatabase.getInstance().getReference().getDatabase() + "");
+                                Map userInfo = new HashMap<>();
+                                userInfo.put("name", name);
 //                            userInfo.put("give", spinner_give.getSelectedItem().toString());
 //                            userInfo.put("need", spinner_need.getSelectedItem().toString());
 //                            userInfo.put("budget", budget);
-                            userInfo.put("profileImageUrl", "default");
-                            currentUserDb.updateChildren(userInfo);
-                           // currentUserDb.setValue("asdfssadfasd");
+                                userInfo.put("profileImageUrl", "default");
+                                currentUserDb.updateChildren(userInfo);
+                                // currentUserDb.setValue("asdfssadfasd");
+                            }
                         }
-                    }
-                });
+                    });
+                }
             }
         });
+    }
+    private boolean checkInputs(String email, String username, String password) {
+        Log.d(TAG, "checkInputs: checking inputs for null values.");
+        if (email.equals("") || username.equals("") || password.equals("")) {
+            Toast.makeText(RegistrationActivity.this, "All fields must be filed out.", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        // Below code checks if the email id is valid or not.
+        if (!email.matches(emailPattern)) {
+            Toast.makeText(getApplicationContext(), "Invalid email address, enter valid email id and click on Continue", Toast.LENGTH_SHORT).show();
+            return false;
+
+        }
+        return true;
     }
 
     @Override
