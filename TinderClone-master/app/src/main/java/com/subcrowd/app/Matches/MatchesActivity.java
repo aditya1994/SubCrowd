@@ -91,6 +91,9 @@ public class MatchesActivity extends AppCompatActivity {
                     String userId = dataSnapshot.getKey();
                     String name = "";
                     String profileImageUrl = "";
+                    String need = "";
+                    String give = "";
+                    String budget = "";
                     if(dataSnapshot.child("name").getValue()!=null){
                         name = dataSnapshot.child("name").getValue().toString();
                     }
@@ -98,8 +101,18 @@ public class MatchesActivity extends AppCompatActivity {
                         profileImageUrl = dataSnapshot.child("profileImageUrl").getValue().toString();
                     }
 
+                    if(dataSnapshot.child("need").getValue() != null){
+                        need = dataSnapshot.child("need").getValue().toString();
+                    }
+                    if(dataSnapshot.child("give").getValue() != null){
+                        give = dataSnapshot.child("give").getValue().toString();
+                    }
+                    if(dataSnapshot.child("budget").getValue() != null){
+                        budget = dataSnapshot.child("budget").getValue().toString();
+                    }
 
-                    MatchesObject obj = new MatchesObject(userId, name, profileImageUrl);
+
+                    MatchesObject obj = new MatchesObject(userId, name, profileImageUrl, need, give, budget);
                     resultsMatches.add(obj);
                     mMatchesAdapter.notifyDataSetChanged();
                 }

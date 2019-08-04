@@ -7,13 +7,19 @@ import android.os.Bundle;
 
 
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,6 +29,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -50,7 +57,7 @@ public class ChatActivity extends AppCompatActivity {
     private ImageButton mSendButton;
 
     private String currentUserID, matchId, chatId;
-    private String matchName;
+    private String matchName, matchGive, matchNeed, matchBudget, matchProfile;
 
     DatabaseReference mDatabaseUser, mDatabaseChat;
     @Override
@@ -60,7 +67,10 @@ public class ChatActivity extends AppCompatActivity {
 
         matchId = getIntent().getExtras().getString("matchId");
         matchName = getIntent().getExtras().getString("matchName");
-
+        matchGive = getIntent().getExtras().getString("give");
+        matchNeed = getIntent().getExtras().getString("need");
+        matchBudget = getIntent().getExtras().getString("budget");
+        matchProfile = getIntent().getExtras().getString("profile");
         currentUserID = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         //chat id current match
@@ -131,6 +141,52 @@ public class ChatActivity extends AppCompatActivity {
         return true;
     }
 
+    public void showProfile(View v){
+        // inflate the layout of the popup window
+        LayoutInflater inflater = (LayoutInflater)
+                getSystemService(LAYOUT_INFLATER_SERVICE);
+        View popupView = inflater.inflate(R.layout.item, null);
+
+
+        TextView name = (TextView) popupView.findViewById(R.id.name);
+        ImageView image = (ImageView) popupView.findViewById(R.id.image);
+        TextView need = (TextView) popupView.findViewById(R.id.need);
+        TextView give = (TextView) popupView.findViewById(R.id.give);
+        TextView budget = (TextView) popupView.findViewById(R.id.budget);
+
+        name.setText(matchName);
+        need.setText(matchNeed);
+        give.setText(matchGive);
+        budget.setText(matchBudget);
+
+        switch(matchProfile){
+            case "default":
+                Glide.with(popupView.getContext()).load(R.mipmap.ic_launcher).into(image);
+                break;
+            default:
+                Glide.clear(image);
+                Glide.with(popupView.getContext()).load(matchProfile).into(image);
+                break;
+        }
+        // create the popup window
+        int width = LinearLayout.LayoutParams.WRAP_CONTENT;
+        int height = LinearLayout.LayoutParams.WRAP_CONTENT;
+        boolean focusable = true; // lets taps outside the popup also dismiss it
+        final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
+
+        // show the popup window
+        // which view you pass in doesn't matter, it is only used for the window tolken
+        popupWindow.showAtLocation(v, Gravity.CENTER, 0, 0);
+
+        // dismiss the popup window when touched
+        popupView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                popupWindow.dismiss();
+                return true;
+            }
+        });
+    }
     //unmatch button pressed
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
