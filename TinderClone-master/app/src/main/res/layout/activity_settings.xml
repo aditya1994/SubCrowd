@@ -35,13 +35,13 @@
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:layout_weight="1" />
-                <ImageView
+                <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/profileImage"
                     android:layout_width="100sp"
                     android:layout_height="100sp"
                     android:layout_marginBottom="20sp"
-                    android:background="@drawable/round_pic"
-                    android:src="@mipmap/ic_launcher" />
+                    android:background="@drawable/monkey"
+                    android:src="@drawable/default_man" />
                 <View
                     android:layout_width="0dp"
                     android:layout_height="0dp"
@@ -95,7 +95,7 @@
             android:textSize="18dp"
             android:textStyle="bold"
             android:padding="5dp"
-            android:text="I want :" />
+            android:text="I want to borrow:" />
 
         <Spinner
             android:id="@+id/spinner_need_setting"
@@ -121,7 +121,7 @@
             android:padding="5dp"
             android:textSize="18dp"
             android:textStyle="bold"
-            android:text="I can give :"
+            android:text="I can share my:"
              />
 
         <Spinner
@@ -150,7 +150,7 @@
             android:padding="5dp"
             android:textSize="18dp"
             android:textStyle="bold"
-            android:text="Budget"
+            android:text="My budget is:"
             />
 
         <EditText

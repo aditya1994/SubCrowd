@@ -14,6 +14,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -122,6 +123,8 @@ public class ChatActivity extends AppCompatActivity {
         mBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent intent = new Intent(ChatActivity.this, MatchesActivity.class);
+                startActivity(intent);
                 finish();
                 return;
             }
@@ -161,7 +164,7 @@ public class ChatActivity extends AppCompatActivity {
 
         switch(matchProfile){
             case "default":
-                Glide.with(popupView.getContext()).load(R.mipmap.ic_launcher).into(image);
+                Glide.with(popupView.getContext()).load(R.drawable.default_man).into(image);
                 break;
             default:
                 Glide.clear(image);
@@ -173,6 +176,9 @@ public class ChatActivity extends AppCompatActivity {
         int height = LinearLayout.LayoutParams.WRAP_CONTENT;
         boolean focusable = true; // lets taps outside the popup also dismiss it
         final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
+
+        //dismiss keyboard
+        hideSoftKeyBoard();
 
         // show the popup window
         // which view you pass in doesn't matter, it is only used for the window tolken
@@ -187,6 +193,14 @@ public class ChatActivity extends AppCompatActivity {
             }
         });
     }
+    private void hideSoftKeyBoard() {
+        InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+
+        if(imm.isAcceptingText()) { // verify if the soft keyboard is open
+            imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+        }
+    }
+
     //unmatch button pressed
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
