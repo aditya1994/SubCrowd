@@ -134,15 +134,6 @@
                     android:textColor="@color/white"
                     android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/link_signup"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="25dp"
-                    android:gravity="center"
-                    android:text="No accout yet? Create one"
-                    android:textColor="@color/transparentPink"
-                    android:textSize="16dp" />
             </LinearLayout>
 
         </LinearLayout>

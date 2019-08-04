@@ -103,9 +103,9 @@ public class RegistrationActivity extends AppCompatActivity {
                                 Log.d("DB_debug", FirebaseDatabase.getInstance().getReference().getDatabase() + "");
                                 Map userInfo = new HashMap<>();
                                 userInfo.put("name", name);
-//                            userInfo.put("give", spinner_give.getSelectedItem().toString());
-//                            userInfo.put("need", spinner_need.getSelectedItem().toString());
-//                            userInfo.put("budget", budget);
+//                              userInfo.put("give", spinner_give.getSelectedItem().toString());
+//                              userInfo.put("need", spinner_need.getSelectedItem().toString());
+//                              userInfo.put("budget", budget);
                                 userInfo.put("profileImageUrl", "default");
                                 currentUserDb.updateChildren(userInfo);
                                 // currentUserDb.setValue("asdfssadfasd");
@@ -116,6 +116,7 @@ public class RegistrationActivity extends AppCompatActivity {
             }
         });
     }
+
     private boolean checkInputs(String email, String username, String password) {
         Log.d(TAG, "checkInputs: checking inputs for null values.");
         if (email.equals("") || username.equals("") || password.equals("")) {
