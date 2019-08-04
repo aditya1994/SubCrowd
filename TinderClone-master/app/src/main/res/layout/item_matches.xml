@@ -82,14 +82,6 @@
                     android:textColor="@color/black"
                     android:textSize="18dp" />
 
-                <TextView
-                    android:id="@+id/mui_profession"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Student"
-                    android:textColor="@color/gray_btn_bg_pressed_color"
-                    android:textSize="16dp" />
-
             </LinearLayout>
 
             <TextView

@@ -1,6 +1,7 @@
 package com.subcrowd.app.Chat;
 
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -29,6 +30,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.subcrowd.app.Matches.MatchesActivity;
 import com.subcrowd.app.Matches.MatchesObject;
 import com.subcrowd.app.R;
 
@@ -133,6 +135,9 @@ public class ChatActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         deleteMatch(matchId);
+        Intent intent = new Intent(ChatActivity.this, MatchesActivity.class);
+        startActivity(intent);
+        finish();
         Toast.makeText(this,"Unmatch successful", Toast.LENGTH_LONG).show();
         return super.onOptionsItemSelected(item);
     }
