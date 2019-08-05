@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -71,9 +72,19 @@ public class MainActivity extends AppCompatActivity {
 
         arrayAdapter = new arrayAdapter(this, R.layout.item, rowItems );
 
+
         final SwipeFlingAdapterView flingContainer = (SwipeFlingAdapterView) findViewById(R.id.frame);
 
         flingContainer.setAdapter(arrayAdapter);
+
+        //Display a banner when no cards are available to display
+        TextView tv = (TextView)findViewById(R.id.noCardsBanner);
+        if(rowItems.size() == 0) {
+            tv.setVisibility(View.VISIBLE);
+        } else {
+            tv.setVisibility(View.INVISIBLE);
+        }
+
         flingContainer.setFlingListener(new SwipeFlingAdapterView.onFlingListener() {
             @Override
             public void removeFirstObjectInAdapter() {
@@ -89,6 +100,14 @@ public class MainActivity extends AppCompatActivity {
                 String userId = obj.getUserId();
                 usersDb.child(userId).child("connections").child("nope").child(currentUId).setValue(true);
                 Toast.makeText(MainActivity.this, "Left", Toast.LENGTH_SHORT).show();
+
+                //Display a banner when no cards are available to display
+                TextView tv = (TextView)findViewById(R.id.noCardsBanner);
+                if(rowItems.size() == 0) {
+                    tv.setVisibility(View.VISIBLE);
+                } else {
+                    tv.setVisibility(View.INVISIBLE);
+                }
             }
 
             @Override
@@ -98,6 +117,14 @@ public class MainActivity extends AppCompatActivity {
                 usersDb.child(userId).child("connections").child("yeps").child(currentUId).setValue(true);
                 isConnectionMatch(userId);
                 Toast.makeText(MainActivity.this, "Right", Toast.LENGTH_SHORT).show();
+
+                //Display a banner when no cards are available to display
+                TextView tv = (TextView)findViewById(R.id.noCardsBanner);
+                if(rowItems.size() == 0) {
+                    tv.setVisibility(View.VISIBLE);
+                } else {
+                    tv.setVisibility(View.INVISIBLE);
+                }
             }
 
             @Override
@@ -133,9 +160,18 @@ public class MainActivity extends AppCompatActivity {
             rowItems.remove(0);
             arrayAdapter.notifyDataSetChanged();
 
+            //Display a banner when no cards are available to display
+            TextView tv = (TextView)findViewById(R.id.noCardsBanner);
+            if(rowItems.size() == 0) {
+                tv.setVisibility(View.VISIBLE);
+            } else {
+                tv.setVisibility(View.INVISIBLE);
+            }
+
             Intent btnClick = new Intent(MainActivity.this, BtnDislikeActivity.class);
             btnClick.putExtra("url", card_item.getProfileImageUrl());
             startActivity(btnClick);
+
         }
     }
 
@@ -150,6 +186,15 @@ public class MainActivity extends AppCompatActivity {
 
             rowItems.remove(0);
             arrayAdapter.notifyDataSetChanged();
+
+
+            //Display a banner when no cards are available to display
+            TextView tv = (TextView)findViewById(R.id.noCardsBanner);
+            if(rowItems.size() == 0) {
+                tv.setVisibility(View.VISIBLE);
+            } else {
+                tv.setVisibility(View.INVISIBLE);
+            }
 
             Intent btnClick = new Intent(MainActivity.this, BtnLikeActivity.class);
             btnClick.putExtra("url", card_item.getProfileImageUrl());
@@ -242,6 +287,16 @@ public class MainActivity extends AppCompatActivity {
                         arrayAdapter.notifyDataSetChanged();
                     }
                 }
+
+                //Display a banner when no cards are available to display
+                TextView tv = (TextView)findViewById(R.id.noCardsBanner);
+                if(rowItems.size() == 0) {
+                    tv.setVisibility(View.VISIBLE);
+                } else {
+                    tv.setVisibility(View.INVISIBLE);
+                }
+
+
             }
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
