@@ -286,10 +286,10 @@ public class ChatActivity extends AppCompatActivity {
         Map lastTimestampMap = new HashMap();
         lastTimestampMap.put("lastTimeStamp", lastTimeStamp);
 
-        currUserDb.child("lastMessage").setValue(lastMessageMap);
-        currUserDb.child("lastTimeStamp").setValue(lastTimestampMap);
-        matchDb.child("lastMessage").setValue(lastMessageMap);
-        matchDb.child("lastTimeStamp").setValue(lastTimestampMap);
+        currUserDb.updateChildren(lastMessageMap);
+        currUserDb.updateChildren(lastTimestampMap);
+        matchDb.updateChildren(lastMessageMap);
+        matchDb.updateChildren(lastTimestampMap);
 
     }
 

@@ -114,10 +114,10 @@ public class MatchesActivity extends AppCompatActivity {
                         budget = dataSnapshot.child("budget").getValue().toString();
                     }
                     if(dataSnapshot.child("lastMessage").getValue() != null){
-                        budget = dataSnapshot.child("lastMessage").getValue().toString();
+                        lastMessage = dataSnapshot.child("lastMessage").getValue().toString();
                     }
                     if(dataSnapshot.child("lastTimeStamp").getValue() != null){
-                        budget = dataSnapshot.child("lastTimeStamp").getValue().toString();
+                        lastTimeStamp = dataSnapshot.child("lastTimeStamp").getValue().toString();
                     }
 
 
