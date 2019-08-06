@@ -94,6 +94,9 @@ public class MatchesActivity extends AppCompatActivity {
                     String need = "";
                     String give = "";
                     String budget = "";
+                    String lastMessage = "";
+                    String lastTimeStamp = "";
+
                     if(dataSnapshot.child("name").getValue()!=null){
                         name = dataSnapshot.child("name").getValue().toString();
                     }
@@ -110,9 +113,15 @@ public class MatchesActivity extends AppCompatActivity {
                     if(dataSnapshot.child("budget").getValue() != null){
                         budget = dataSnapshot.child("budget").getValue().toString();
                     }
+                    if(dataSnapshot.child("lastMessage").getValue() != null){
+                        budget = dataSnapshot.child("lastMessage").getValue().toString();
+                    }
+                    if(dataSnapshot.child("lastTimeStamp").getValue() != null){
+                        budget = dataSnapshot.child("lastTimeStamp").getValue().toString();
+                    }
 
 
-                    MatchesObject obj = new MatchesObject(userId, name, profileImageUrl, need, give, budget);
+                    MatchesObject obj = new MatchesObject(userId, name, profileImageUrl, need, give, budget, lastMessage, lastTimeStamp);
                     resultsMatches.add(obj);
                     mMatchesAdapter.notifyDataSetChanged();
                 }

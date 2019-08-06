@@ -81,6 +81,32 @@
                     android:text="santosh Dash"
                     android:textColor="@color/black"
                     android:textSize="18dp" />
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/lastMessage"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Last Message"
+                        android:textColor="@color/gray_btn_bg_pressed_color"
+                        android:textSize="16dp" />
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1" />
+
+                    <TextView
+                        android:id="@+id/lastTimeStamp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="TimeStamp"
+                        android:layout_marginRight="10dp"
+                        android:textColor="@color/gray_btn_bg_pressed_color"
+                        android:textSize="16dp" />
+                </LinearLayout>
 
             </LinearLayout>
 

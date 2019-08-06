@@ -7,6 +7,7 @@ package com.subcrowd.app.Chat;
 public class ChatObject {
     private String message;
     private Boolean currentUser;
+
     public ChatObject(String message, Boolean currentUser){
         this.message = message;
         this.currentUser = currentUser;

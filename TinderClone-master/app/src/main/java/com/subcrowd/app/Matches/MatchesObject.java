@@ -11,17 +11,20 @@ public class MatchesObject {
     private String need;
     private String give;
     private String budget;
+    private String lastMessage;
+    private String lastTimeStamp;
 
 
 
-    public MatchesObject (String userId, String name, String profileImageUrl, String need, String give, String budget){
+    public MatchesObject (String userId, String name, String profileImageUrl, String need, String give, String budget, String lastMessage, String lastTimeStamp){
         this.userId = userId;
         this.name = name;
         this.profileImageUrl = profileImageUrl;
         this.need = need;
         this.budget = budget;
         this.give = give;
-
+        this.lastMessage = lastMessage;
+        this.lastTimeStamp = lastTimeStamp;
     }
 
     public String getUserId(){
@@ -36,6 +39,10 @@ public class MatchesObject {
     public String getBudget(){
         return budget;
     }
+    public String getLastMessage() {return this.lastMessage;}
+    public String getLastTimestamp() {return this.lastTimeStamp;}
+
+
     public void setUserID(String userID){
         this.userId = userId;
     }
@@ -49,6 +56,9 @@ public class MatchesObject {
     public void setBudget(String budget){
         this.budget = budget;
     }
+    public void setLastMessage(String lastMessage) {this.lastMessage = lastMessage;}
+    public void setLastTimeStamp(String lastTimeStamp) {this.lastTimeStamp = lastTimeStamp;}
+
 
     public String getName(){
         return name;
