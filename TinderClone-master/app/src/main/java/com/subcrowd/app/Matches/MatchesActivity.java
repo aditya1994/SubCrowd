@@ -3,6 +3,7 @@ package com.subcrowd.app.Matches;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.format.DateUtils;
 import android.view.View;
 import android.widget.ImageButton;
 
@@ -117,7 +118,16 @@ public class MatchesActivity extends AppCompatActivity {
                         lastMessage = dataSnapshot.child("lastMessage").getValue().toString();
                     }
                     if(dataSnapshot.child("lastTimeStamp").getValue() != null){
-                        lastTimeStamp = dataSnapshot.child("lastTimeStamp").getValue().toString();
+                        String milliSec = dataSnapshot.child("lastTimeStamp").getValue().toString();
+                        Long now;
+
+                        try {
+                            now = Long.parseLong(milliSec);
+                            lastTimeStamp = convertMilliToRelativeTime(now);
+                            String[] arrOfStr = lastTimeStamp.split(",");
+                            lastTimeStamp = arrOfStr[0];
+                        } catch (Exception e) {}
+
                     }
 
 
@@ -133,6 +143,10 @@ public class MatchesActivity extends AppCompatActivity {
             }
         });
 
+    }
+    public String convertMilliToRelativeTime(Long now) {
+        String time = DateUtils.getRelativeDateTimeString(this, now, DateUtils.SECOND_IN_MILLIS, DateUtils.WEEK_IN_MILLIS, DateUtils.FORMAT_ABBREV_ALL).toString();
+        return time;
     }
 
     private ArrayList<MatchesObject> resultsMatches = new ArrayList<MatchesObject>();

@@ -6,6 +6,7 @@ import android.os.Build;
 import android.os.Bundle;
 
 
+import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -250,7 +251,7 @@ public class ChatActivity extends AppCompatActivity {
         String sendMessageText = mSendEditText.getText().toString();
 
         //Converts to current time
-        Calendar rightNow = Calendar.getInstance();
+        /*Calendar rightNow = Calendar.getInstance();
         long offset = rightNow.get(Calendar.ZONE_OFFSET) + rightNow.get(Calendar.DST_OFFSET);
         long sinceMidnight = (rightNow.getTimeInMillis() + offset) % (24 * 60 * 60 * 1000);
         DateFormat formatter = new SimpleDateFormat("HH:mm:ss", Locale.US);
@@ -258,6 +259,12 @@ public class ChatActivity extends AppCompatActivity {
         String time = String.format("%02d:%02d", TimeUnit.MILLISECONDS.toHours(sinceMidnight),
                 TimeUnit.MILLISECONDS.toMinutes(sinceMidnight) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(sinceMidnight)));
         String timeStamp = LocalTime.parse(time, DateTimeFormatter.ofPattern("HH:mm")).format(DateTimeFormatter.ofPattern("hh:mm a"));
+
+*/
+
+        long now  = System.currentTimeMillis();
+
+        String timeStamp = Long.toString(now);
 
         if(!sendMessageText.isEmpty()){
             DatabaseReference newMessageDb = mDatabaseChat.push();

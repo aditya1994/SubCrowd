@@ -74,39 +74,57 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:orientation="vertical">
-                <TextView
-                    android:id="@+id/MatchName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="santosh Dash"
-                    android:textColor="@color/black"
-                    android:textSize="18dp" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:orientation="horizontal"
+                        android:weightSum="2" >
+                        <TextView
+                            android:id="@+id/MatchName"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:text="santosh Dash"
+                            android:textColor="@color/black"
+                            android:layout_weight="1"
+                            android:textSize="18dp" />
+                        <TextView
+                            android:id="@+id/lastTimeStamp"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="right"
+                            android:layout_marginRight="10dp"
+                            android:textColor="@color/gray_btn_bg_pressed_color"
+                            android:text="TimeStamp"
+                            android:textSize="16dp" />
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+
                 <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:layout_marginTop="5dp">
 
                     <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:id="@+id/lastMessage"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
                         android:text="Last Message"
+                        android:textSize="16dp"
                         android:textColor="@color/gray_btn_bg_pressed_color"
-                        android:textSize="16dp" />
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:layout_weight="1" />
 
-                    <TextView
-                        android:id="@+id/lastTimeStamp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="TimeStamp"
-                        android:layout_marginRight="10dp"
-                        android:textColor="@color/gray_btn_bg_pressed_color"
-                        android:textSize="16dp" />
+                        />
                 </LinearLayout>
+
+
+
 
             </LinearLayout>
 
