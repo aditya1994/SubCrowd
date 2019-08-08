@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
     private  String tag;
     private FirebaseAuth mAuth;
 
-    private String currentUId;
+    private String currentUId, notification, sendMessageText;
 
     private DatabaseReference usersDb;
 
@@ -235,7 +235,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private void isConnectionMatch(String userId) {
+    private void isConnectionMatch(final String userId) {
         DatabaseReference currentUserConnectionsDb = usersDb.child(currentUId).child("connections").child("yeps").child(userId);
         if(!currentUId.equals(userId)) {
             currentUserConnectionsDb.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -256,6 +256,23 @@ public class MainActivity extends AppCompatActivity {
 
                         usersDb.child(currentUId).child("connections").child("matches").child(dataSnapshot.getKey()).child("ChatId").setValue(key);
                         usersDb.child(currentUId).child("connections").child("matches").child(dataSnapshot.getKey()).updateChildren(mapLastTimeStamp);
+
+                        notification = " ";
+                        sendMessageText = "You have a new match!";
+                        DatabaseReference notificationID = FirebaseDatabase.getInstance().getReference().child("Users").child(userId).child("notificationKey");
+                        notificationID.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot snapshot) {
+                                if(snapshot.exists()) {
+                                    notification = snapshot.getValue().toString();
+                                    Log.d("sendChat", notification);
+                                    new SendNotification(sendMessageText, "New Message", notification);
+                                }
+                            }
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+                            }
+                        });
 
                     }
                 }
