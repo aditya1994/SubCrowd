@@ -72,11 +72,11 @@ public class ChatActivity extends AppCompatActivity {
     private ImageButton mBack;
 
     private ImageButton mSendButton;
-
+    private String notification;
     private String currentUserID, matchId, chatId;
     private String matchName, matchGive, matchNeed, matchBudget, matchProfile;
     private String lastMessage, lastTimeStamp;
-
+    private String  message;
     DatabaseReference mDatabaseUser, mDatabaseChat;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -316,7 +316,7 @@ public class ChatActivity extends AppCompatActivity {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 if(dataSnapshot.exists()){
-                    String message = null;
+                    message = null;
                     String createdByUser = null;
 
                     if(dataSnapshot.child("text").getValue()!=null){
@@ -335,10 +335,23 @@ public class ChatActivity extends AppCompatActivity {
 
                         DatabaseReference usersInChat = FirebaseDatabase.getInstance().getReference().child("Chat").child(matchId);
                         DatabaseReference users =  usersInChat.child("info").child("users");
-
-                        String notificationID = FirebaseDatabase.getInstance().getReference().child("Users").child(matchId).child("notificationKey").getKey();
+                        notification = " ";
+                        DatabaseReference notificationID = FirebaseDatabase.getInstance().getReference().child("Users").child(matchId).child("notificationKey");
+                        notificationID.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot snapshot) {
+                                if(snapshot.exists()) {
+                                    notification = snapshot.getValue().toString();  //prints "Do you have data? You'll love Firebase.
+                                    new SendNotification(message, "New Message", notification);
+                                }
+                            }
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+                            }
+                        });
                         // get match id of user
-                        new SendNotification(message, "New Message", notificationID);
+                        //Log.d("chatSend", notification);
+                        new SendNotification(message, "New Message", notification);
 
 
 
