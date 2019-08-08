@@ -1,5 +1,9 @@
 package com.subcrowd.app.Matches;
 
+import com.subcrowd.app.User.UserObject;
+
+import java.util.ArrayList;
+
 /**
  * Created by manel on 10/31/2017.
  */
@@ -11,22 +15,36 @@ public class MatchesObject {
     private String need;
     private String give;
     private String budget;
-
-
-
-    public MatchesObject (String userId, String name, String profileImageUrl, String need, String give, String budget){
+    private String chatId;
+    private ArrayList<UserObject> userObjectArrayList = new ArrayList<>();
+    public MatchesObject (String userId, String name, String profileImageUrl, String need, String give, String budget, String chatId){
         this.userId = userId;
         this.name = name;
         this.profileImageUrl = profileImageUrl;
         this.need = need;
         this.budget = budget;
         this.give = give;
+        this.chatId = chatId;
+    }
 
+    public ArrayList<UserObject> getUserObjectArrayList() {
+        return userObjectArrayList;
+    }
+
+
+
+
+    public void addUserToArrayList(UserObject mUser){
+        userObjectArrayList.add(mUser);
     }
 
     public String getUserId(){
         return userId;
     }
+    public String getChatId(){
+        return chatId;
+    }
+    public void setChatId(String chatId){ this.chatId = chatId;}
     public String getNeed(){
         return need;
     }

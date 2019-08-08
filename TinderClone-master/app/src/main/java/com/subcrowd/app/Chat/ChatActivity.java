@@ -6,6 +6,7 @@ import android.os.Build;
 import android.os.Bundle;
 
 
+import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -41,6 +42,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.subcrowd.app.Matches.MatchesActivity;
 import com.subcrowd.app.Matches.MatchesObject;
 import com.subcrowd.app.R;
+import com.subcrowd.app.SendNotification;
+import com.subcrowd.app.User.UserObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -290,6 +293,16 @@ public class ChatActivity extends AppCompatActivity {
                             currentUserBoolean = true;
                         }
                         ChatObject newMessage = new ChatObject(message, currentUserBoolean);
+
+                        DatabaseReference usersInChat = FirebaseDatabase.getInstance().getReference().child("Chat").child(matchId);
+                        DatabaseReference users =  usersInChat.child("info").child("users");
+
+                        String notificationID = FirebaseDatabase.getInstance().getReference().child("Users").child(matchId).child("notificationKey").getKey();
+                        // get match id of user
+                        new SendNotification(message, "New Message", notificationID);
+
+
+
                         resultsChat.add(newMessage);
                         mChatAdapter.notifyDataSetChanged();
                         if(mRecyclerView.getAdapter() != null && resultsChat.size() > 0)

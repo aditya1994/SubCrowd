@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.ImageButton;
 
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,6 +22,7 @@ import com.subcrowd.app.ChooseLoginRegistrationActivity;
 import com.subcrowd.app.MainActivity;
 import com.subcrowd.app.R;
 import com.subcrowd.app.SettingsActivity;
+import com.subcrowd.app.User.UserObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,7 +72,8 @@ public class MatchesActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()){
                     for(DataSnapshot match : dataSnapshot.getChildren()){
-                        FetchMatchInformation(match.getKey());
+                        FetchMatchInformation(match.getKey(), match.child("ChatId").toString());
+                        getChatID(match.child("ChatId").toString());
                     }
                 }
             }
@@ -82,7 +85,65 @@ public class MatchesActivity extends AppCompatActivity {
         });
     }
 
-    private void FetchMatchInformation(String key) {
+    private void getChatID(String chatId) {
+        DatabaseReference mChatDB = FirebaseDatabase.getInstance().getReference().child("Chat").child(chatId).child("info");
+        mChatDB.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    String chatId = "";
+
+                    if(dataSnapshot.child("id").getValue() != null)
+                        chatId = dataSnapshot.child("id").getValue().toString();
+
+
+
+                    for(DataSnapshot userSnapshot : dataSnapshot.child("users").getChildren()){
+                        for(MatchesObject mChat : resultsMatches){
+                            if(mChat.getChatId().equals(chatId)){
+                                UserObject mUser = new UserObject(userSnapshot.getKey());
+                                mChat.addUserToArrayList(mUser);
+                                getUserData(mUser);
+                            }
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void getUserData(UserObject mUser) {
+        DatabaseReference mUserDb = FirebaseDatabase.getInstance().getReference().child("user").child(mUser.getUid());
+        mUserDb.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                UserObject mUser = new UserObject(dataSnapshot.getKey());
+
+                if(dataSnapshot.child("notificationKey").getValue() != null)
+                    mUser.setNotificationKey(dataSnapshot.child("notificationKey").getValue().toString());
+
+                for(MatchesObject mChat : resultsMatches){
+                    for (UserObject mUserIt : mChat.getUserObjectArrayList()){
+                        if(mUserIt.getUid().equals(mUser.getUid())){
+                            mUserIt.setNotificationKey(mUser.getNotificationKey());
+                        }
+                    }
+                }
+                //mMatchesAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+    private void FetchMatchInformation(String key, final String chatid) {
         DatabaseReference userDb = FirebaseDatabase.getInstance().getReference().child("Users").child(key);
         userDb.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -112,8 +173,9 @@ public class MatchesActivity extends AppCompatActivity {
                     }
 
 
-                    MatchesObject obj = new MatchesObject(userId, name, profileImageUrl, need, give, budget);
+                    MatchesObject obj = new MatchesObject(userId, name, profileImageUrl, need, give, budget, chatid );
                     resultsMatches.add(obj);
+
                     mMatchesAdapter.notifyDataSetChanged();
                 }
             }

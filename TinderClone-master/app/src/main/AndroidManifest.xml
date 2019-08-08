@@ -6,6 +6,8 @@
    >
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:fitsSystemWindows="true"
@@ -16,6 +18,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+
         <activity android:name=".MainActivity" android:windowSoftInputMode = "adjustResize" />
         <activity android:name=".ChooseLoginRegistrationActivity">
             <intent-filter>
@@ -31,6 +34,15 @@
         <activity android:name=".BtnDislikeActivity"/>
         <activity android:name=".Chat.ChatActivity" android:windowSoftInputMode = "adjustResize">
         </activity>
+
+        <service
+            android:name=".java.MyFirebaseMessagingService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
     </application>
 
 </manifest>

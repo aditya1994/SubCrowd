@@ -1,5 +1,7 @@
 package com.subcrowd.app;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Intent;
 
 import android.os.Bundle;
@@ -22,6 +24,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 import com.lorentzos.flingswipe.SwipeFlingAdapterView;
+import com.onesignal.OneSignal;
 import com.subcrowd.app.Cards.arrayAdapter;
 import com.subcrowd.app.Cards.cards;
 import com.subcrowd.app.Matches.MatchesActivity;
@@ -52,6 +55,21 @@ public class MainActivity extends AppCompatActivity {
 
         setupTopNavigationView();
 
+        String channelId  = getString(R.string.default_notification_channel_id);
+        String channelName = getString(R.string.default_notification_channel_name);
+        NotificationManager notificationManager =
+                getSystemService(NotificationManager.class);
+        notificationManager.createNotificationChannel(new NotificationChannel(channelId,
+                channelName, NotificationManager.IMPORTANCE_LOW));
+
+        if (getIntent().getExtras() != null) {
+            for (String key : getIntent().getExtras().keySet()) {
+                Object value = getIntent().getExtras().get(key);
+                Log.d(TAG, "Key: " + key + " Value: " + value);
+            }
+        }
+
+
         tag = "MainActivity";
         usersDb = FirebaseDatabase.getInstance().getReference().child("Users");
 
@@ -62,6 +80,17 @@ public class MainActivity extends AppCompatActivity {
             Log.d(tag, "Authorization failed");
             Toast.makeText(getApplicationContext(), "Auth failed", Toast.LENGTH_LONG).show();
         }
+
+
+        OneSignal.startInit(this).init();
+        OneSignal.setSubscription(true);
+        OneSignal.idsAvailable(new OneSignal.IdsAvailableHandler() {
+            @Override
+            public void idsAvailable(String userId, String registrationId) {
+                usersDb.child(currentUId).child("notificationKey").setValue(userId);
+            }
+        });
+        OneSignal.setInFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification);
 
         Log.d(tag, "onCreate " + currentUId);
 

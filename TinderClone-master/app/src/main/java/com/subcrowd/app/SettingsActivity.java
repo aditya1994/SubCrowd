@@ -37,6 +37,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.onesignal.OneSignal;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -137,6 +138,7 @@ public class SettingsActivity extends AppCompatActivity {
     //logout button pressed
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        OneSignal.setSubscription(false);
         mAuth.signOut();
         Toast.makeText(this,"Log Out successful", Toast.LENGTH_LONG).show();
         Intent intent = new Intent(SettingsActivity.this, ChooseLoginRegistrationActivity.class);
