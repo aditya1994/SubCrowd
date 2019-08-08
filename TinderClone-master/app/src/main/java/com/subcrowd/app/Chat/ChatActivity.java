@@ -273,7 +273,7 @@ public class ChatActivity extends AppCompatActivity {
                     if(snapshot.exists()) {
                         notification = snapshot.getValue().toString();
                         Log.d("sendChat", notification);
-                        new SendNotification(sendMessageText, "New Message", notification);
+                        new SendNotification(sendMessageText, "SubCrowd", notification);
                     }
                 }
                 @Override
