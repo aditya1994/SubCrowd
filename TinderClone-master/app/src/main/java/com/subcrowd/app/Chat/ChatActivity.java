@@ -76,7 +76,7 @@ public class ChatActivity extends AppCompatActivity {
     private String currentUserID, matchId, chatId;
     private String matchName, matchGive, matchNeed, matchBudget, matchProfile;
     private String lastMessage, lastTimeStamp;
-    private String  message;
+    private String  message, createdByUser;
     DatabaseReference mDatabaseUser, mDatabaseChat;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -254,7 +254,7 @@ public class ChatActivity extends AppCompatActivity {
 
 
     private void sendMessage() {
-        String sendMessageText = mSendEditText.getText().toString();
+        final String sendMessageText = mSendEditText.getText().toString();
         long now  = System.currentTimeMillis();
         String timeStamp = Long.toString(now);
 
@@ -265,6 +265,21 @@ public class ChatActivity extends AppCompatActivity {
             newMessage.put("createdByUser", currentUserID);
             newMessage.put("text", sendMessageText);
             newMessage.put("timeStamp", timeStamp);
+            notification = " ";
+            DatabaseReference notificationID = FirebaseDatabase.getInstance().getReference().child("Users").child(matchId).child("notificationKey");
+            notificationID.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot snapshot) {
+                    if(snapshot.exists()) {
+                        notification = snapshot.getValue().toString();
+                        Log.d("sendChat", notification);
+                        new SendNotification(sendMessageText, "New Message", notification);
+                    }
+                }
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                }
+            });
 
             //update curr user and match user's last message and last timeStamp
             lastMessage = sendMessageText;
@@ -317,7 +332,7 @@ public class ChatActivity extends AppCompatActivity {
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 if(dataSnapshot.exists()){
                     message = null;
-                    String createdByUser = null;
+                    createdByUser = null;
 
                     if(dataSnapshot.child("text").getValue()!=null){
                         message = dataSnapshot.child("text").getValue().toString();
@@ -334,26 +349,6 @@ public class ChatActivity extends AppCompatActivity {
                         ChatObject newMessage = new ChatObject(message, currentUserBoolean);
 
                         DatabaseReference usersInChat = FirebaseDatabase.getInstance().getReference().child("Chat").child(matchId);
-                        DatabaseReference users =  usersInChat.child("info").child("users");
-                        notification = " ";
-                        DatabaseReference notificationID = FirebaseDatabase.getInstance().getReference().child("Users").child(matchId).child("notificationKey");
-                        notificationID.addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot snapshot) {
-                                if(snapshot.exists()) {
-                                    notification = snapshot.getValue().toString();  //prints "Do you have data? You'll love Firebase.
-                                    new SendNotification(message, "New Message", notification);
-                                }
-                            }
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {
-                            }
-                        });
-                        // get match id of user
-                        //Log.d("chatSend", notification);
-                        new SendNotification(message, "New Message", notification);
-
-
 
                         resultsChat.add(newMessage);
                         mChatAdapter.notifyDataSetChanged();
