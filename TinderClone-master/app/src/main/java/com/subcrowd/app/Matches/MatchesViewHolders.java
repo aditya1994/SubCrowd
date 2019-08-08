@@ -18,7 +18,7 @@ import com.subcrowd.app.R;
  */
 
 public class MatchesViewHolders extends RecyclerView.ViewHolder implements View.OnClickListener{
-    public TextView mMatchId, mMatchName, mNeed, mGive, mBudget, mProfile;
+    public TextView mMatchId, mMatchName, mLastTimeStamp, mLastMessage, mNeed, mGive, mBudget, mProfile;
     public ImageView mMatchImage;
     public MatchesViewHolders(View itemView) {
         super(itemView);
@@ -26,6 +26,9 @@ public class MatchesViewHolders extends RecyclerView.ViewHolder implements View.
 
         mMatchId = (TextView) itemView.findViewById(R.id.Matchid);
         mMatchName = (TextView) itemView.findViewById(R.id.MatchName);
+        mLastMessage = (TextView) itemView.findViewById(R.id.lastMessage);
+        mLastTimeStamp = (TextView) itemView.findViewById(R.id.lastTimeStamp);
+
         mNeed = (TextView) itemView.findViewById(R.id.needid);
         mGive = (TextView) itemView.findViewById(R.id.giveid);
         mBudget = (TextView) itemView.findViewById(R.id.budgetid);
@@ -39,6 +42,8 @@ public class MatchesViewHolders extends RecyclerView.ViewHolder implements View.
         Bundle b = new Bundle();
         b.putString("matchId", mMatchId.getText().toString());
         b.putString("matchName", mMatchName.getText().toString());
+        b.putString("lastMessage", mLastMessage.getText().toString());
+        b.putString("lastTimeStamp", mLastTimeStamp.getText().toString());
         b.putString("budget", mBudget.getText().toString());
         b.putString("need", mNeed.getText().toString());
         b.putString("give", mGive.getText().toString());

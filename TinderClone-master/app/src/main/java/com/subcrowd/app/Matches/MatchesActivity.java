@@ -1,8 +1,10 @@
 package com.subcrowd.app.Matches;
 
 
+import android.app.DownloadManager;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.format.DateUtils;
 import android.view.View;
 import android.widget.ImageButton;
 
@@ -17,6 +19,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.subcrowd.app.ChooseLoginRegistrationActivity;
 import com.subcrowd.app.MainActivity;
@@ -25,6 +28,8 @@ import com.subcrowd.app.SettingsActivity;
 import com.subcrowd.app.User.UserObject;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 public class MatchesActivity extends AppCompatActivity {
@@ -34,7 +39,8 @@ public class MatchesActivity extends AppCompatActivity {
     private ImageButton mBack;
 
 
-    private String cusrrentUserID;
+    private String cusrrentUserID, mLastTimeStamp, mLastMessage;
+    DatabaseReference mCurrUserIdInsideMatchConnections;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,13 +70,39 @@ public class MatchesActivity extends AppCompatActivity {
         getUserMatchId();
     }
 
-    private void getUserMatchId() {
 
-        DatabaseReference matchDb = FirebaseDatabase.getInstance().getReference().child("Users").child(cusrrentUserID).child("connections").child("matches");
-        matchDb.addListenerForSingleValueEvent(new ValueEventListener() {
+    private void getLastMessageInfo(DatabaseReference userDb){
+        //chat id of the current match
+        mCurrUserIdInsideMatchConnections = userDb.child("connections").child("matches").child(cusrrentUserID);
+
+        mCurrUserIdInsideMatchConnections.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()){
+                    if(dataSnapshot.child("lastMessage").getValue() != null && dataSnapshot.child("lastTimeStamp").getValue() != null) {
+                        mLastMessage = dataSnapshot.child("lastMessage").getValue().toString();
+                        mLastTimeStamp = dataSnapshot.child("lastTimeStamp").getValue().toString();
+                    }
+
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void getUserMatchId() {
+        Query sortedMatchesByLastTimeStamp = FirebaseDatabase.getInstance().getReference().child("Users").child(cusrrentUserID).child("connections").child("matches")
+                .orderByChild("lastTimeStamp");
+
+        sortedMatchesByLastTimeStamp.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()){
+
                     for(DataSnapshot match : dataSnapshot.getChildren()){
                         FetchMatchInformation(match.getKey(), match.child("ChatId").toString());
                         getChatID(match.child("ChatId").toString());
@@ -145,6 +177,7 @@ public class MatchesActivity extends AppCompatActivity {
     }
     private void FetchMatchInformation(String key, final String chatid) {
         DatabaseReference userDb = FirebaseDatabase.getInstance().getReference().child("Users").child(key);
+        getLastMessageInfo(userDb);
         userDb.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -155,6 +188,9 @@ public class MatchesActivity extends AppCompatActivity {
                     String need = "";
                     String give = "";
                     String budget = "";
+                    String lastMessage = "";
+                    String lastTimeStamp = "";
+
                     if(dataSnapshot.child("name").getValue()!=null){
                         name = dataSnapshot.child("name").getValue().toString();
                     }
@@ -173,8 +209,21 @@ public class MatchesActivity extends AppCompatActivity {
                     }
 
 
-                    MatchesObject obj = new MatchesObject(userId, name, profileImageUrl, need, give, budget, chatid );
-                    resultsMatches.add(obj);
+
+                    String milliSec = mLastTimeStamp;
+                    Long now;
+
+                    try {
+                        now = Long.parseLong(milliSec);
+                        lastTimeStamp = convertMilliToRelativeTime(now);
+                        String[] arrOfStr = lastTimeStamp.split(",");
+                        mLastTimeStamp = arrOfStr[0];
+                    } catch (Exception e) {}
+
+                    MatchesObject obj = new MatchesObject(userId, name, profileImageUrl, need, give, budget, mLastMessage, mLastTimeStamp, chatid);
+                    mLastMessage = "";
+                    mLastTimeStamp = "";
+                    resultsMatches.add(0, obj);
 
                     mMatchesAdapter.notifyDataSetChanged();
                 }
@@ -187,6 +236,11 @@ public class MatchesActivity extends AppCompatActivity {
         });
 
     }
+    public String convertMilliToRelativeTime(Long now) {
+        String time = DateUtils.getRelativeDateTimeString(this, now, DateUtils.SECOND_IN_MILLIS, DateUtils.WEEK_IN_MILLIS, DateUtils.FORMAT_ABBREV_ALL).toString();
+        return time;
+    }
+
 
     private ArrayList<MatchesObject> resultsMatches = new ArrayList<MatchesObject>();
     private List<MatchesObject> getDataSetMatches() {

@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -30,7 +31,9 @@ import com.subcrowd.app.Cards.cards;
 import com.subcrowd.app.Matches.MatchesActivity;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
@@ -100,9 +103,19 @@ public class MainActivity extends AppCompatActivity {
 
         arrayAdapter = new arrayAdapter(this, R.layout.item, rowItems );
 
+
         final SwipeFlingAdapterView flingContainer = (SwipeFlingAdapterView) findViewById(R.id.frame);
 
         flingContainer.setAdapter(arrayAdapter);
+
+        //Display a banner when no cards are available to display
+        TextView tv = (TextView)findViewById(R.id.noCardsBanner);
+        if(rowItems.size() == 0) {
+            tv.setVisibility(View.VISIBLE);
+        } else {
+            tv.setVisibility(View.INVISIBLE);
+        }
+
         flingContainer.setFlingListener(new SwipeFlingAdapterView.onFlingListener() {
             @Override
             public void removeFirstObjectInAdapter() {
@@ -118,6 +131,14 @@ public class MainActivity extends AppCompatActivity {
                 String userId = obj.getUserId();
                 usersDb.child(userId).child("connections").child("nope").child(currentUId).setValue(true);
                 Toast.makeText(MainActivity.this, "Left", Toast.LENGTH_SHORT).show();
+
+                //Display a banner when no cards are available to display
+                TextView tv = (TextView)findViewById(R.id.noCardsBanner);
+                if(rowItems.size() == 0) {
+                    tv.setVisibility(View.VISIBLE);
+                } else {
+                    tv.setVisibility(View.INVISIBLE);
+                }
             }
 
             @Override
@@ -127,6 +148,14 @@ public class MainActivity extends AppCompatActivity {
                 usersDb.child(userId).child("connections").child("yeps").child(currentUId).setValue(true);
                 isConnectionMatch(userId);
                 Toast.makeText(MainActivity.this, "Right", Toast.LENGTH_SHORT).show();
+
+                //Display a banner when no cards are available to display
+                TextView tv = (TextView)findViewById(R.id.noCardsBanner);
+                if(rowItems.size() == 0) {
+                    tv.setVisibility(View.VISIBLE);
+                } else {
+                    tv.setVisibility(View.INVISIBLE);
+                }
             }
 
             @Override
@@ -162,9 +191,18 @@ public class MainActivity extends AppCompatActivity {
             rowItems.remove(0);
             arrayAdapter.notifyDataSetChanged();
 
+            //Display a banner when no cards are available to display
+            TextView tv = (TextView)findViewById(R.id.noCardsBanner);
+            if(rowItems.size() == 0) {
+                tv.setVisibility(View.VISIBLE);
+            } else {
+                tv.setVisibility(View.INVISIBLE);
+            }
+
             Intent btnClick = new Intent(MainActivity.this, BtnDislikeActivity.class);
             btnClick.putExtra("url", card_item.getProfileImageUrl());
             startActivity(btnClick);
+
         }
     }
 
@@ -179,6 +217,15 @@ public class MainActivity extends AppCompatActivity {
 
             rowItems.remove(0);
             arrayAdapter.notifyDataSetChanged();
+
+
+            //Display a banner when no cards are available to display
+            TextView tv = (TextView)findViewById(R.id.noCardsBanner);
+            if(rowItems.size() == 0) {
+                tv.setVisibility(View.VISIBLE);
+            } else {
+                tv.setVisibility(View.INVISIBLE);
+            }
 
             Intent btnClick = new Intent(MainActivity.this, BtnLikeActivity.class);
             btnClick.putExtra("url", card_item.getProfileImageUrl());
@@ -195,12 +242,21 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     if (dataSnapshot.exists()) {
-                        Toast.makeText(MainActivity.this, "New Connection", Toast.LENGTH_LONG).show();
+                        Toast.makeText(MainActivity.this, "" +
+                                "New Connection", Toast.LENGTH_LONG).show();
 
                         String key = FirebaseDatabase.getInstance().getReference().child("Chat").push().getKey();
+                        Map mapLastTimeStamp = new HashMap<>();
+                        long now  = System.currentTimeMillis();
+                        String timeStamp = Long.toString(now);
+                        mapLastTimeStamp.put("lastTimeStamp", timeStamp);
 
                         usersDb.child(dataSnapshot.getKey()).child("connections").child("matches").child(currentUId).child("ChatId").setValue(key);
+                        usersDb.child(dataSnapshot.getKey()).child("connections").child("matches").child(currentUId).updateChildren(mapLastTimeStamp);
+
                         usersDb.child(currentUId).child("connections").child("matches").child(dataSnapshot.getKey()).child("ChatId").setValue(key);
+                        usersDb.child(currentUId).child("connections").child("matches").child(dataSnapshot.getKey()).updateChildren(mapLastTimeStamp);
+
                     }
                 }
 
@@ -271,6 +327,16 @@ public class MainActivity extends AppCompatActivity {
                         arrayAdapter.notifyDataSetChanged();
                     }
                 }
+
+                //Display a banner when no cards are available to display
+                TextView tv = (TextView)findViewById(R.id.noCardsBanner);
+                if(rowItems.size() == 0) {
+                    tv.setVisibility(View.VISIBLE);
+                } else {
+                    tv.setVisibility(View.INVISIBLE);
+                }
+
+
             }
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {

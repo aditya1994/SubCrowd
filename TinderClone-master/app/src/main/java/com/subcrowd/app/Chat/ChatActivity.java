@@ -6,7 +6,11 @@ import android.os.Build;
 import android.os.Bundle;
 
 
+
 import android.provider.ContactsContract;
+
+import android.text.format.DateUtils;
+
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -45,10 +49,19 @@ import com.subcrowd.app.R;
 import com.subcrowd.app.SendNotification;
 import com.subcrowd.app.User.UserObject;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
+import java.util.TimeZone;
+import java.util.concurrent.TimeUnit;
 
 public class ChatActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
@@ -62,6 +75,7 @@ public class ChatActivity extends AppCompatActivity {
 
     private String currentUserID, matchId, chatId;
     private String matchName, matchGive, matchNeed, matchBudget, matchProfile;
+    private String lastMessage, lastTimeStamp;
 
     DatabaseReference mDatabaseUser, mDatabaseChat;
     @Override
@@ -77,7 +91,8 @@ public class ChatActivity extends AppCompatActivity {
         matchProfile = getIntent().getExtras().getString("profile");
         currentUserID = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-        //chat id current match
+
+        //chat id of the current match
         mDatabaseUser = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserID).child("connections").child("matches").child(matchId).child("ChatId");
         //reference to all the chats
         mDatabaseChat = FirebaseDatabase.getInstance().getReference().child("Chat");
@@ -240,6 +255,8 @@ public class ChatActivity extends AppCompatActivity {
 
     private void sendMessage() {
         String sendMessageText = mSendEditText.getText().toString();
+        long now  = System.currentTimeMillis();
+        String timeStamp = Long.toString(now);
 
         if(!sendMessageText.isEmpty()){
             DatabaseReference newMessageDb = mDatabaseChat.push();
@@ -247,10 +264,32 @@ public class ChatActivity extends AppCompatActivity {
             Map newMessage = new HashMap();
             newMessage.put("createdByUser", currentUserID);
             newMessage.put("text", sendMessageText);
+            newMessage.put("timeStamp", timeStamp);
+
+            //update curr user and match user's last message and last timeStamp
+            lastMessage = sendMessageText;
+            lastTimeStamp = timeStamp;
+            updateLastMessage();
 
             newMessageDb.setValue(newMessage);
         }
         mSendEditText.setText(null);
+    }
+
+    private void updateLastMessage() {
+        DatabaseReference currUserDb = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserID).child("connections").child("matches").child(matchId);
+        DatabaseReference matchDb = FirebaseDatabase.getInstance().getReference().child("Users").child(matchId).child("connections").child("matches").child(currentUserID);
+
+        Map lastMessageMap = new HashMap();
+        lastMessageMap.put("lastMessage", lastMessage);
+        Map lastTimestampMap = new HashMap();
+        lastTimestampMap.put("lastTimeStamp", lastTimeStamp);
+
+        currUserDb.updateChildren(lastMessageMap);
+        currUserDb.updateChildren(lastTimestampMap);
+        matchDb.updateChildren(lastMessageMap);
+        matchDb.updateChildren(lastTimestampMap);
+
     }
 
     private void getChatId(){
@@ -290,7 +329,7 @@ public class ChatActivity extends AppCompatActivity {
                     if(message!=null && createdByUser!=null){
                         Boolean currentUserBoolean = false;
                         if(createdByUser.equals(currentUserID)){
-                            currentUserBoolean = true;
+                            currentUserBoolean = true;      //current user sent a message
                         }
                         ChatObject newMessage = new ChatObject(message, currentUserBoolean);
 

@@ -15,15 +15,23 @@ public class MatchesObject {
     private String need;
     private String give;
     private String budget;
+
+    private String lastMessage;
+    private String lastTimeStamp;
+
+
     private String chatId;
     private ArrayList<UserObject> userObjectArrayList = new ArrayList<>();
-    public MatchesObject (String userId, String name, String profileImageUrl, String need, String give, String budget, String chatId){
+    public MatchesObject (String userId, String name, String profileImageUrl, String need, String give, String budget, String lastMessage, String lastTimeStamp, String chatId){
+
         this.userId = userId;
         this.name = name;
         this.profileImageUrl = profileImageUrl;
         this.need = need;
         this.budget = budget;
         this.give = give;
+        this.lastMessage = lastMessage;
+        this.lastTimeStamp = lastTimeStamp;
         this.chatId = chatId;
     }
 
@@ -54,6 +62,10 @@ public class MatchesObject {
     public String getBudget(){
         return budget;
     }
+    public String getLastMessage() {return this.lastMessage;}
+    public String getLastTimestamp() {return this.lastTimeStamp;}
+
+
     public void setUserID(String userID){
         this.userId = userId;
     }
@@ -67,6 +79,9 @@ public class MatchesObject {
     public void setBudget(String budget){
         this.budget = budget;
     }
+    public void setLastMessage(String lastMessage) {this.lastMessage = lastMessage;}
+    public void setLastTimeStamp(String lastTimeStamp) {this.lastTimeStamp = lastTimeStamp;}
+
 
     public String getName(){
         return name;
