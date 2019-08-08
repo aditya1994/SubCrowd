@@ -249,21 +249,7 @@ public class ChatActivity extends AppCompatActivity {
 
     private void sendMessage() {
         String sendMessageText = mSendEditText.getText().toString();
-
-        //Converts to current time
-        /*Calendar rightNow = Calendar.getInstance();
-        long offset = rightNow.get(Calendar.ZONE_OFFSET) + rightNow.get(Calendar.DST_OFFSET);
-        long sinceMidnight = (rightNow.getTimeInMillis() + offset) % (24 * 60 * 60 * 1000);
-        DateFormat formatter = new SimpleDateFormat("HH:mm:ss", Locale.US);
-        formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
-        String time = String.format("%02d:%02d", TimeUnit.MILLISECONDS.toHours(sinceMidnight),
-                TimeUnit.MILLISECONDS.toMinutes(sinceMidnight) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(sinceMidnight)));
-        String timeStamp = LocalTime.parse(time, DateTimeFormatter.ofPattern("HH:mm")).format(DateTimeFormatter.ofPattern("hh:mm a"));
-
-*/
-
         long now  = System.currentTimeMillis();
-
         String timeStamp = Long.toString(now);
 
         if(!sendMessageText.isEmpty()){
@@ -285,8 +271,8 @@ public class ChatActivity extends AppCompatActivity {
     }
 
     private void updateLastMessage() {
-        DatabaseReference currUserDb = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserID);
-        DatabaseReference matchDb = FirebaseDatabase.getInstance().getReference().child("Users").child(matchId);
+        DatabaseReference currUserDb = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserID).child("connections").child("matches").child(matchId);
+        DatabaseReference matchDb = FirebaseDatabase.getInstance().getReference().child("Users").child(matchId).child("connections").child("matches").child(currentUserID);
 
         Map lastMessageMap = new HashMap();
         lastMessageMap.put("lastMessage", lastMessage);

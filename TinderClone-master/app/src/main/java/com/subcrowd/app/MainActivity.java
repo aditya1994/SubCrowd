@@ -28,7 +28,9 @@ import com.subcrowd.app.Cards.cards;
 import com.subcrowd.app.Matches.MatchesActivity;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
@@ -211,12 +213,21 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     if (dataSnapshot.exists()) {
-                        Toast.makeText(MainActivity.this, "New Connection", Toast.LENGTH_LONG).show();
+                        Toast.makeText(MainActivity.this, "" +
+                                "New Connection", Toast.LENGTH_LONG).show();
 
                         String key = FirebaseDatabase.getInstance().getReference().child("Chat").push().getKey();
+                        Map mapLastTimeStamp = new HashMap<>();
+                        long now  = System.currentTimeMillis();
+                        String timeStamp = Long.toString(now);
+                        mapLastTimeStamp.put("lastTimeStamp", timeStamp);
 
                         usersDb.child(dataSnapshot.getKey()).child("connections").child("matches").child(currentUId).child("ChatId").setValue(key);
+                        usersDb.child(dataSnapshot.getKey()).child("connections").child("matches").child(currentUId).updateChildren(mapLastTimeStamp);
+
                         usersDb.child(currentUId).child("connections").child("matches").child(dataSnapshot.getKey()).child("ChatId").setValue(key);
+                        usersDb.child(currentUId).child("connections").child("matches").child(dataSnapshot.getKey()).updateChildren(mapLastTimeStamp);
+
                     }
                 }
 
