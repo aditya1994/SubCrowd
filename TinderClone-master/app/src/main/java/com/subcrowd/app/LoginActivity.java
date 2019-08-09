@@ -38,13 +38,13 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                if (user !=null && user.isEmailVerified()){
+                //uncomment this for production
+              if (user !=null && user.isEmailVerified()){
+//                if (user !=null) {
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intent);
                     finish();
                     return;
-                } else {
-                    Log.d(TAG, "Please verify your email.");
                 }
             }
         };
@@ -69,7 +69,17 @@ public class LoginActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (!task.isSuccessful()) {
-                                Toast.makeText(LoginActivity.this, "Username/Password did not match", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(LoginActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            } else {
+                                if(mAuth.getCurrentUser().isEmailVerified()) {
+                                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                    startActivity(intent);
+                                    finish();
+                                    return;
+                                } else {
+                                    Toast.makeText(LoginActivity.this, "Please verify your email", Toast.LENGTH_SHORT).show();
+                                }
+
                             }
                         }
                     });

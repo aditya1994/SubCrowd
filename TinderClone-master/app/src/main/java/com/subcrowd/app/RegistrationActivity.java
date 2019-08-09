@@ -46,18 +46,18 @@ public class RegistrationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_registration);
 
         mAuth = FirebaseAuth.getInstance();
-        /*firebaseAuthStateListener = new FirebaseAuth.AuthStateListener() {
+        firebaseAuthStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                if (user !=null){
+                if (user !=null && user.isEmailVerified()){
                     Intent intent = new Intent(RegistrationActivity.this, MainActivity.class);
                     startActivity(intent);
                     finish();
                     return;
                 }
             }
-        };*/
+        };
 
         //mBudget = (EditText) findViewById(R.id.budget);
         mRegister = (Button) findViewById(R.id.register);
@@ -101,7 +101,7 @@ public class RegistrationActivity extends AppCompatActivity {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
                                         if(task.isSuccessful()) {
-                                            Toast.makeText(RegistrationActivity.this, "Registered successfully. Please check your email for verification. ", Toast.LENGTH_LONG).show();
+                                            Toast.makeText(RegistrationActivity.this, "Registration successfully. Please check your email for verification. ", Toast.LENGTH_LONG).show();
                                             String userId = mAuth.getCurrentUser().getUid();
                                             DatabaseReference currentUserDb = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
 
@@ -110,6 +110,14 @@ public class RegistrationActivity extends AppCompatActivity {
                                             userInfo.put("name", name);
                                             userInfo.put("profileImageUrl", "default");
                                             currentUserDb.updateChildren(userInfo);
+
+                                            //clear the fields
+                                            mEmail.setText("");
+                                            mName.setText("");
+                                            mPassword.setText("");
+                                            Intent btnClick = new Intent(RegistrationActivity.this, ChooseLoginRegistrationActivity.class);
+                                            startActivity(btnClick);
+
                                         } else {
                                             Toast.makeText(RegistrationActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
                                         }

@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
         usersDb = FirebaseDatabase.getInstance().getReference().child("Users");
 
         mAuth = FirebaseAuth.getInstance();
-        if(mAuth != null)
+        if(mAuth != null && mAuth.getCurrentUser() != null)
             currentUId = mAuth.getCurrentUser().getUid();
         else{
             Log.d(tag, "Authorization failed");
