@@ -228,7 +228,7 @@ public class SettingsActivity extends AppCompatActivity {
         userInfo.put("need", userNeed);
         userInfo.put("give", userGive);
         userInfo.put("budget", userBudget);
-            mUserDatabase.updateChildren(userInfo);
+        mUserDatabase.updateChildren(userInfo);
         if(resultUri != null){
             StorageReference filepath = FirebaseStorage.getInstance().getReference().child("profileImages").child(userId);
             Bitmap bitmap = null;

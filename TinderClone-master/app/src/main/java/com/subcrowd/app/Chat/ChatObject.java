@@ -7,10 +7,18 @@ package com.subcrowd.app.Chat;
 public class ChatObject {
     private String message;
     private Boolean currentUser;
+    private Boolean isSeen;
 
-    public ChatObject(String message, Boolean currentUser){
+    public ChatObject(String message, Boolean currentUser, Boolean isSeen){
         this.message = message;
         this.currentUser = currentUser;
+        this.isSeen = isSeen;
+    }
+
+    public Boolean getisSeen(){ return isSeen;}
+
+    public void setIsSeen(Boolean seen){
+        this.isSeen = seen;
     }
 
     public String getMessage(){
