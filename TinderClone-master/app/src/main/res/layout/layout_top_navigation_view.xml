@@ -14,7 +14,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="bottom"
-            android:background="@drawable/white_grey_border_bottom"
+            android:background="@drawable/gradient_2"
             app:menu="@menu/top_navigation_toolbar">
 
         </com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx>

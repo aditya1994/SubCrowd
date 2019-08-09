@@ -70,7 +70,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginTop="2dp"
-                android:background="@color/colorAccent" />
+                android:background="@color/grey" />
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
@@ -85,7 +85,7 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginTop="2dp"
-            android:background="@color/colorAccent" />
+            android:background="@color/grey" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -111,7 +111,7 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginTop="2dp"
-            android:background="@color/colorAccent" />
+            android:background="@color/grey" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -139,7 +139,7 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
 
-            android:background="@color/colorAccent" />
+            android:background="@color/grey" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -165,7 +165,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
 
-                android:background="@color/colorAccent" />
+                android:background="@color/grey" />
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/confirm"
             android:layout_width="match_parent"

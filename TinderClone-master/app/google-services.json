@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "600136827066-gupbf0nutnelnp7a6gq5df1ik8o5i0ol.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.subcrowd.app",
+            "certificate_hash": "fa3d01d9ae550ecfb0966f3b505c548d4e111d5c"
+          }
+        },
+        {
           "client_id": "600136827066-3qf3mumghur3vpr32o0dhaq4t6sua5sl.apps.googleusercontent.com",
           "client_type": 3
         }
