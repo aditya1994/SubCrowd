@@ -30,6 +30,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -76,7 +77,9 @@ public class ChatActivity extends AppCompatActivity {
     private String currentUserID, matchId, chatId;
     private String matchName, matchGive, matchNeed, matchBudget, matchProfile;
     private String lastMessage, lastTimeStamp;
-    private String  message, createdByUser;
+    private String  message, createdByUser, isSeen;
+
+    ValueEventListener seenListener;
     DatabaseReference mDatabaseUser, mDatabaseChat;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -151,7 +154,24 @@ public class ChatActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.chatToolbar);
         setSupportActionBar(toolbar);
 
+
+
     }
+
+//    private void seenMessage(String userid){
+//        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Chat");
+//        seenListener = reference.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                for (DataSnapshot snapshot : dataSnapshot.getChildren())
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//            }
+//        })
+//    }
     //shows options for menu toolbar
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -265,21 +285,8 @@ public class ChatActivity extends AppCompatActivity {
             newMessage.put("createdByUser", currentUserID);
             newMessage.put("text", sendMessageText);
             newMessage.put("timeStamp", timeStamp);
-            notification = " ";
-            DatabaseReference notificationID = FirebaseDatabase.getInstance().getReference().child("Users").child(matchId).child("notificationKey");
-            notificationID.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot snapshot) {
-                    if(snapshot.exists()) {
-                        notification = snapshot.getValue().toString();
-                        Log.d("sendChat", notification);
-                        new SendNotification(sendMessageText, "New Message from " + matchName, notification);
-                    }
-                }
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-                }
-            });
+            newMessage.put("seen", "false");
+
 
             //update curr user and match user's last message and last timeStamp
             lastMessage = sendMessageText;
@@ -331,9 +338,10 @@ public class ChatActivity extends AppCompatActivity {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 if(dataSnapshot.exists()){
+                    String messageId;
                     message = null;
                     createdByUser = null;
-
+                    isSeen = null;
                     if(dataSnapshot.child("text").getValue()!=null){
                         message = dataSnapshot.child("text").getValue().toString();
                     }
@@ -341,12 +349,52 @@ public class ChatActivity extends AppCompatActivity {
                         createdByUser = dataSnapshot.child("createdByUser").getValue().toString();
                     }
 
+                    if(dataSnapshot.child("seen").getValue()!=null){
+                        isSeen = dataSnapshot.child("seen").getValue().toString();
+                    }
+                    else isSeen = "true";
                     if(message!=null && createdByUser!=null){
                         Boolean currentUserBoolean = false;
                         if(createdByUser.equals(currentUserID)){
                             currentUserBoolean = true;      //current user sent a message
                         }
-                        ChatObject newMessage = new ChatObject(message, currentUserBoolean);
+                        ChatObject newMessage = null;
+                        // If message is not read
+                        if(isSeen.equals("false")) {
+
+                            // If current user has not send this message, then user is reading the message
+                            if(!currentUserBoolean){
+                                isSeen = "true";
+                                // set message as read in firebase
+                                messageId = dataSnapshot.getValue().toString();
+                                DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Chat").child(chatId).child(messageId);
+                                Map seenInfo = new HashMap();
+                                seenInfo.put("seen", "true");
+                                reference.updateChildren(seenInfo);
+                                newMessage = new ChatObject(message, currentUserBoolean, true);
+                            }
+                            else {
+                                notification = " ";
+                                DatabaseReference notificationID = FirebaseDatabase.getInstance().getReference().child("Users").child(matchId).child("notificationKey");
+                                notificationID.addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot snapshot) {
+                                        if(snapshot.exists()) {
+                                            notification = snapshot.getValue().toString();
+                                            Log.d("sendChat", notification);
+                                            new SendNotification(message, "New Message", notification);
+                                        }
+                                    }
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
+                                    }
+                                });
+                                newMessage = new ChatObject(message, currentUserBoolean, false);
+                            }
+                        }
+                        else
+                            newMessage = new ChatObject(message, currentUserBoolean, true);
+
 
                         DatabaseReference usersInChat = FirebaseDatabase.getInstance().getReference().child("Chat").child(matchId);
 
