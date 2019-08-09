@@ -28,7 +28,7 @@ public class ChooseLoginRegistrationActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         if(mAuth != null){
             final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-            if (user !=null){
+            if (user !=null && user.isEmailVerified()){
                 Intent intent = new Intent(ChooseLoginRegistrationActivity.this, MainActivity.class);
                 startActivity(intent);
                 finish();

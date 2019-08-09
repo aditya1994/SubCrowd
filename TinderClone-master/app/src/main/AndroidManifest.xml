@@ -31,6 +31,7 @@
         <activity android:name=".SettingsActivity" />
         <activity android:name=".BtnLikeActivity" />
         <activity android:name=".Matches.MatchesActivity" />
+        <activity android:name=".ForgotPasswordActivity" />
         <activity android:name=".BtnDislikeActivity"/>
         <activity android:name=".Chat.ChatActivity" android:windowSoftInputMode = "adjustResize">
         </activity>

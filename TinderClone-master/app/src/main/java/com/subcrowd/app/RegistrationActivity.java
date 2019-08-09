@@ -46,7 +46,7 @@ public class RegistrationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_registration);
 
         mAuth = FirebaseAuth.getInstance();
-        firebaseAuthStateListener = new FirebaseAuth.AuthStateListener() {
+        /*firebaseAuthStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -57,7 +57,7 @@ public class RegistrationActivity extends AppCompatActivity {
                     return;
                 }
             }
-        };
+        };*/
 
         //mBudget = (EditText) findViewById(R.id.budget);
         mRegister = (Button) findViewById(R.id.register);
@@ -95,20 +95,29 @@ public class RegistrationActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (!task.isSuccessful()) {
-                                Toast.makeText(RegistrationActivity.this, "Password less than 8 char or email already registered!", Toast.LENGTH_LONG).show();
+                                Toast.makeText(RegistrationActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
                             } else {
-                                String userId = mAuth.getCurrentUser().getUid();
-                                DatabaseReference currentUserDb = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
+                                mAuth.getCurrentUser().sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if(task.isSuccessful()) {
+                                            Toast.makeText(RegistrationActivity.this, "Registered successfully. Please check your email for verification. ", Toast.LENGTH_LONG).show();
+                                            String userId = mAuth.getCurrentUser().getUid();
+                                            DatabaseReference currentUserDb = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
 
-                                Log.d("DB_debug", FirebaseDatabase.getInstance().getReference().getDatabase() + "");
-                                Map userInfo = new HashMap<>();
-                                userInfo.put("name", name);
-//                              userInfo.put("give", spinner_give.getSelectedItem().toString());
-//                              userInfo.put("need", spinner_need.getSelectedItem().toString());
-//                              userInfo.put("budget", budget);
-                                userInfo.put("profileImageUrl", "default");
-                                currentUserDb.updateChildren(userInfo);
-                                // currentUserDb.setValue("asdfssadfasd");
+                                            Log.d("DB_debug", FirebaseDatabase.getInstance().getReference().getDatabase() + "");
+                                            Map userInfo = new HashMap<>();
+                                            userInfo.put("name", name);
+                                            userInfo.put("profileImageUrl", "default");
+                                            currentUserDb.updateChildren(userInfo);
+                                        } else {
+                                            Toast.makeText(RegistrationActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                                        }
+
+                                    }
+                                });
+
+
                             }
                         }
                     });

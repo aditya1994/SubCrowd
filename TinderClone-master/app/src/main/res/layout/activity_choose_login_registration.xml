@@ -119,7 +119,7 @@
                     android:padding="12dp"
                     android:textColor="@color/colorPrimary"
                     android:text="Don't have an account? Sign Up"
-                    android:textStyle="bold" />
+                   />
             </LinearLayout>
 
         </LinearLayout>
