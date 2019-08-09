@@ -237,6 +237,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void isConnectionMatch(final String userId) {
         DatabaseReference currentUserConnectionsDb = usersDb.child(currentUId).child("connections").child("yeps").child(userId);
+        sendMessageText = usersDb.child(currentUId).child("name").toString();
         if(!currentUId.equals(userId)) {
             currentUserConnectionsDb.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
@@ -258,7 +259,7 @@ public class MainActivity extends AppCompatActivity {
                         usersDb.child(currentUId).child("connections").child("matches").child(dataSnapshot.getKey()).updateChildren(mapLastTimeStamp);
 
                         notification = " ";
-                        sendMessageText = "You have a new match!";
+
                         DatabaseReference notificationID = FirebaseDatabase.getInstance().getReference().child("Users").child(userId).child("notificationKey");
                         notificationID.addValueEventListener(new ValueEventListener() {
                             @Override
@@ -266,7 +267,8 @@ public class MainActivity extends AppCompatActivity {
                                 if(snapshot.exists()) {
                                     notification = snapshot.getValue().toString();
                                     Log.d("sendChat", notification);
-                                    new SendNotification(sendMessageText, "", notification);
+
+                                    new SendNotification("It's " + sendMessageText, "You have a new match!", notification);
                                 }
                             }
                             @Override
