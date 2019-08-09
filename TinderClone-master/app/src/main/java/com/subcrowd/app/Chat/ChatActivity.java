@@ -366,7 +366,7 @@ public class ChatActivity extends AppCompatActivity {
                             if(!currentUserBoolean){
                                 isSeen = "true";
                                 // set message as read in firebase
-                                messageId = dataSnapshot.getValue().toString();
+                                messageId = dataSnapshot.getKey().toString();
                                 DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Chat").child(chatId).child(messageId);
                                 Map seenInfo = new HashMap();
                                 seenInfo.put("seen", "true");
