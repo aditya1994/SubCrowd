@@ -1,14 +1,20 @@
 package com.subcrowd.app;
 
+import android.annotation.TargetApi;
+import android.app.Activity;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Intent;
 
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -55,7 +61,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         setupTopNavigationView();
 
 //        String channelId  = getString(R.string.default_notification_channel_id);
@@ -181,6 +186,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+
     public void DislikeBtn(View v) {
         if (rowItems.size() != 0) {
             cards card_item = rowItems.get(0);
