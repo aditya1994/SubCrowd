@@ -246,8 +246,8 @@
 
                                 <ImageView
                                     android:id="@+id/image"
-                                    android:layout_width="243dp"
-                                    android:layout_height="156dp"
+                                    android:layout_width="208dp"
+                                    android:layout_height="78dp"
                                     android:layout_marginTop="10dp"
                                     android:adjustViewBounds="true"
                                     android:gravity="center_horizontal"
@@ -263,16 +263,17 @@
                             <LinearLayout
                                 android:layout_width="fill_parent"
                                 android:layout_height="wrap_content">
+
                                 <TextView
                                     android:id="@+id/name"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="10dp"
+                                    android:layout_marginBottom="10dp"
                                     android:gravity="center_horizontal"
                                     android:text="Name"
                                     android:textColor="@color/textColor"
-                                    android:layout_marginBottom="10dp"
-                                    android:textSize="25sp" />
+                                    android:textSize="12sp" />
 
                             </LinearLayout>
 
@@ -362,8 +363,8 @@
                         android:paddingTop="5dp"
                         android:paddingBottom="5dp"
                         android:text="I can share my:"
-                        android:textSize="18sp" />
-
+                        android:textSize="11sp" />
+<!--
                     <TextView
                         android:id="@+id/give"
                         android:layout_width="match_parent"
@@ -372,7 +373,14 @@
                         android:paddingLeft="10dp"
                         android:paddingTop="10dp"
                         android:paddingBottom="10dp"
-                        android:textSize="16sp" />
+                        android:textSize="16sp" />-->
+                    <ImageView
+                        android:id="@+id/giveImage"
+                        android:layout_width="50dp"
+                        android:layout_height="25dp"
+                        android:paddingLeft="10dp"
+                        android:adjustViewBounds="true"
+                        android:scaleType="fitXY" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -382,9 +390,9 @@
                         android:paddingTop="5dp"
                         android:paddingBottom="5dp"
                         android:text="I want to borrow:"
-                        android:textSize="18sp" />
+                        android:textSize="11sp" />
 
-                    <TextView
+                    <!--<TextView
                         android:id="@+id/need"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -392,7 +400,15 @@
                         android:paddingTop="10dp"
                         android:paddingBottom="10dp"
                         android:hint="Streaming Service"
-                        android:textSize="16sp" />
+                        android:textSize="16sp" />-->
+
+                    <ImageView
+                        android:id="@+id/needImage"
+                        android:layout_width="50dp"
+                        android:layout_height="25dp"
+                        android:adjustViewBounds="true"
+                        android:paddingLeft="10dp"
+                        android:scaleType="fitXY" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -402,17 +418,17 @@
                         android:paddingTop="5dp"
                         android:paddingBottom="5dp"
                         android:text="My budget is:"
-                        android:textSize="18sp" />
+                        android:textSize="11sp" />
 
                     <TextView
                         android:id="@+id/budget"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:hint="$"
                         android:paddingLeft="10dp"
                         android:paddingTop="10dp"
                         android:paddingBottom="10dp"
-                        android:hint="$"
-                        android:textSize="16sp" />
+                        android:textSize="11sp" />
                 </LinearLayout>
             </RelativeLayout>
 

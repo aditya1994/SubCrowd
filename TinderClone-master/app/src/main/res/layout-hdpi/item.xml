@@ -364,7 +364,7 @@
                         android:text="I can share my:"
                         android:textSize="18sp" />
 
-                    <TextView
+                    <!--<TextView
                         android:id="@+id/give"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -372,7 +372,15 @@
                         android:paddingLeft="10dp"
                         android:paddingTop="10dp"
                         android:paddingBottom="10dp"
-                        android:textSize="16sp" />
+                        android:textSize="16sp" />-->
+
+                    <ImageView
+                        android:id="@+id/giveImage"
+                        android:layout_width="114dp"
+                        android:layout_height="57dp"
+                        android:paddingLeft="10dp"
+                        android:adjustViewBounds="true"
+                        android:scaleType="fitXY" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -384,7 +392,7 @@
                         android:text="I want to borrow:"
                         android:textSize="18sp" />
 
-                    <TextView
+                   <!-- <TextView
                         android:id="@+id/need"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -392,8 +400,15 @@
                         android:paddingTop="10dp"
                         android:paddingBottom="10dp"
                         android:hint="Streaming Service"
-                        android:textSize="16sp" />
+                        android:textSize="16sp" />-->
 
+                    <ImageView
+                        android:id="@+id/needImage"
+                        android:layout_width="114dp"
+                        android:layout_height="57dp"
+                        android:adjustViewBounds="true"
+                        android:paddingLeft="10dp"
+                        android:scaleType="fitXY" />
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -413,6 +428,7 @@
                         android:paddingBottom="10dp"
                         android:hint="$"
                         android:textSize="16sp" />
+
                 </LinearLayout>
             </RelativeLayout>
 

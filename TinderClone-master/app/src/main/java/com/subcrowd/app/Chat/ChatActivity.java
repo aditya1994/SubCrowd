@@ -33,6 +33,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -215,14 +216,47 @@ public class ChatActivity extends AppCompatActivity {
 
         TextView name = (TextView) popupView.findViewById(R.id.name);
         ImageView image = (ImageView) popupView.findViewById(R.id.image);
-        TextView need = (TextView) popupView.findViewById(R.id.need);
-        TextView give = (TextView) popupView.findViewById(R.id.give);
+      /*TextView need = (TextView) popupView.findViewById(R.id.need);
+        TextView give = (TextView) popupView.findViewById(R.id.give);*/
         TextView budget = (TextView) popupView.findViewById(R.id.budget);
-
+        ImageView mNeedImage = (ImageView) popupView.findViewById(R.id.needImage);
+        ImageView mGiveImage = (ImageView) popupView.findViewById(R.id.giveImage);
         name.setText(matchName);
-        need.setText(matchNeed);
-        give.setText(matchGive);
+        /*need.setText(matchNeed);
+        give.setText(matchGive);*/
         budget.setText(matchBudget);
+
+        //need image
+        if(matchNeed.equals("Netflix"))
+            mNeedImage.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.netflix));
+        else if(matchNeed.equals("Amazon Prime"))
+            mNeedImage.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.amazon_prime_video));
+        else if(matchNeed.equals("Hulu"))
+            mNeedImage.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.hulu));
+        else if(matchNeed.equals("Vudu"))
+            mNeedImage.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.vudu));
+        else if(matchNeed.equals("HBO Now"))
+            mNeedImage.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.hbo));
+        else if(matchNeed.equals("Youtube Originals"))
+            mNeedImage.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.youtube_tv));
+        else
+            mNeedImage.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.none));
+
+        //give image
+        if(matchGive.equals("Netflix"))
+            mGiveImage.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.netflix));
+        else if(matchGive.equals("Amazon Prime"))
+            mGiveImage.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.amazon_prime_video));
+        else if(matchGive.equals("Hulu"))
+            mGiveImage.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.hulu));
+        else if(matchGive.equals("Vudu"))
+            mGiveImage.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.vudu));
+        else if(matchGive.equals("HBO Now"))
+            mGiveImage.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.hbo));
+        else if(matchGive.equals("Youtube Originals"))
+            mGiveImage.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.youtube_tv));
+        else
+            mGiveImage.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.none));
 
         switch(matchProfile){
             case "default":

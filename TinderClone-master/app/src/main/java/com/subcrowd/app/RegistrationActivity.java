@@ -50,7 +50,7 @@ public class RegistrationActivity extends AppCompatActivity {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                if (user !=null){
+                if (user !=null && user.isEmailVerified()){
                     Intent intent = new Intent(RegistrationActivity.this, MainActivity.class);
                     startActivity(intent);
                     finish();
@@ -95,20 +95,37 @@ public class RegistrationActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (!task.isSuccessful()) {
-                                Toast.makeText(RegistrationActivity.this, "Password less than 8 char or email already registered!", Toast.LENGTH_LONG).show();
+                                Toast.makeText(RegistrationActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
                             } else {
-                                String userId = mAuth.getCurrentUser().getUid();
-                                DatabaseReference currentUserDb = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
+                                mAuth.getCurrentUser().sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if(task.isSuccessful()) {
+                                            Toast.makeText(RegistrationActivity.this, "Registration successfully. Please check your email for verification. ", Toast.LENGTH_LONG).show();
+                                            String userId = mAuth.getCurrentUser().getUid();
+                                            DatabaseReference currentUserDb = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
 
-                                Log.d("DB_debug", FirebaseDatabase.getInstance().getReference().getDatabase() + "");
-                                Map userInfo = new HashMap<>();
-                                userInfo.put("name", name);
-//                              userInfo.put("give", spinner_give.getSelectedItem().toString());
-//                              userInfo.put("need", spinner_need.getSelectedItem().toString());
-//                              userInfo.put("budget", budget);
-                                userInfo.put("profileImageUrl", "default");
-                                currentUserDb.updateChildren(userInfo);
-                                // currentUserDb.setValue("asdfssadfasd");
+                                            Log.d("DB_debug", FirebaseDatabase.getInstance().getReference().getDatabase() + "");
+                                            Map userInfo = new HashMap<>();
+                                            userInfo.put("name", name);
+                                            userInfo.put("profileImageUrl", "default");
+                                            currentUserDb.updateChildren(userInfo);
+
+                                            //clear the fields
+                                            mEmail.setText("");
+                                            mName.setText("");
+                                            mPassword.setText("");
+                                            Intent btnClick = new Intent(RegistrationActivity.this, ChooseLoginRegistrationActivity.class);
+                                            startActivity(btnClick);
+
+                                        } else {
+                                            Toast.makeText(RegistrationActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                                        }
+
+                                    }
+                                });
+
+
                             }
                         }
                     });
