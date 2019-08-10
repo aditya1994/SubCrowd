@@ -149,6 +149,32 @@ public class SettingsActivity extends AppCompatActivity {
         finish();
         return super.onOptionsItemSelected(item);
     }
+/*
+    public void deleteMatch(String matchId) {
+        DatabaseReference matchId_in_UserId_dbReference = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserID).child("connections").child("matches").child(matchId);
+        DatabaseReference userId_in_matchId_dbReference = FirebaseDatabase.getInstance().getReference().child("Users").child(matchId).child("connections").child("matches").child(currentUserID);
+        DatabaseReference yeps_in_matchId_dbReference = FirebaseDatabase.getInstance().getReference().child("Users").child(matchId).child("connections").child("yeps").child(currentUserID);
+        DatabaseReference yeps_in_userId_dbReference = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserID).child("connections").child("yeps").child(matchId);
+
+        DatabaseReference matchId_chat_dbReference = FirebaseDatabase.getInstance().getReference().child("Chat").child(chatId);
+
+        //delete the chatId in chat->chatId
+        matchId_chat_dbReference.removeValue();
+        //delete the matchId in Users->userId->connections->matches->matchId
+        matchId_in_UserId_dbReference.removeValue();
+        //delete the userId in Users->matchId->connections->matches->matchId
+        userId_in_matchId_dbReference.removeValue();
+        //delete yeps in matchId
+        yeps_in_matchId_dbReference.removeValue();
+        //delete yeps in curruserId
+        yeps_in_userId_dbReference.removeValue();
+
+
+    }
+    public void deleteUserAccount(String userId) {
+        DatabaseReference db_matches_ref = FirebaseDatabase.getInstance().getReference().child("Users").child().child("connections").child("matches").child(matchId);
+
+    }*/
 
     private void getUserInfo() {
         mUserDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
