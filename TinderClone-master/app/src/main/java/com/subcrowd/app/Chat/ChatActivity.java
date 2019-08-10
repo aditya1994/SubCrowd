@@ -2,15 +2,10 @@ package com.subcrowd.app.Chat;
 
 
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 
 
-
-import android.provider.ContactsContract;
-
-import android.text.format.DateUtils;
-
+import android.os.Handler;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -20,7 +15,6 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -46,24 +40,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.subcrowd.app.Matches.MatchesActivity;
-import com.subcrowd.app.Matches.MatchesObject;
 import com.subcrowd.app.R;
 import com.subcrowd.app.SendNotification;
-import com.subcrowd.app.User.UserObject;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
-import java.util.TimeZone;
-import java.util.concurrent.TimeUnit;
 
 public class ChatActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
@@ -78,8 +61,8 @@ public class ChatActivity extends AppCompatActivity {
     private String currentUserID, matchId, chatId;
     private String matchName, matchGive, matchNeed, matchBudget, matchProfile;
     private String lastMessage, lastTimeStamp;
-    private String  message, createdByUser, isSeen;
-
+    private String  message, createdByUser, isSeen, messageId;
+    private Boolean currentUserBoolean;
     ValueEventListener seenListener;
     DatabaseReference mDatabaseUser, mDatabaseChat;
     @Override
@@ -113,6 +96,21 @@ public class ChatActivity extends AppCompatActivity {
         mChatAdapter = new ChatAdapter(getDataSetChat(), ChatActivity.this);
         mRecyclerView.setAdapter(mChatAdapter);
 
+        notification = " ";
+
+        DatabaseReference notificationID = FirebaseDatabase.getInstance().getReference().child("Users").child(matchId).child("notificationKey");
+        notificationID.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                if(snapshot.exists()) {
+                    notification = snapshot.getValue().toString();
+                    //Log.d("sendChat", notification);
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
         mSendEditText = findViewById(R.id.message);
         mBack = findViewById(R.id.chatBack);
 
@@ -159,20 +157,40 @@ public class ChatActivity extends AppCompatActivity {
 
     }
 
-//    private void seenMessage(String userid){
-//        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Chat");
-//        seenListener = reference.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                for (DataSnapshot snapshot : dataSnapshot.getChildren())
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//            }
-//        })
-//    }
+    protected void onPause(){
+        super.onPause();
+    }
+    private void seenMessage(String messageId, final Boolean currentUser){
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Chat").child(chatId).child(messageId);
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+
+                    Boolean seenCheck = true;
+                    if(dataSnapshot.child("seen").getValue().toString().equals("false"))
+                        seenCheck = false;
+
+                    Log.d("seen",  message + "  " +  seenCheck.toString() + "  " + currentUser.toString());
+
+                    if(!seenCheck){
+                        if(currentUser == true) {
+                            Log.d("seen", "sent");
+                            new SendNotification(message, "New Message", notification);
+                        }
+                        else
+                            return;
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+    }
     //shows options for menu toolbar
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -370,9 +388,9 @@ public class ChatActivity extends AppCompatActivity {
     private void getChatMessages() {
         mDatabaseChat.addChildEventListener(new ChildEventListener() {
             @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+            public void onChildAdded(final DataSnapshot dataSnapshot, String s) {
                 if(dataSnapshot.exists()){
-                    String messageId;
+                    messageId = null;
                     message = null;
                     createdByUser = null;
                     isSeen = null;
@@ -387,8 +405,10 @@ public class ChatActivity extends AppCompatActivity {
                         isSeen = dataSnapshot.child("seen").getValue().toString();
                     }
                     else isSeen = "true";
+
+                    messageId = dataSnapshot.getKey().toString();
                     if(message!=null && createdByUser!=null){
-                        Boolean currentUserBoolean = false;
+                         currentUserBoolean = false;
                         if(createdByUser.equals(currentUserID)){
                             currentUserBoolean = true;      //current user sent a message
                         }
@@ -396,33 +416,19 @@ public class ChatActivity extends AppCompatActivity {
                         // If message is not read
                         if(isSeen.equals("false")) {
 
-                            // If current user has not send this message, then user is reading the message
+                            // If current user has no t send this message, then user is reading the message
                             if(!currentUserBoolean){
                                 isSeen = "true";
                                 // set message as read in firebase
-                                messageId = dataSnapshot.getKey().toString();
+
                                 DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Chat").child(chatId).child(messageId);
                                 Map seenInfo = new HashMap();
                                 seenInfo.put("seen", "true");
+                                Log.d("seen",message + "  " + isSeen);
                                 reference.updateChildren(seenInfo);
                                 newMessage = new ChatObject(message, currentUserBoolean, true);
                             }
                             else {
-                                notification = " ";
-                                DatabaseReference notificationID = FirebaseDatabase.getInstance().getReference().child("Users").child(matchId).child("notificationKey");
-                                notificationID.addValueEventListener(new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(DataSnapshot snapshot) {
-                                        if(snapshot.exists()) {
-                                            notification = snapshot.getValue().toString();
-                                            Log.d("sendChat", notification);
-                                            new SendNotification(message, "New Message", notification);
-                                        }
-                                    }
-                                    @Override
-                                    public void onCancelled(DatabaseError databaseError) {
-                                    }
-                                });
                                 newMessage = new ChatObject(message, currentUserBoolean, false);
                             }
                         }
@@ -438,6 +444,16 @@ public class ChatActivity extends AppCompatActivity {
                             mRecyclerView.scrollToPosition(resultsChat.size() - 1);
                         else
                             Toast.makeText(getApplicationContext(), "Chat empty", Toast.LENGTH_LONG).show();
+
+                        seenMessage(messageId, currentUserBoolean);
+
+                        /*Handler handler = new Handler();
+                        handler.postDelayed(new Runnable() {
+                            public void run() {
+                                seenMessage(messageId, currentUserBoolean);
+                            }
+                        }, 5000);   //5 seconds
+*/
 
                     }
                 }
@@ -458,7 +474,6 @@ public class ChatActivity extends AppCompatActivity {
             }
         });
     }
-
 
     private ArrayList<ChatObject> resultsChat = new ArrayList<ChatObject>();
     private List<ChatObject> getDataSetChat() {
