@@ -149,8 +149,7 @@ public class SettingsActivity extends AppCompatActivity {
         finish();
         return super.onOptionsItemSelected(item);
     }
-/*
-    public void deleteMatch(String matchId) {
+  /*  public void deleteMatch(String matchId) {
         DatabaseReference matchId_in_UserId_dbReference = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserID).child("connections").child("matches").child(matchId);
         DatabaseReference userId_in_matchId_dbReference = FirebaseDatabase.getInstance().getReference().child("Users").child(matchId).child("connections").child("matches").child(currentUserID);
         DatabaseReference yeps_in_matchId_dbReference = FirebaseDatabase.getInstance().getReference().child("Users").child(matchId).child("connections").child("yeps").child(currentUserID);
@@ -172,7 +171,7 @@ public class SettingsActivity extends AppCompatActivity {
 
     }
     public void deleteUserAccount(String userId) {
-        DatabaseReference db_matches_ref = FirebaseDatabase.getInstance().getReference().child("Users").child().child("connections").child("matches").child(matchId);
+        DatabaseReference curruser_ref = FirebaseDatabase.getInstance().getReference().child("Users").child(userId).child("connections").child("matches").child(matchId);
 
     }*/
 
