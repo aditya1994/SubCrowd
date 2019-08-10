@@ -151,6 +151,7 @@
             android:textSize="18dp"
             android:textStyle="bold"
             android:text="My budget is:"
+            android:visibility="gone"
             />
 
         <EditText
@@ -160,7 +161,8 @@
             android:gravity="bottom"
             android:hint="($)"
             android:id="@+id/budget_setting"
-            android:padding="5dp"/>
+            android:padding="5dp"
+            android:visibility="gone"/>
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"

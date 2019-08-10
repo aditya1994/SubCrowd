@@ -246,8 +246,8 @@
 
                                 <ImageView
                                     android:id="@+id/image"
-                                    android:layout_width="243dp"
-                                    android:layout_height="156dp"
+                                    android:layout_width="201dp"
+                                    android:layout_height="102dp"
                                     android:layout_marginTop="10dp"
                                     android:adjustViewBounds="true"
                                     android:gravity="center_horizontal"
@@ -272,7 +272,7 @@
                                     android:text="Name"
                                     android:textColor="@color/textColor"
                                     android:layout_marginBottom="10dp"
-                                    android:textSize="25sp" />
+                                    android:textSize="20sp" />
 
                             </LinearLayout>
 
@@ -362,7 +362,7 @@
                         android:paddingTop="5dp"
                         android:paddingBottom="5dp"
                         android:text="I can share my:"
-                        android:textSize="18sp" />
+                        android:textSize="16dp" />
 
                     <!--<TextView
                         android:id="@+id/give"
@@ -376,8 +376,8 @@
 
                     <ImageView
                         android:id="@+id/giveImage"
-                        android:layout_width="114dp"
-                        android:layout_height="57dp"
+                        android:layout_width="100dp"
+                        android:layout_height="50dp"
                         android:paddingLeft="10dp"
                         android:adjustViewBounds="true"
                         android:scaleType="fitXY" />
@@ -390,7 +390,7 @@
                         android:paddingTop="5dp"
                         android:paddingBottom="5dp"
                         android:text="I want to borrow:"
-                        android:textSize="18sp" />
+                        android:textSize="16sp" />
 
                    <!-- <TextView
                         android:id="@+id/need"
@@ -404,8 +404,8 @@
 
                     <ImageView
                         android:id="@+id/needImage"
-                        android:layout_width="114dp"
-                        android:layout_height="57dp"
+                        android:layout_width="100dp"
+                        android:layout_height="50dp"
                         android:adjustViewBounds="true"
                         android:paddingLeft="10dp"
                         android:scaleType="fitXY" />
@@ -417,7 +417,8 @@
                         android:paddingTop="5dp"
                         android:paddingBottom="5dp"
                         android:text="My budget is:"
-                        android:textSize="18sp" />
+                        android:textSize="16sp"
+                        android:visibility="gone"/>
 
                     <TextView
                         android:id="@+id/budget"
@@ -427,7 +428,8 @@
                         android:paddingTop="10dp"
                         android:paddingBottom="10dp"
                         android:hint="$"
-                        android:textSize="16sp" />
+                        android:textSize="16sp"
+                        android:visibility="gone"/>
 
                 </LinearLayout>
             </RelativeLayout>
