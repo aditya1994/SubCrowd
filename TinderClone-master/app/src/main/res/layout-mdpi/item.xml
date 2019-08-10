@@ -364,7 +364,7 @@
                         android:paddingBottom="1dp"
                         android:text="I can share my:"
                         android:textSize="13sp" />
-
+<!--
                     <TextView
                         android:id="@+id/give"
                         android:layout_width="match_parent"
@@ -373,7 +373,14 @@
                         android:paddingLeft="10dp"
                         android:paddingTop="2dp"
                         android:paddingBottom="2dp"
-                        android:textSize="12sp" />
+                        android:textSize="12sp" />-->
+                    <ImageView
+                        android:id="@+id/giveImage"
+                        android:layout_width="75dp"
+                        android:layout_height="37dp"
+                        android:paddingLeft="10dp"
+                        android:adjustViewBounds="true"
+                        android:scaleType="fitXY" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -385,7 +392,7 @@
                         android:text="I want to borrow:"
                         android:textSize="13sp" />
 
-                    <TextView
+                  <!--  <TextView
                         android:id="@+id/need"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -393,8 +400,15 @@
                         android:paddingLeft="10dp"
                         android:paddingTop="2dp"
                         android:paddingBottom="2dp"
-                        android:textSize="12sp" />
+                        android:textSize="12sp" />-->
 
+                    <ImageView
+                        android:id="@+id/needImage"
+                        android:layout_width="75dp"
+                        android:layout_height="37dp"
+                        android:adjustViewBounds="true"
+                        android:paddingLeft="10dp"
+                        android:scaleType="fitXY" />
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

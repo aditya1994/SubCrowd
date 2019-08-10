@@ -69,7 +69,6 @@ public class SettingsActivity extends AppCompatActivity {
         mPhoneField = (EditText) findViewById(R.id.phone);
 
         mProfileImage = (ImageView) findViewById(R.id.profileImage);
-
         mBack = findViewById(R.id.settingsBack);
 
         mConfirm = (Button) findViewById(R.id.confirm);
@@ -112,12 +111,16 @@ public class SettingsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 saveUserInformation();
+                Intent intent = new Intent(SettingsActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+                return;
             }
         });
         mBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(SettingsActivity.this, ChooseLoginRegistrationActivity.class);
+                Intent intent = new Intent(SettingsActivity.this, MainActivity.class);
                 startActivity(intent);
                 finish();
                 return;
@@ -171,6 +174,7 @@ public class SettingsActivity extends AppCompatActivity {
                         userBudget = "0";
                     if(map.get("give") != null){
                         userGive = map.get("give").toString();
+
                     }
                     else
                         userGive = "";
@@ -206,6 +210,7 @@ public class SettingsActivity extends AppCompatActivity {
                     }
                 }
             }
+
 
             @Override
             public void onCancelled(DatabaseError databaseError) {

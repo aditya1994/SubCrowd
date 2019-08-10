@@ -62,7 +62,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setupTopNavigationView();
-
 //        String channelId  = getString(R.string.default_notification_channel_id);
 //        String channelName = getString(R.string.default_notification_channel_name);
 //        NotificationManager notificationManager =
@@ -392,4 +391,5 @@ public class MainActivity extends AppCompatActivity {
         MenuItem menuItem = menu.getItem(1);
         menuItem.setChecked(true);
     }
+
 }
