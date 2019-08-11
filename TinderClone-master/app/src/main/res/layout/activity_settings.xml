@@ -1,198 +1,203 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.subcrowd.app.SettingsActivity"
-    android:orientation="vertical">
+    tools:context="com.subcrowd.app.SettingsActivity">
 
-    <include
-        android:id="@+id/settingsToolbar"
-        layout="@layout/toolbar_settings" />
-
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fillViewport="true"
-        android:padding="15dp"
-        android:background="@color/white">
+        android:orientation="vertical">
 
-        <LinearLayout
+        <include
+            android:id="@+id/settingsToolbar"
+            layout="@layout/toolbar_settings" />
+
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/white"
-            android:orientation="vertical">
-
-            <!-- contain back activity -->
-            <!--<include layout="@layout/layout_top_navigation_back" /> -->
+            android:fillViewport="true"
+            android:padding="15dp"
+            android:background="@color/white">
 
             <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_weight="1" />
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/profileImage"
-                    android:layout_width="100sp"
-                    android:layout_height="100sp"
-                    android:layout_marginBottom="20sp"
-                    android:background="@drawable/monkey"
-                    android:src="@drawable/default_man" />
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_weight="1" />
-
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:text="About You"
-                android:textSize="18dp"
-                android:textStyle="bold" />
-
-            <EditText
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:background="@android:color/transparent"
-                android:gravity="bottom"
-                android:id="@+id/name"
-                android:hint="Name"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:orientation="vertical">
 
-                android:padding="5dp"/>
+                <!-- contain back activity -->
+                <!--<include layout="@layout/layout_top_navigation_back" /> -->
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1" />
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/profileImage"
+                        android:layout_width="100sp"
+                        android:layout_height="100sp"
+                        android:layout_marginBottom="20sp"
+                        android:background="@drawable/monkey"
+                        android:src="@drawable/default_man" />
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="About You"
+                    android:textSize="18dp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@android:color/transparent"
+                    android:gravity="bottom"
+                    android:id="@+id/name"
+                    android:hint="Name"
+
+                    android:padding="5dp"/>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="2dp"
+                    android:background="@color/grey" />
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@android:color/transparent"
+                    android:gravity="bottom"
+                    android:id="@+id/phone"
+                    android:hint="Phone"
+
+                    android:padding="5dp"/>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginTop="2dp"
                 android:background="@color/grey" />
-            <EditText
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="10dp"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:padding="5dp"
+                android:text="I want to borrow:" />
+
+            <Spinner
+                android:id="@+id/spinner_need_setting"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginTop="10dp"
+
+                android:visibility="visible"
+                android:spinnerMode="dialog"
+                />
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:background="@android:color/transparent"
-                android:gravity="bottom"
-                android:id="@+id/phone"
-                android:hint="Phone"
+                android:layout_height="1dp"
+                android:layout_marginTop="2dp"
+                android:background="@color/grey" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginTop="10dp"
+                android:padding="5dp"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:text="I can share my:"
+                 />
 
-                android:padding="5dp"/>
+            <Spinner
+                android:id="@+id/spinner_give_setting"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginTop="10dp"
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="2dp"
-            android:background="@color/grey" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="10dp"
-            android:textSize="18dp"
-            android:textStyle="bold"
-            android:padding="5dp"
-            android:text="I want to borrow:" />
+                android:visibility="visible"
+                android:spinnerMode="dialog"
+                />
 
-        <Spinner
-            android:id="@+id/spinner_need_setting"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_marginTop="10dp"
-
-            android:visibility="visible"
-            android:spinnerMode="dialog"
-            />
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="2dp"
-            android:background="@color/grey" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginTop="10dp"
-            android:padding="5dp"
-            android:textSize="18dp"
-            android:textStyle="bold"
-            android:text="I can share my:"
-             />
-
-        <Spinner
-            android:id="@+id/spinner_give_setting"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_marginTop="10dp"
-
-            android:visibility="visible"
-            android:spinnerMode="dialog"
-            />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-
-            android:background="@color/grey" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginTop="10dp"
-            android:padding="5dp"
-            android:textSize="18dp"
-            android:textStyle="bold"
-            android:text="My budget is:"
-            android:visibility="gone"
-            />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:background="@android:color/transparent"
-            android:gravity="bottom"
-            android:hint="($)"
-            android:id="@+id/budget_setting"
-            android:padding="5dp"
-            android:visibility="gone"/>
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
 
                 android:background="@color/grey" />
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/confirm"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="5dp"
-            android:background="@drawable/gradient_2"
-            android:padding="6dp"
-            android:text="Confirm"
-            android:textColor="@color/white"
-            android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginTop="10dp"
+                android:padding="5dp"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:text="My budget is:"
+                android:visibility="gone"
+                />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@android:color/transparent"
+                android:gravity="bottom"
+                android:hint="($)"
+                android:id="@+id/budget_setting"
+                android:padding="5dp"
+                android:visibility="gone"/>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+
+                    android:background="@color/grey" />
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/deleteAccount"
+                android:id="@+id/confirm"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
                 android:layout_marginBottom="5dp"
-                android:background="@drawable/transparent_button"
+                android:background="@drawable/gradient_2"
                 android:padding="6dp"
-                android:text="Delete Account"
-                android:textColor="@color/design_default_color_error"
+                android:text="Confirm"
+                android:textColor="@color/white"
                 android:textStyle="bold" />
 
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
 
-        </LinearLayout>
-    </ScrollView>
 
-</LinearLayout>
+    <ProgressBar
+        android:id="@+id/pBar"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:indeterminateTint="@color/colorAccent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

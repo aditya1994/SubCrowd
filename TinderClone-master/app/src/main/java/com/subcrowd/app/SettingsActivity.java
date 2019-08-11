@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.provider.MediaStore;
 
@@ -18,6 +19,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -51,8 +53,8 @@ import java.util.Map;
 public class SettingsActivity extends AppCompatActivity {
 
     private EditText mNameField, mPhoneField;
-
-    private Button mConfirm, mDeleteAccount;
+    private ProgressBar spinner;
+    private Button mConfirm;
     private ImageButton mBack;
     private ImageView mProfileImage;
     private EditText mbudget;
@@ -69,6 +71,9 @@ public class SettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
+        spinner = (ProgressBar)findViewById(R.id.pBar);
+        spinner.setVisibility(View.GONE);
+
         mNameField = (EditText) findViewById(R.id.name);
         mPhoneField = (EditText) findViewById(R.id.phone);
 
@@ -76,7 +81,6 @@ public class SettingsActivity extends AppCompatActivity {
         mBack = findViewById(R.id.settingsBack);
 
         mConfirm = (Button) findViewById(R.id.confirm);
-        mDeleteAccount = (Button) findViewById(R.id.deleteAccount);
         mbudget = (EditText) findViewById(R.id.budget_setting);
         need = (Spinner) findViewById(R.id.spinner_need_setting);
         give = (Spinner) findViewById(R.id.spinner_give_setting);
@@ -125,56 +129,15 @@ public class SettingsActivity extends AppCompatActivity {
         mBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                spinner.setVisibility(View.VISIBLE);
                 Intent intent = new Intent(SettingsActivity.this, MainActivity.class);
                 startActivity(intent);
                 finish();
+                spinner.setVisibility(View.GONE);
                 return;
             }
         });
 
-
-        mDeleteAccount.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                new AlertDialog.Builder(SettingsActivity.this)
-                        .setTitle("Are you sure?")
-                        .setMessage("Deleting your account will result in completely removing your account from the system")
-                        // Specifying a listener allows you to take an action before dismissing the dialog.
-                        // The dialog is automatically dismissed when a dialog button is clicked.
-                        .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                // Continue with delete operation
-                                mAuth.getCurrentUser().delete().addOnCompleteListener(new OnCompleteListener<Void>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<Void> task) {
-                                        if(task.isSuccessful()) {
-                                            deleteUserAccount(userId);
-                                            Toast.makeText(getApplicationContext(), "Account deleted successfully!", Toast.LENGTH_LONG).show();
-                                            Intent intent = new Intent(SettingsActivity.this, ChooseLoginRegistrationActivity.class);
-                                            startActivity(intent);
-                                            finish();
-                                            return;
-                                        } else {
-                                            Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_LONG).show();
-                                            mAuth.signOut();
-                                            Intent intent = new Intent(SettingsActivity.this, ChooseLoginRegistrationActivity.class);
-                                            startActivity(intent);
-                                            finish();
-                                            return;
-                                        }
-                                    }
-                                });
-
-                            }
-                        })
-
-                        // A null listener allows the button to dismiss the dialog and take no further action.
-                        .setNegativeButton("Dismiss", null)
-                        .setIcon(android.R.drawable.ic_dialog_alert)
-                        .show();
-
-            }
-        });
         //toolbar
         Toolbar toolbar = findViewById(R.id.settingsToolbar);
         setSupportActionBar(toolbar);
@@ -190,12 +153,57 @@ public class SettingsActivity extends AppCompatActivity {
     //logout button pressed
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        OneSignal.setSubscription(false);
-        mAuth.signOut();
-        Toast.makeText(this,"Log Out successful", Toast.LENGTH_LONG).show();
-        Intent intent = new Intent(SettingsActivity.this, ChooseLoginRegistrationActivity.class);
-        startActivity(intent);
-        finish();
+        if (item.getItemId() == R.id.logout) {
+            spinner.setVisibility(View.VISIBLE);
+            OneSignal.setSubscription(false);
+            mAuth.signOut();
+            Toast.makeText(this,"Log Out successful", Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(SettingsActivity.this, ChooseLoginRegistrationActivity.class);
+            startActivity(intent);
+            finish();
+            spinner.setVisibility(View.GONE);
+        } else if(item.getItemId() == R.id.deleteAccount) {
+            new AlertDialog.Builder(SettingsActivity.this)
+                    .setTitle("Are you sure?")
+                    .setMessage("Deleting your account will result in completely removing your account from the system")
+                    // Specifying a listener allows you to take an action before dismissing the dialog.
+                    // The dialog is automatically dismissed when a dialog button is clicked.
+                    .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            // Continue with delete operation
+                            mAuth.getCurrentUser().delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    spinner.setVisibility(View.VISIBLE);
+                                    if(task.isSuccessful()) {
+                                        deleteUserAccount(userId);
+                                        Toast.makeText(getApplicationContext(), "Account deleted successfully!", Toast.LENGTH_LONG).show();
+                                        Intent intent = new Intent(SettingsActivity.this, ChooseLoginRegistrationActivity.class);
+                                        startActivity(intent);
+                                        finish();
+                                        spinner.setVisibility(View.GONE);
+                                        return;
+                                    } else {
+                                        Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                                        mAuth.signOut();
+                                        Intent intent = new Intent(SettingsActivity.this, ChooseLoginRegistrationActivity.class);
+                                        startActivity(intent);
+                                        finish();
+                                        spinner.setVisibility(View.GONE);
+                                        return;
+                                    }
+                                }
+                            });
+
+                        }
+                    })
+
+                    // A null listener allows the button to dismiss the dialog and take no further action.
+                    .setNegativeButton("Dismiss", null)
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .show();
+        }
+
         return super.onOptionsItemSelected(item);
     }
     public void deleteMatch(String matchId, String chatId) {

@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -48,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
     private int i;
     private  String tag;
     private FirebaseAuth mAuth;
+    private ProgressBar spinner;
 
     private String currentUId, notification, sendMessageText;
 
@@ -61,6 +63,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+      /*  spinner = (ProgressBar)findViewById(R.id.pBar);
+        spinner.setVisibility(View.GONE);*/
+
         setupTopNavigationView();
 //        String channelId  = getString(R.string.default_notification_channel_id);
 //        String channelName = getString(R.string.default_notification_channel_name);

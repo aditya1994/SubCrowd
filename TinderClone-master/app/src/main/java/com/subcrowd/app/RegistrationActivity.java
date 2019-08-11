@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
@@ -30,6 +31,7 @@ import java.util.Map;
 public class RegistrationActivity extends AppCompatActivity {
 
     private Button mRegister;
+    private ProgressBar spinner;
     private EditText mEmail, mPassword, mName, mBudget;
 
     private RadioGroup mRadioGroup;
@@ -44,18 +46,23 @@ public class RegistrationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
-
+        spinner = (ProgressBar)findViewById(R.id.pBar);
+        spinner.setVisibility(View.GONE);
         mAuth = FirebaseAuth.getInstance();
         firebaseAuthStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                spinner.setVisibility(View.VISIBLE);
                 final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 if (user !=null && user.isEmailVerified()){
                     Intent intent = new Intent(RegistrationActivity.this, MainActivity.class);
                     startActivity(intent);
                     finish();
+                    spinner.setVisibility(View.GONE);
                     return;
                 }
+                spinner.setVisibility(View.GONE);
+
             }
         };
 
@@ -83,6 +90,7 @@ public class RegistrationActivity extends AppCompatActivity {
         mRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                spinner.setVisibility(View.VISIBLE);
 
                 final String email = mEmail.getText().toString();
                 final String password = mPassword.getText().toString();
@@ -130,6 +138,8 @@ public class RegistrationActivity extends AppCompatActivity {
                         }
                     });
                 }
+                spinner.setVisibility(View.GONE);
+
             }
         });
     }

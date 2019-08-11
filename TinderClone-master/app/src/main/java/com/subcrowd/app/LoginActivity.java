@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,6 +23,7 @@ import com.google.firebase.auth.FirebaseUser;
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
 
+    private ProgressBar spinner;
     private Button mLogin;
     private EditText mEmail, mPassword;
     private TextView mForgotPassword;
@@ -33,6 +35,9 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        spinner = (ProgressBar)findViewById(R.id.pBar);
+        spinner.setVisibility(View.GONE);
+
         mAuth = FirebaseAuth.getInstance();
         firebaseAuthStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -41,10 +46,12 @@ public class LoginActivity extends AppCompatActivity {
                 //uncomment this for production
     //            if (user !=null && user.isEmailVerified()){
                   if (user !=null) {
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                    startActivity(intent);
-                    finish();
-                    return;
+                      spinner.setVisibility(View.VISIBLE);
+                      Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                      startActivity(intent);
+                      finish();
+                      spinner.setVisibility(View.GONE);
+                      return;
                 }
             }
         };
@@ -58,6 +65,7 @@ public class LoginActivity extends AppCompatActivity {
         mLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                spinner.setVisibility(View.VISIBLE);
                 final String email = mEmail.getText().toString();
                 final String password = mPassword.getText().toString();
 
@@ -74,6 +82,7 @@ public class LoginActivity extends AppCompatActivity {
                                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                     startActivity(intent);
                                     finish();
+
                                     return;
                                 } else {
                                     Toast.makeText(LoginActivity.this, "Please verify your email", Toast.LENGTH_SHORT).show();
@@ -84,13 +93,18 @@ public class LoginActivity extends AppCompatActivity {
                     });
 
                 }
+                spinner.setVisibility(View.GONE);
+
             }
         });
         mForgotPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                spinner.setVisibility(View.VISIBLE);
                 Intent intent = new Intent(LoginActivity.this, ForgotPasswordActivity.class);
                 startActivity(intent);
+                spinner.setVisibility(View.GONE);
+
             }
         });
     }

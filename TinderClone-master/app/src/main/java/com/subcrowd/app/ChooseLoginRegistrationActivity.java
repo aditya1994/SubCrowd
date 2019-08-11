@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TabHost;
 
 import androidx.annotation.NonNull;
@@ -18,6 +19,7 @@ public class ChooseLoginRegistrationActivity extends AppCompatActivity {
 
     private Button mLogin, mRegister;
     private FirebaseAuth mAuth;
+    private ProgressBar spinner;
     public String TAG;
     private FirebaseAuth.AuthStateListener firebaseAuthStateListener;
     @Override
@@ -26,12 +28,16 @@ public class ChooseLoginRegistrationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_choose_login_registration);
         TAG = "chooseLoginRegistration";
         mAuth = FirebaseAuth.getInstance();
+        spinner = (ProgressBar)findViewById(R.id.pBar);
+        spinner.setVisibility(View.GONE);
         if(mAuth != null){
             final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
             if (user !=null && user.isEmailVerified()){
+                spinner.setVisibility(View.VISIBLE);
                 Intent intent = new Intent(ChooseLoginRegistrationActivity.this, MainActivity.class);
                 startActivity(intent);
                 finish();
+                spinner.setVisibility(View.GONE);
                 return;
             }
             else {
@@ -46,9 +52,11 @@ public class ChooseLoginRegistrationActivity extends AppCompatActivity {
         mLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                spinner.setVisibility(View.VISIBLE);
                 Intent intent = new Intent(ChooseLoginRegistrationActivity.this, LoginActivity.class);
                 startActivity(intent);
                 finish();
+                spinner.setVisibility(View.GONE);
                 return;
             }
         });
@@ -56,9 +64,11 @@ public class ChooseLoginRegistrationActivity extends AppCompatActivity {
         mRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                spinner.setVisibility(View.VISIBLE);
                 Intent intent = new Intent(ChooseLoginRegistrationActivity.this, RegistrationActivity.class);
                 startActivity(intent);
                 finish();
+                spinner.setVisibility(View.GONE);
                 return;
             }
         });
