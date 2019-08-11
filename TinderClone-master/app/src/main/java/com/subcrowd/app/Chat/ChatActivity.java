@@ -40,6 +40,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.subcrowd.app.Matches.MatchesActivity;
+import com.subcrowd.app.Matches.MatchesObject;
 import com.subcrowd.app.R;
 import com.subcrowd.app.SendNotification;
 
@@ -189,6 +190,12 @@ public class ChatActivity extends AppCompatActivity {
                                 Log.d("seen", "sent  " + notiSent.toString());
                                 notiSent = true;
                                 new SendNotification(text, "New message from: " + currentUserName, notification);
+                            }
+                            else {
+                                DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserID).child("connections").child("matches").child(matchId);
+                                Map seenInfo = new HashMap();
+                                seenInfo.put("lastSend", "false");
+                                reference.updateChildren(seenInfo);
                             }
                     }
                 }
@@ -442,11 +449,6 @@ public class ChatActivity extends AppCompatActivity {
                                 seenInfo.put("seen", "true");
                                 reference.updateChildren(seenInfo);
 
-                                // Updating lastSend for current users's conversation for the other user for the current conversation
-                                reference = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserID).child("connections").child("matches").child(matchId);
-                                seenInfo = new HashMap();
-                                seenInfo.put("lastSend", "false");
-                                reference.updateChildren(seenInfo);
                                 newMessage = new ChatObject(message, currentUserBoolean, true);
                             }
                             else {
