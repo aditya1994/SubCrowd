@@ -30,7 +30,9 @@ import com.subcrowd.app.User.UserObject;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MatchesActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
@@ -38,7 +40,7 @@ public class MatchesActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager mMatchesLayoutManager;
     private ImageButton mBack;
 
-
+    private HashMap<String, Integer> mList = new HashMap<>();
     private String cusrrentUserID, mLastTimeStamp, mLastMessage;
     DatabaseReference mCurrUserIdInsideMatchConnections;
 
@@ -47,7 +49,6 @@ public class MatchesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_matches);
         mBack = findViewById(R.id.matchesBack);
-
         cusrrentUserID = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
@@ -75,7 +76,7 @@ public class MatchesActivity extends AppCompatActivity {
         //chat id of the current match
         mCurrUserIdInsideMatchConnections = userDb.child("connections").child("matches").child(cusrrentUserID);
 
-        mCurrUserIdInsideMatchConnections.addListenerForSingleValueEvent(new ValueEventListener() {
+        mCurrUserIdInsideMatchConnections.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()){
@@ -178,7 +179,7 @@ public class MatchesActivity extends AppCompatActivity {
     private void FetchMatchInformation(String key, final String chatid) {
         DatabaseReference userDb = FirebaseDatabase.getInstance().getReference().child("Users").child(key);
         getLastMessageInfo(userDb);
-        userDb.addListenerForSingleValueEvent(new ValueEventListener() {
+        userDb.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()){
@@ -221,11 +222,18 @@ public class MatchesActivity extends AppCompatActivity {
                     } catch (Exception e) {}
 
                     MatchesObject obj = new MatchesObject(userId, name, profileImageUrl, need, give, budget, mLastMessage, mLastTimeStamp, chatid);
+                    if(mList.containsKey(chatid)){
+                        int key = mList.get(chatid);
+                        resultsMatches.set(resultsMatches.size() - key, obj);
+
+                    }
+                    else {
+                        resultsMatches.add(0, obj);
+                        mList.put(chatid, resultsMatches.size());
+                    }
+                    mMatchesAdapter.notifyDataSetChanged();
                     mLastMessage = "";
                     mLastTimeStamp = "";
-                    resultsMatches.add(0, obj);
-
-                    mMatchesAdapter.notifyDataSetChanged();
                 }
             }
 

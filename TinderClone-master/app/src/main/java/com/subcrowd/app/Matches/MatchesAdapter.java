@@ -47,6 +47,7 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesViewHolders>{
         holder.mNeed.setText(matchesList.get(position).getNeed());
         holder.mMatchName.setText(matchesList.get(position).getName());
         holder.mLastMessage.setText(matchesList.get(position).getLastMessage());
+        //holder.mNotificationDot.setVisibility(View.VISIBLE);
         holder.mLastTimeStamp.setText(matchesList.get(position).getLastTimestamp());
         if(!matchesList.get(position).getProfileImageUrl().equals("default")){
             Glide.with(context).load(matchesList.get(position).getProfileImageUrl()).into(holder.mMatchImage);

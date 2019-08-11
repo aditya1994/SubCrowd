@@ -19,6 +19,7 @@ import com.subcrowd.app.R;
 
 public class MatchesViewHolders extends RecyclerView.ViewHolder implements View.OnClickListener{
     public TextView mMatchId, mMatchName, mLastTimeStamp, mLastMessage, mNeed, mGive, mBudget, mProfile;
+    public ImageView mNotificationDot;
     public ImageView mMatchImage;
     public MatchesViewHolders(View itemView) {
         super(itemView);
@@ -34,10 +35,12 @@ public class MatchesViewHolders extends RecyclerView.ViewHolder implements View.
         mBudget = (TextView) itemView.findViewById(R.id.budgetid);
         mMatchImage = (ImageView) itemView.findViewById(R.id.MatchImage);
         mProfile = (TextView) itemView.findViewById(R.id.profileid);
+        mNotificationDot = (ImageView) itemView.findViewById(R.id.notification_dot);
     }
 
     @Override
     public void onClick(View view) {
+        mNotificationDot.setVisibility(View.GONE);
         Intent intent = new Intent(view.getContext(), ChatActivity.class);
         Bundle b = new Bundle();
         b.putString("matchId", mMatchId.getText().toString());
