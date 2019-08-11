@@ -92,7 +92,7 @@
                     android:orientation="vertical">
 
                     <ImageView
-                        android:layout_width="234dp"
+                        android:layout_width="218dp"
                         android:layout_height="200dp"
                         android:layout_gravity="center_horizontal"
                         android:background="@drawable/logo" />
