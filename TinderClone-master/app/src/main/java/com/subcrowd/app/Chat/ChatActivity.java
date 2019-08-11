@@ -96,21 +96,7 @@ public class ChatActivity extends AppCompatActivity {
         mChatAdapter = new ChatAdapter(getDataSetChat(), ChatActivity.this);
         mRecyclerView.setAdapter(mChatAdapter);
 
-        notification = " ";
 
-        DatabaseReference notificationID = FirebaseDatabase.getInstance().getReference().child("Users").child(matchId).child("notificationKey");
-        notificationID.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot snapshot) {
-                if(snapshot.exists()) {
-                    notification = snapshot.getValue().toString();
-                    //Log.d("sendChat", notification);
-                }
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-        });
         mSendEditText = findViewById(R.id.message);
         mBack = findViewById(R.id.chatBack);
 
@@ -153,33 +139,45 @@ public class ChatActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.chatToolbar);
         setSupportActionBar(toolbar);
 
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users").child(currentUserID);
 
+        Map onchat = new HashMap();
+        onchat.put("onChat", matchId);
+        reference.updateChildren(onchat);
 
     }
 
     protected void onPause(){
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users").child(currentUserID);
+
+        Map onchat = new HashMap();
+        onchat.put("onChat", "None");
+        reference.updateChildren(onchat);
         super.onPause();
     }
+    protected void onStop(){
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users").child(currentUserID);
+
+        Map onchat = new HashMap();
+        onchat.put("onChat", "None");
+        reference.updateChildren(onchat);
+        super.onStop();
+    }
     private void seenMessage(String messageId, final Boolean currentUser){
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Chat").child(chatId).child(messageId);
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users").child(matchId);
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
-
-                    Boolean seenCheck = true;
-                    if(dataSnapshot.child("seen").getValue().toString().equals("false"))
-                        seenCheck = false;
-
-                    Log.d("seen",  message + "  " +  seenCheck.toString() + "  " + currentUser.toString());
-
-                    if(!seenCheck){
-                        if(currentUser == true) {
-                            Log.d("seen", "sent");
-                            new SendNotification(message, "New Message", notification);
-                        }
+                    if(dataSnapshot.child("onChat").exists()){
+                        Log.d("seen",dataSnapshot.child("onChat").getValue().toString() + " " +  message + " " + currentUser.toString());
+                        if(dataSnapshot.child("notificationKey").exists())
+                            notification = dataSnapshot.child("notificationKey").getValue().toString();
                         else
-                            return;
+                            notification = "";
+                        if(!dataSnapshot.child("onChat").getValue().toString().equals(currentUserID) && currentUser){
+                            new SendNotification(message, "New message", notification);
+                        }
                     }
                 }
             }
