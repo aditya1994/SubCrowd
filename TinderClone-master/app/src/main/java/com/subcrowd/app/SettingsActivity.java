@@ -1,6 +1,7 @@
 package com.subcrowd.app;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -25,6 +26,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -38,6 +40,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.onesignal.OneSignal;
+import androidx.appcompat.app.AlertDialog;
+
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -48,7 +52,7 @@ public class SettingsActivity extends AppCompatActivity {
 
     private EditText mNameField, mPhoneField;
 
-    private Button mConfirm;
+    private Button mConfirm, mDeleteAccount;
     private ImageButton mBack;
     private ImageView mProfileImage;
     private EditText mbudget;
@@ -72,6 +76,7 @@ public class SettingsActivity extends AppCompatActivity {
         mBack = findViewById(R.id.settingsBack);
 
         mConfirm = (Button) findViewById(R.id.confirm);
+        mDeleteAccount = (Button) findViewById(R.id.deleteAccount);
         mbudget = (EditText) findViewById(R.id.budget_setting);
         need = (Spinner) findViewById(R.id.spinner_need_setting);
         give = (Spinner) findViewById(R.id.spinner_give_setting);
@@ -126,6 +131,50 @@ public class SettingsActivity extends AppCompatActivity {
                 return;
             }
         });
+
+
+        mDeleteAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new AlertDialog.Builder(SettingsActivity.this)
+                        .setTitle("Are you sure?")
+                        .setMessage("Deleting your account will result in completely removing your account from the system")
+                        // Specifying a listener allows you to take an action before dismissing the dialog.
+                        // The dialog is automatically dismissed when a dialog button is clicked.
+                        .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // Continue with delete operation
+                                mAuth.getCurrentUser().delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if(task.isSuccessful()) {
+                                            deleteUserAccount(userId);
+                                            Toast.makeText(getApplicationContext(), "Account deleted successfully!", Toast.LENGTH_LONG).show();
+                                            Intent intent = new Intent(SettingsActivity.this, ChooseLoginRegistrationActivity.class);
+                                            startActivity(intent);
+                                            finish();
+                                            return;
+                                        } else {
+                                            Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                                            mAuth.signOut();
+                                            Intent intent = new Intent(SettingsActivity.this, ChooseLoginRegistrationActivity.class);
+                                            startActivity(intent);
+                                            finish();
+                                            return;
+                                        }
+                                    }
+                                });
+
+                            }
+                        })
+
+                        // A null listener allows the button to dismiss the dialog and take no further action.
+                        .setNegativeButton("Dismiss", null)
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
+
+            }
+        });
         //toolbar
         Toolbar toolbar = findViewById(R.id.settingsToolbar);
         setSupportActionBar(toolbar);
@@ -149,11 +198,12 @@ public class SettingsActivity extends AppCompatActivity {
         finish();
         return super.onOptionsItemSelected(item);
     }
-  /*  public void deleteMatch(String matchId) {
-        DatabaseReference matchId_in_UserId_dbReference = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserID).child("connections").child("matches").child(matchId);
-        DatabaseReference userId_in_matchId_dbReference = FirebaseDatabase.getInstance().getReference().child("Users").child(matchId).child("connections").child("matches").child(currentUserID);
-        DatabaseReference yeps_in_matchId_dbReference = FirebaseDatabase.getInstance().getReference().child("Users").child(matchId).child("connections").child("yeps").child(currentUserID);
-        DatabaseReference yeps_in_userId_dbReference = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserID).child("connections").child("yeps").child(matchId);
+    public void deleteMatch(String matchId, String chatId) {
+        Log.d("delete", chatId);
+        DatabaseReference matchId_in_UserId_dbReference = FirebaseDatabase.getInstance().getReference().child("Users").child(userId).child("connections").child("matches").child(matchId);
+        DatabaseReference userId_in_matchId_dbReference = FirebaseDatabase.getInstance().getReference().child("Users").child(matchId).child("connections").child("matches").child(userId);
+        DatabaseReference yeps_in_matchId_dbReference = FirebaseDatabase.getInstance().getReference().child("Users").child(matchId).child("connections").child("yeps").child(userId);
+        DatabaseReference yeps_in_userId_dbReference = FirebaseDatabase.getInstance().getReference().child("Users").child(userId).child("connections").child("yeps").child(matchId);
 
         DatabaseReference matchId_chat_dbReference = FirebaseDatabase.getInstance().getReference().child("Chat").child(chatId);
 
@@ -171,9 +221,26 @@ public class SettingsActivity extends AppCompatActivity {
 
     }
     public void deleteUserAccount(String userId) {
-        DatabaseReference curruser_ref = FirebaseDatabase.getInstance().getReference().child("Users").child(userId).child("connections").child("matches").child(matchId);
+        DatabaseReference curruser_ref = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
+        DatabaseReference curruser_matches_ref = FirebaseDatabase.getInstance().getReference().child("Users").child(userId).child("connections").child("matches");
 
-    }*/
+        curruser_matches_ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()){
+                    for(DataSnapshot match : dataSnapshot.getChildren()){
+                        deleteMatch(match.getKey(), match.child("ChatId").getValue().toString());
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        curruser_matches_ref.removeValue();
+        curruser_ref.removeValue();
+    }
 
     private void getUserInfo() {
         mUserDatabase.addListenerForSingleValueEvent(new ValueEventListener() {

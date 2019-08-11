@@ -188,7 +188,7 @@
                 android:background="@drawable/transparent_button"
                 android:padding="6dp"
                 android:text="Delete Account"
-                android:textColor="@color/colorPrimary"
+                android:textColor="@color/design_default_color_error"
                 android:textStyle="bold" />
 
 
