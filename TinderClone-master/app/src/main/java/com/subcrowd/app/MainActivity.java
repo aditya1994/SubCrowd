@@ -307,7 +307,7 @@ public class MainActivity extends AppCompatActivity {
         userDb.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.d("CardSearch", dataSnapshot.toString());
+                //Log.d("CardSearch", dataSnapshot.toString());
 
                 if (dataSnapshot.exists()){
                     if (dataSnapshot.child("need").getValue() != null){

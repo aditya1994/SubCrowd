@@ -30,24 +30,26 @@ import com.subcrowd.app.User.UserObject;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MatchesActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mMatchesAdapter;
     private RecyclerView.LayoutManager mMatchesLayoutManager;
     private ImageButton mBack;
-
-
-    private String cusrrentUserID, mLastTimeStamp, mLastMessage;
-    DatabaseReference mCurrUserIdInsideMatchConnections;
+    private DatabaseReference current;
+    private ValueEventListener listen;
+    private HashMap<String, Integer> mList = new HashMap<>();
+    private String cusrrentUserID, mLastTimeStamp, mLastMessage, lastSeen;
+    DatabaseReference mCurrUserIdInsideMatchConnections, mCheckLastSeen;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_matches);
         mBack = findViewById(R.id.matchesBack);
-
         cusrrentUserID = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
@@ -68,20 +70,35 @@ public class MatchesActivity extends AppCompatActivity {
             }
         });
         getUserMatchId();
+        mLastMessage = mLastTimeStamp = lastSeen = "";
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+    protected void onStop(){
+        super.onStop();
+    }
 
     private void getLastMessageInfo(DatabaseReference userDb){
         //chat id of the current match
         mCurrUserIdInsideMatchConnections = userDb.child("connections").child("matches").child(cusrrentUserID);
 
-        mCurrUserIdInsideMatchConnections.addListenerForSingleValueEvent(new ValueEventListener() {
+        mCurrUserIdInsideMatchConnections.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                // lastSeen is actually lastsend and is true if other user sent me a message and I have not read it yet.
                 if (dataSnapshot.exists()){
-                    if(dataSnapshot.child("lastMessage").getValue() != null && dataSnapshot.child("lastTimeStamp").getValue() != null) {
+                    if(dataSnapshot.child("lastMessage").getValue() != null && dataSnapshot.child("lastTimeStamp").getValue() != null && dataSnapshot.child("lastSend").getValue() != null) {
                         mLastMessage = dataSnapshot.child("lastMessage").getValue().toString();
                         mLastTimeStamp = dataSnapshot.child("lastTimeStamp").getValue().toString();
+                        lastSeen = dataSnapshot.child("lastSend").getValue().toString();
+                    }
+                    else{
+                        mLastMessage = "Start Chatting now!";
+                        mLastTimeStamp = " ";
+                        lastSeen = "true";
                     }
 
                 }
@@ -93,6 +110,28 @@ public class MatchesActivity extends AppCompatActivity {
             }
         });
     }
+
+//    private void getLastSeenInfo(DatabaseReference userDb, String key){
+//        //chat id of the current match
+//        mCheckLastSeen = userDb.child("connections").child("matches").child(key);
+//
+//        mCheckLastSeen.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                if (dataSnapshot.exists()){
+//                    if(dataSnapshot.child("lastSeen").getValue() != null) {
+//                        lastSeen = dataSnapshot.child("lastSeen").getValue().toString();
+//                    }
+//
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//
+//            }
+//        });
+//    }
 
     private void getUserMatchId() {
         Query sortedMatchesByLastTimeStamp = FirebaseDatabase.getInstance().getReference().child("Users").child(cusrrentUserID).child("connections").child("matches")
@@ -175,10 +214,12 @@ public class MatchesActivity extends AppCompatActivity {
 //            }
 //        });
 //    }
-    private void FetchMatchInformation(String key, final String chatid) {
+    private void FetchMatchInformation(final String key, final String chatid) {
         DatabaseReference userDb = FirebaseDatabase.getInstance().getReference().child("Users").child(key);
+
         getLastMessageInfo(userDb);
-        userDb.addListenerForSingleValueEvent(new ValueEventListener() {
+
+        userDb.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()){
@@ -188,7 +229,7 @@ public class MatchesActivity extends AppCompatActivity {
                     String need = "";
                     String give = "";
                     String budget = "";
-                    String lastMessage = "";
+                    final String lastMessage = "";
                     String lastTimeStamp = "";
 
                     if(dataSnapshot.child("name").getValue()!=null){
@@ -208,8 +249,6 @@ public class MatchesActivity extends AppCompatActivity {
                         budget = dataSnapshot.child("budget").getValue().toString();
                     }
 
-
-
                     String milliSec = mLastTimeStamp;
                     Long now;
 
@@ -220,12 +259,22 @@ public class MatchesActivity extends AppCompatActivity {
                         mLastTimeStamp = arrOfStr[0];
                     } catch (Exception e) {}
 
-                    MatchesObject obj = new MatchesObject(userId, name, profileImageUrl, need, give, budget, mLastMessage, mLastTimeStamp, chatid);
-                    mLastMessage = "";
-                    mLastTimeStamp = "";
-                    resultsMatches.add(0, obj);
+                    MatchesObject obj = new MatchesObject(userId, name, profileImageUrl, need, give, budget, mLastMessage, mLastTimeStamp, chatid, lastSeen);
+                    if(mList.containsKey(chatid)){
+                        int key = mList.get(chatid);
+                        resultsMatches.set(resultsMatches.size() - key, obj);
 
+                    }
+                    else {
+                        resultsMatches.add(0, obj);
+                        mList.put(chatid, resultsMatches.size());
+                    }
                     mMatchesAdapter.notifyDataSetChanged();
+
+
+//                    mLastMessage = "";
+//                    mLastTimeStamp = "";
+//                    lastSeen = "";
                 }
             }
 
