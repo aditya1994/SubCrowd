@@ -18,11 +18,11 @@ public class MatchesObject {
 
     private String lastMessage;
     private String lastTimeStamp;
-
+    private String lastSeen;
 
     private String chatId;
     private ArrayList<UserObject> userObjectArrayList = new ArrayList<>();
-    public MatchesObject (String userId, String name, String profileImageUrl, String need, String give, String budget, String lastMessage, String lastTimeStamp, String chatId){
+    public MatchesObject (String userId, String name, String profileImageUrl, String need, String give, String budget, String lastMessage, String lastTimeStamp, String chatId, String lastSeen){
 
         this.userId = userId;
         this.name = name;
@@ -33,6 +33,7 @@ public class MatchesObject {
         this.lastMessage = lastMessage;
         this.lastTimeStamp = lastTimeStamp;
         this.chatId = chatId;
+        this.lastSeen = lastSeen;
     }
 
     public ArrayList<UserObject> getUserObjectArrayList() {
@@ -45,6 +46,14 @@ public class MatchesObject {
     public void addUserToArrayList(UserObject mUser){
         userObjectArrayList.add(mUser);
     }
+
+    public String getLastSeen(){
+        return lastSeen;
+    }
+    public void setLastSeen(String lastSeen){
+        this.lastSeen = lastSeen;
+    }
+
 
     public String getUserId(){
         return userId;

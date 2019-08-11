@@ -55,13 +55,13 @@ public class ChatActivity extends AppCompatActivity {
 
     private EditText mSendEditText;
     private ImageButton mBack;
-
+    private Boolean notiSent;
     private ImageButton mSendButton;
     private String notification;
     private String currentUserID, matchId, chatId;
     private String matchName, matchGive, matchNeed, matchBudget, matchProfile;
     private String lastMessage, lastTimeStamp;
-    private String  message, createdByUser, isSeen, messageId;
+    private String  message, createdByUser, isSeen, messageId, currentUserName;
     private Boolean currentUserBoolean;
     ValueEventListener seenListener;
     DatabaseReference mDatabaseUser, mDatabaseChat;
@@ -77,7 +77,7 @@ public class ChatActivity extends AppCompatActivity {
         matchBudget = getIntent().getExtras().getString("budget");
         matchProfile = getIntent().getExtras().getString("profile");
         currentUserID = FirebaseAuth.getInstance().getCurrentUser().getUid();
-
+        currentUserName = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
 
         //chat id of the current match
         mDatabaseUser = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserID).child("connections").child("matches").child(matchId).child("ChatId");
@@ -139,11 +139,20 @@ public class ChatActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.chatToolbar);
         setSupportActionBar(toolbar);
 
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users").child(currentUserID);
 
+        // Updating onChat as the current chat id for current user
+
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users").child(currentUserID);
         Map onchat = new HashMap();
         onchat.put("onChat", matchId);
         reference.updateChildren(onchat);
+
+        // Updating lastSeen for current user after he / she opens this chat activity
+
+        DatabaseReference current = FirebaseDatabase.getInstance().getReference("Users").child(matchId).child("connections").child("matches").child(currentUserID);
+        Map lastSeen = new HashMap();
+        lastSeen.put("lastSend", "false");
+        current.updateChildren(lastSeen);
 
     }
 
@@ -163,21 +172,24 @@ public class ChatActivity extends AppCompatActivity {
         reference.updateChildren(onchat);
         super.onStop();
     }
-    private void seenMessage(String messageId, final Boolean currentUser){
+    private void seenMessage(final String text){
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users").child(matchId);
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
                     if(dataSnapshot.child("onChat").exists()){
-                        Log.d("seen",dataSnapshot.child("onChat").getValue().toString() + " " +  message + " " + currentUser.toString());
+                        Log.d("seen",dataSnapshot.child("onChat").getValue().toString() + " " +  message + " ");
                         if(dataSnapshot.child("notificationKey").exists())
                             notification = dataSnapshot.child("notificationKey").getValue().toString();
                         else
                             notification = "";
-                        if(!dataSnapshot.child("onChat").getValue().toString().equals(currentUserID) && currentUser){
-                            new SendNotification(message, "New message", notification);
-                        }
+                        if (!notiSent)
+                            if (!dataSnapshot.child("onChat").getValue().toString().equals(currentUserID)) {
+                                Log.d("seen", "sent  " + notiSent.toString());
+                                notiSent = true;
+                                new SendNotification(text, "New message from: " + currentUserName, notification);
+                            }
                     }
                 }
             }
@@ -187,6 +199,7 @@ public class ChatActivity extends AppCompatActivity {
 
             }
         });
+
 
     }
     //shows options for menu toolbar
@@ -342,7 +355,7 @@ public class ChatActivity extends AppCompatActivity {
             lastMessage = sendMessageText;
             lastTimeStamp = timeStamp;
             updateLastMessage();
-
+            seenMessage(sendMessageText);
             newMessageDb.setValue(newMessage);
         }
         mSendEditText.setText(null);
@@ -357,8 +370,13 @@ public class ChatActivity extends AppCompatActivity {
         Map lastTimestampMap = new HashMap();
         lastTimestampMap.put("lastTimeStamp", lastTimeStamp);
 
+        Map lastSeen = new HashMap();
+        lastSeen.put("lastSend", "true");
+        currUserDb.updateChildren(lastSeen);
         currUserDb.updateChildren(lastMessageMap);
         currUserDb.updateChildren(lastTimestampMap);
+
+
         matchDb.updateChildren(lastMessageMap);
         matchDb.updateChildren(lastTimestampMap);
 
@@ -417,12 +435,17 @@ public class ChatActivity extends AppCompatActivity {
                             // If current user has no t send this message, then user is reading the message
                             if(!currentUserBoolean){
                                 isSeen = "true";
-                                // set message as read in firebase
 
+                                // Set current message as read for opposite user
                                 DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Chat").child(chatId).child(messageId);
                                 Map seenInfo = new HashMap();
                                 seenInfo.put("seen", "true");
-                                Log.d("seen",message + "  " + isSeen);
+                                reference.updateChildren(seenInfo);
+
+                                // Updating lastSend for current users's conversation for the other user for the current conversation
+                                reference = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserID).child("connections").child("matches").child(matchId);
+                                seenInfo = new HashMap();
+                                seenInfo.put("lastSend", "false");
                                 reference.updateChildren(seenInfo);
                                 newMessage = new ChatObject(message, currentUserBoolean, true);
                             }
@@ -443,15 +466,8 @@ public class ChatActivity extends AppCompatActivity {
                         else
                             Toast.makeText(getApplicationContext(), "Chat empty", Toast.LENGTH_LONG).show();
 
-                        seenMessage(messageId, currentUserBoolean);
-
-                        /*Handler handler = new Handler();
-                        handler.postDelayed(new Runnable() {
-                            public void run() {
-                                seenMessage(messageId, currentUserBoolean);
-                            }
-                        }, 5000);   //5 seconds
-*/
+                        //Log.d("seen","seenMessage called");
+                        notiSent = false;
 
                     }
                 }

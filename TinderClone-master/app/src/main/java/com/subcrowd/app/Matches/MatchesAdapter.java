@@ -2,7 +2,8 @@ package com.subcrowd.app.Matches;
 
  import android.content.Context;
 
-import android.view.LayoutInflater;
+ import android.util.Log;
+ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -47,7 +48,15 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesViewHolders>{
         holder.mNeed.setText(matchesList.get(position).getNeed());
         holder.mMatchName.setText(matchesList.get(position).getName());
         holder.mLastMessage.setText(matchesList.get(position).getLastMessage());
-        //holder.mNotificationDot.setVisibility(View.VISIBLE);
+        String lastSeen = "";
+        lastSeen  = matchesList.get(position).getLastSeen();
+        Log.d("matches", lastSeen);
+
+        // lastSeen actually works as lastSend. if lastSend is true (other person has send a message), then make dot visible.
+        if(lastSeen.equals("true"))
+            holder.mNotificationDot.setVisibility(View.VISIBLE);
+        else
+            holder.mNotificationDot.setVisibility(View.INVISIBLE);
         holder.mLastTimeStamp.setText(matchesList.get(position).getLastTimestamp());
         if(!matchesList.get(position).getProfileImageUrl().equals("default")){
             Glide.with(context).load(matchesList.get(position).getProfileImageUrl()).into(holder.mMatchImage);
