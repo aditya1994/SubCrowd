@@ -1,5 +1,7 @@
 package com.subcrowd.app;
 
+import android.util.Log;
+
 import com.onesignal.OneSignal;
 
 import org.json.JSONException;
@@ -15,6 +17,7 @@ public class SendNotification {
                             "'headings':{'en': '" + heading + "'}}");
             OneSignal.postNotification(notificationContent, null);
         } catch (JSONException e) {
+            Log.d("error", e.toString());
             e.printStackTrace();
         }
     }
