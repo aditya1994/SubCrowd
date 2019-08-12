@@ -148,7 +148,7 @@ public class ChatActivity extends AppCompatActivity {
         onchat.put("onChat", matchId);
         reference.updateChildren(onchat);
 
-        // Updating lastSeen for current user after he / she opens this chat activity
+        // Updating lastSend for opposite user to be shown for the current user after he / she opens this chat activity
 
         DatabaseReference current = FirebaseDatabase.getInstance().getReference("Users").child(matchId).child("connections").child("matches").child(currentUserID);
         Map lastSeen = new HashMap();
@@ -187,11 +187,15 @@ public class ChatActivity extends AppCompatActivity {
                             notification = "";
                         if (!notiSent)
                             if (!dataSnapshot.child("onChat").getValue().toString().equals(currentUserID)) {
+                                // Send notification to the opposite user if he is not on the chat
+
                                 Log.d("seen", "sent  " + notiSent.toString());
                                 notiSent = true;
                                 new SendNotification(text, "New message from: " + currentUserName, notification);
                             }
                             else {
+                                // Mark that the chat has been read and remove notification dot
+
                                 DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserID).child("connections").child("matches").child(matchId);
                                 Map seenInfo = new HashMap();
                                 seenInfo.put("lastSend", "false");
