@@ -20,6 +20,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -247,7 +248,20 @@ public class MainActivity extends AppCompatActivity {
 
     private void isConnectionMatch(final String userId) {
         DatabaseReference currentUserConnectionsDb = usersDb.child(currentUId).child("connections").child("yeps").child(userId);
-        sendMessageText = usersDb.child(currentUId).child("name").toString();
+        usersDb.child(currentUId).child("name").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists())
+                    sendMessageText = dataSnapshot.getValue().toString();
+                else
+                    sendMessageText = "";
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
         if(!currentUId.equals(userId)) {
             currentUserConnectionsDb.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
@@ -277,8 +291,7 @@ public class MainActivity extends AppCompatActivity {
                                 if(snapshot.exists()) {
                                     notification = snapshot.getValue().toString();
                                     Log.d("sendChat", notification);
-
-                                    new SendNotification("It's " + sendMessageText, "You have a new match!", notification);
+                                    new SendNotification("You have a new match!", "", notification);
                                 }
                             }
                             @Override
