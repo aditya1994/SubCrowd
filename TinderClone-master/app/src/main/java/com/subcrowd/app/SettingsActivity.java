@@ -153,16 +153,28 @@ public class SettingsActivity extends AppCompatActivity {
     //logout button pressed
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.logout) {
-            spinner.setVisibility(View.VISIBLE);
-            OneSignal.setSubscription(false);
-            mAuth.signOut();
-            Toast.makeText(this,"Log Out successful", Toast.LENGTH_LONG).show();
-            Intent intent = new Intent(SettingsActivity.this, ChooseLoginRegistrationActivity.class);
-            startActivity(intent);
-            finish();
-            spinner.setVisibility(View.GONE);
-        } else if(item.getItemId() == R.id.deleteAccount) {
+          if(item.getItemId() == R.id.ContactUs) {
+                new AlertDialog.Builder(SettingsActivity.this)
+                    .setTitle("Contact Us")
+                    .setMessage("Contact us: sub.crowd.app@gmail.com")
+                    // Specifying a listener allows you to take an action before dismissing the dialog.
+                    // The dialog is automatically dismissed when a dialog button is clicked.
+
+                    // A null listener allows the button to dismiss the dialog and take no further action.
+                    .setNegativeButton("Dismiss", null)
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .show();
+            }  else if (item.getItemId() == R.id.logout) {
+                  spinner.setVisibility(View.VISIBLE);
+                  OneSignal.setSubscription(false);
+                  mAuth.signOut();
+                  Toast.makeText(this,"Log Out successful", Toast.LENGTH_LONG).show();
+                  Intent intent = new Intent(SettingsActivity.this, ChooseLoginRegistrationActivity.class);
+                  startActivity(intent);
+                  finish();
+                  spinner.setVisibility(View.GONE);
+          }
+         else if(item.getItemId() == R.id.deleteAccount) {
             new AlertDialog.Builder(SettingsActivity.this)
                     .setTitle("Are you sure?")
                     .setMessage("Deleting your account will result in completely removing your account from the system")
