@@ -227,7 +227,7 @@ public class ChatActivity extends AppCompatActivity {
         // inflate the layout of the popup window
         LayoutInflater inflater = (LayoutInflater)
                 getSystemService(LAYOUT_INFLATER_SERVICE);
-        View popupView = inflater.inflate(R.layout.item, null);
+        View popupView = inflater.inflate(R.layout.item_profile, null);
 
 
         TextView name = (TextView) popupView.findViewById(R.id.name);
