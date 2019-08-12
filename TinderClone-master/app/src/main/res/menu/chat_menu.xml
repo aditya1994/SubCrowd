@@ -2,6 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
+        android:id="@+id/viewProfile"
+        android:title="View Profile"
+        android:onClick="showProfile"
+        app:showAsAction="never" />
+    <item
         android:id="@+id/unmatch"
         android:title="Unmatch"
         app:showAsAction="never" />

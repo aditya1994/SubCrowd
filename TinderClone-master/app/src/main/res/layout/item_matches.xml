@@ -135,9 +135,6 @@
                         android:visibility="invisible" />
                 </LinearLayout>
 
-
-
-
             </LinearLayout>
 
             <TextView
