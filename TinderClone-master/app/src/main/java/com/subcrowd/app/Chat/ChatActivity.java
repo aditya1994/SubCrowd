@@ -56,7 +56,7 @@ public class ChatActivity extends AppCompatActivity {
 
     private EditText mSendEditText;
     private ImageButton mBack;
-    private Boolean notiSent;
+
     private ImageButton mSendButton;
     private String notification;
     private String currentUserID, matchId, chatId;
@@ -185,22 +185,21 @@ public class ChatActivity extends AppCompatActivity {
                             notification = dataSnapshot.child("notificationKey").getValue().toString();
                         else
                             notification = "";
-                        if (!notiSent)
-                            if (!dataSnapshot.child("onChat").getValue().toString().equals(currentUserID)) {
-                                // Send notification to the opposite user if he is not on the chat
 
-                                Log.d("seen", "sent  " + notiSent.toString());
-                                notiSent = true;
-                                new SendNotification(text, "New message from: " + currentUserName, notification);
-                            }
-                            else {
-                                // Mark that the chat has been read and remove notification dot
+                        if (!dataSnapshot.child("onChat").getValue().toString().equals(currentUserID)) {
+                            // Send notification to the opposite user if he is not on the chat
 
-                                DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserID).child("connections").child("matches").child(matchId);
-                                Map seenInfo = new HashMap();
-                                seenInfo.put("lastSend", "false");
-                                reference.updateChildren(seenInfo);
-                            }
+
+                            new SendNotification(text, "New message from: " + currentUserName, notification);
+                        }
+                        else {
+                            // Mark that the chat has been read and remove notification dot
+
+                            DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserID).child("connections").child("matches").child(matchId);
+                            Map seenInfo = new HashMap();
+                            seenInfo.put("lastSend", "false");
+                            reference.updateChildren(seenInfo);
+                        }
                     }
                 }
             }
@@ -471,10 +470,6 @@ public class ChatActivity extends AppCompatActivity {
                             mRecyclerView.scrollToPosition(resultsChat.size() - 1);
                         else
                             Toast.makeText(getApplicationContext(), "Chat empty", Toast.LENGTH_LONG).show();
-
-                        //Log.d("seen","seenMessage called");
-                        notiSent = false;
-
                     }
                 }
 
