@@ -4,7 +4,6 @@
     <item
         android:id="@+id/viewProfile"
         android:title="View Profile"
-        android:onClick="showProfile"
         app:showAsAction="never" />
     <item
         android:id="@+id/unmatch"

@@ -232,7 +232,7 @@ public class ChatActivity extends AppCompatActivity {
         // inflate the layout of the popup window
         LayoutInflater inflater = (LayoutInflater)
                 getSystemService(LAYOUT_INFLATER_SERVICE);
-        View popupView = inflater.inflate(R.layout.item_profile, null);
+        View popupView = inflater.inflate(R.layout.item, null);
 
 
         TextView name = (TextView) popupView.findViewById(R.id.name);
@@ -343,7 +343,7 @@ public class ChatActivity extends AppCompatActivity {
                     .show();
 
         } else if(item.getItemId() == R.id.viewProfile){
-
+            showProfile(findViewById(android.R.id.content));
         }
 
 

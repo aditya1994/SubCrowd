@@ -64,8 +64,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-      /*  spinner = (ProgressBar)findViewById(R.id.pBar);
-        spinner.setVisibility(View.GONE);*/
+        spinner = (ProgressBar)findViewById(R.id.pBar);
+        spinner.setVisibility(View.VISIBLE);
 
         setupTopNavigationView();
 //        String channelId  = getString(R.string.default_notification_channel_id);
@@ -74,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
 //                getSystemService(NotificationManager.class);
 //        notificationManager.createNotificationChannel(new NotificationChannel(channelId,
 //                channelName, NotificationManager.IMPORTANCE_LOW));
+
 
         if (getIntent().getExtras() != null) {
             for (String key : getIntent().getExtras().keySet()) {
@@ -117,14 +118,14 @@ public class MainActivity extends AppCompatActivity {
         final SwipeFlingAdapterView flingContainer = (SwipeFlingAdapterView) findViewById(R.id.frame);
 
         flingContainer.setAdapter(arrayAdapter);
-
+/*
         //Display a banner when no cards are available to display
         TextView tv = (TextView)findViewById(R.id.noCardsBanner);
         if(rowItems.size() == 0) {
             tv.setVisibility(View.VISIBLE);
         } else {
             tv.setVisibility(View.INVISIBLE);
-        }
+        }*/
 
         flingContainer.setFlingListener(new SwipeFlingAdapterView.onFlingListener() {
             @Override
@@ -378,6 +379,8 @@ public class MainActivity extends AppCompatActivity {
                         arrayAdapter.notifyDataSetChanged();
                     }
                 }
+                spinner.setVisibility(View.GONE);
+
 
                 //Display a banner when no cards are available to display
                 TextView tv = (TextView)findViewById(R.id.noCardsBanner);
