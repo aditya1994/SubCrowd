@@ -271,7 +271,7 @@ public class MainActivity extends AppCompatActivity {
                         notification = " ";
 
                         DatabaseReference notificationID = FirebaseDatabase.getInstance().getReference().child("Users").child(userId).child("notificationKey");
-                        notificationID.addValueEventListener(new ValueEventListener() {
+                        notificationID.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot snapshot) {
                                 if(snapshot.exists()) {
