@@ -44,8 +44,8 @@ public class LoginActivity extends AppCompatActivity {
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 //uncomment this for production
-    //            if (user !=null && user.isEmailVerified()){
-                  if (user !=null) {
+                if (user !=null && user.isEmailVerified()){
+    //              if (user !=null) {
                       spinner.setVisibility(View.VISIBLE);
                       Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                       startActivity(intent);

@@ -38,6 +38,7 @@ import com.subcrowd.app.Cards.arrayAdapter;
 import com.subcrowd.app.Cards.cards;
 import com.subcrowd.app.Matches.MatchesActivity;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -51,9 +52,9 @@ public class MainActivity extends AppCompatActivity {
     private  String tag;
     private FirebaseAuth mAuth;
     private ProgressBar spinner;
-
+    long timeStarted, timeEnded;
     private String currentUId, notification, sendMessageText;
-
+    //private int timeStarted, timeEnded;
     private DatabaseReference usersDb;
 
 
@@ -65,7 +66,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         spinner = (ProgressBar)findViewById(R.id.pBar);
+        timeStarted = System.currentTimeMillis();
         spinner.setVisibility(View.VISIBLE);
+
 
         setupTopNavigationView();
 //        String channelId  = getString(R.string.default_notification_channel_id);
@@ -347,7 +350,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void getOppositeSexUsers(final String oppositeUserGive, final String oppositeUserNeed){
+
         usersDb.addChildEventListener(new ChildEventListener() {
+
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 if (dataSnapshot.exists() && !dataSnapshot.getKey().equals(currentUId)) {
@@ -408,6 +413,7 @@ public class MainActivity extends AppCompatActivity {
             public void onCancelled(DatabaseError databaseError) {
             }
         });
+
     }
 
 

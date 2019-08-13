@@ -13,12 +13,19 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.SignInMethodQueryResult;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class ForgotPasswordActivity extends AppCompatActivity {
     private Button mForgotPasswordButton;
     private EditText mEmail;
     private FirebaseAuth mAuth;
-    private String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+    private int flag;
+    private String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+", email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,13 +33,14 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         setContentView(R.layout.activity_forgot_password);
 
         mAuth = FirebaseAuth.getInstance();
+        flag = 0;
         mForgotPasswordButton = (Button) findViewById(R.id.resetPasswordButton);
         mEmail = (EditText) findViewById(R.id.ResetPasswordEmail);
 
         mForgotPasswordButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String email = mEmail.getText().toString();
+                email = mEmail.getText().toString();
                 if (email.equals("")) {
                     Toast.makeText(ForgotPasswordActivity.this, "Email is empty.", Toast.LENGTH_SHORT).show();
                     return;
@@ -45,17 +53,29 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
                 }
 
-                mAuth.sendPasswordResetEmail(mEmail.getText().toString()).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if(task.isSuccessful()) {
-                            Toast.makeText(ForgotPasswordActivity.this, "Password reset instructions sent to your email.", Toast.LENGTH_LONG).show();
-                        } else {
-                            Toast.makeText(ForgotPasswordActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
 
-                        }
+                mAuth.fetchSignInMethodsForEmail(email).addOnCompleteListener(new OnCompleteListener<SignInMethodQueryResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<SignInMethodQueryResult> task) {
+                        flag = 1;
+                        mAuth.sendPasswordResetEmail(mEmail.getText().toString()).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if(task.isSuccessful()) {
+                                    Toast.makeText(ForgotPasswordActivity.this, "Password reset instructions sent to your email.", Toast.LENGTH_LONG).show();
+                                } else {
+                                    Toast.makeText(ForgotPasswordActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
+
+                                }
+                            }
+                        });
                     }
                 });
+
+                if(flag == 0)
+                    Toast.makeText(getApplicationContext(), "Email address not found.", Toast.LENGTH_SHORT).show();
+
+
             }
         });
 
