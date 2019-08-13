@@ -132,5 +132,7 @@ public class LoginActivity extends AppCompatActivity {
     public void onBackPressed() {
         Intent btnClick = new Intent(LoginActivity.this, ChooseLoginRegistrationActivity.class);
         startActivity(btnClick);
+        finish();
+        return;
     }
 }

@@ -52,6 +52,7 @@ public class RegistrationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_registration);
         spinner = (ProgressBar)findViewById(R.id.pBar);
         spinner.setVisibility(View.GONE);
+        TextView existing = (TextView) findViewById(R.id.existing);
         mAuth = FirebaseAuth.getInstance();
         firebaseAuthStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -70,6 +71,16 @@ public class RegistrationActivity extends AppCompatActivity {
             }
         };
 
+
+        existing.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent btnClick = new Intent(RegistrationActivity.this, LoginActivity.class);
+                startActivity(btnClick);
+                finish();
+                return;
+            }
+        });
         //mBudget = (EditText) findViewById(R.id.budget);
         mRegister = (Button) findViewById(R.id.register);
 
@@ -140,6 +151,8 @@ public class RegistrationActivity extends AppCompatActivity {
                                             mPassword.setText("");
                                             Intent btnClick = new Intent(RegistrationActivity.this, ChooseLoginRegistrationActivity.class);
                                             startActivity(btnClick);
+                                            finish();
+                                            return;
 
                                         } else {
                                             Toast.makeText(RegistrationActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();

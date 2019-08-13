@@ -136,6 +136,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentBottom="true"
                         android:layout_centerHorizontal="true"
+                        android:id="@+id/existing"
                         android:padding="15dp"
                         android:text="existing User? Please Login" />
 

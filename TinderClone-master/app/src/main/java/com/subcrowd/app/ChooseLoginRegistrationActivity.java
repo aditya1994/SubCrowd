@@ -74,4 +74,11 @@ public class ChooseLoginRegistrationActivity extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+        return;
+    }
 }
