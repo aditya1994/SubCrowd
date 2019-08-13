@@ -52,9 +52,9 @@ public class MainActivity extends AppCompatActivity {
     private  String tag;
     private FirebaseAuth mAuth;
     private ProgressBar spinner;
-    long timeStarted, timeEnded;
+
     private String currentUId, notification, sendMessageText;
-    //private int timeStarted, timeEnded;
+
     private DatabaseReference usersDb;
 
 
@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         spinner = (ProgressBar)findViewById(R.id.pBar);
-        timeStarted = System.currentTimeMillis();
+
         spinner.setVisibility(View.VISIBLE);
 
 
