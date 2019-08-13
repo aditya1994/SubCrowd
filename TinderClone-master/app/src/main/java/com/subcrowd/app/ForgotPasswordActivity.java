@@ -1,5 +1,6 @@
 package com.subcrowd.app;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -17,6 +18,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     private Button mForgotPasswordButton;
     private EditText mEmail;
     private FirebaseAuth mAuth;
+    private String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +32,19 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         mForgotPasswordButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String email = mEmail.getText().toString();
+                if (email.equals("")) {
+                    Toast.makeText(ForgotPasswordActivity.this, "Email is empty.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                // Below code checks if the email id is valid or not.
+                if (!email.matches(emailPattern)) {
+                    Toast.makeText(getApplicationContext(), "Invalid email address, enter valid email id.", Toast.LENGTH_SHORT).show();
+                    return;
+
+                }
+
                 mAuth.sendPasswordResetEmail(mEmail.getText().toString()).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
@@ -44,5 +59,14 @@ public class ForgotPasswordActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent btnClick = new Intent(ForgotPasswordActivity.this, LoginActivity.class);
+        startActivity(btnClick);
+        super.onBackPressed();
+        finish();
+        return;
     }
 }
