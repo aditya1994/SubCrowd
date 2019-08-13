@@ -104,7 +104,8 @@ public class LoginActivity extends AppCompatActivity {
                 Intent intent = new Intent(LoginActivity.this, ForgotPasswordActivity.class);
                 startActivity(intent);
                 spinner.setVisibility(View.GONE);
-
+                finish();
+                return;
             }
         });
     }

@@ -3,15 +3,19 @@ package com.subcrowd.app;
 import android.content.Intent;
 
 import android.os.Bundle;
+import android.text.Html;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -72,6 +76,14 @@ public class RegistrationActivity extends AppCompatActivity {
         mEmail = (EditText) findViewById(R.id.email);
         mPassword = (EditText) findViewById(R.id.password);
         mName = (EditText) findViewById(R.id.name);
+        final CheckBox checkbox = (CheckBox)findViewById(R.id.checkBox1);
+        TextView textView = (TextView)findViewById(R.id.textView2);
+
+        checkbox.setText("");
+        textView.setText(Html.fromHtml("I have read and agree to the " +
+                "<a href='https://www.websitepolicies.com/policies/view/nizu0aVh'>Terms & Conditions</a>"));
+        textView.setClickable(true);
+        textView.setMovementMethod(LinkMovementMethod.getInstance());
 
 //        final Spinner spinner_need = (Spinner) findViewById(R.id.spinner_need);
 //        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
@@ -90,14 +102,17 @@ public class RegistrationActivity extends AppCompatActivity {
         mRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+
                 spinner.setVisibility(View.VISIBLE);
 
                 final String email = mEmail.getText().toString();
                 final String password = mPassword.getText().toString();
                 final String name = mName.getText().toString();
+                final Boolean tnc = checkbox.isChecked();
                 //final String budget = mBudget.getText().toString();
 
-                if (checkInputs(email, name, password)) {
+                if (checkInputs(email, name, password, tnc)) {
 
                     mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(RegistrationActivity.this, new OnCompleteListener<AuthResult>() {
                         @Override
@@ -144,7 +159,7 @@ public class RegistrationActivity extends AppCompatActivity {
         });
     }
 
-    private boolean checkInputs(String email, String username, String password) {
+    private boolean checkInputs(String email, String username, String password, Boolean tnc) {
         Log.d(TAG, "checkInputs: checking inputs for null values.");
         if (email.equals("") || username.equals("") || password.equals("")) {
             Toast.makeText(RegistrationActivity.this, "All fields must be filed out.", Toast.LENGTH_SHORT).show();
@@ -156,6 +171,11 @@ public class RegistrationActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "Invalid email address, enter valid email id and click on Continue", Toast.LENGTH_SHORT).show();
             return false;
 
+        }
+
+        if(!tnc){
+            Toast.makeText(getApplicationContext(), "Please accept Terms and Conditions", Toast.LENGTH_SHORT).show();
+            return false;
         }
         return true;
     }

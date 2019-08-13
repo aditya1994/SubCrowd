@@ -93,6 +93,8 @@ public class MainActivity extends AppCompatActivity {
         else{
             Log.d(tag, "Authorization failed");
             Toast.makeText(getApplicationContext(), "Auth failed", Toast.LENGTH_LONG).show();
+            finish();
+            return;
         }
 
 
