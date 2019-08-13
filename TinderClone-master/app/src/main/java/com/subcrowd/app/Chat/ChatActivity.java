@@ -84,7 +84,7 @@ public class ChatActivity extends AppCompatActivity {
         matchBudget = getIntent().getExtras().getString("budget");
         matchProfile = getIntent().getExtras().getString("profile");
         currentUserID = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        currentUserName = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
+
 
         //chat id of the current match
         mDatabaseUser = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserID).child("connections").child("matches").child(matchId).child("ChatId");
@@ -387,7 +387,21 @@ public class ChatActivity extends AppCompatActivity {
             newMessage.put("timeStamp", timeStamp);
             newMessage.put("seen", "false");
 
+            DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserID);
+            ref.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if(dataSnapshot.exists()){
+                        if(dataSnapshot.child("name").exists())
+                            currentUserName = dataSnapshot.child("name").getValue().toString();
+                    }
+                }
 
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
             //update curr user and match user's last message and last timeStamp
             lastMessage = sendMessageText;
             lastTimeStamp = timeStamp;
