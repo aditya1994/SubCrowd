@@ -138,7 +138,7 @@
                         android:layout_centerHorizontal="true"
                         android:id="@+id/existing"
                         android:padding="15dp"
-                        android:text="existing User? Please Login" />
+                        android:text="Existing User? Please Login" />
 
             </LinearLayout>
         </ScrollView>

@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:clipToPadding="false"
+    android:outlineProvider="bounds"
+    android:paddingLeft="10sp"
+    android:paddingRight="10sp"
+    android:paddingBottom="10sp">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/white_grey_border_bottom"
+        app:cardCornerRadius="6dp"
+        app:cardElevation="4dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            android:layout_marginBottom="10dp"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:id="@+id/image"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/monkey" />
+
+                <TextView
+                    android:id="@+id/item_swipe_left_indicator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:alpha="0"
+                    android:background="@drawable/like_border"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="5dp"
+                    android:text="LIKE"
+                    android:textColor="@color/likegreen"
+                    android:textSize="35sp" />
+
+                <TextView
+                    android:id="@+id/item_swipe_right_indicator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:layout_margin="10dp"
+                    android:alpha="0"
+                    android:background="@drawable/dislike_border"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="5dp"
+                    android:text="NOPE"
+                    android:textColor="@color/dislikered"
+                    android:textSize="35sp" />
+
+
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:text="Name"
+                    android:textColor="@color/textColor"
+                    android:textSize="20sp" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/light_grey"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:text="I can share my:"
+                    android:textColor="@color/textColor"
+                    android:textSize="20sp" />
+
+                <ImageView
+                    android:id="@+id/giveImage"
+                    android:layout_width="100dp"
+                    android:layout_height="50dp"
+                    android:adjustViewBounds="true"
+                    android:paddingLeft="10dp"
+                    android:scaleType="fitXY" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/light_grey"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:text="I want to borrow:"
+                    android:textColor="@color/textColor"
+                    android:textSize="20sp" />
+
+                <ImageView
+                    android:id="@+id/needImage"
+                    android:layout_width="100dp"
+                    android:layout_height="50dp"
+                    android:adjustViewBounds="true"
+                    android:paddingLeft="10dp"
+                    android:scaleType="fitXY" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/light_grey"
+                    android:paddingLeft="10dp"
+                    android:text="My budget is:"
+                    android:textSize="20sp"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/budget"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="$"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:textSize="20sp"
+                    android:visibility="gone" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>
