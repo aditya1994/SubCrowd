@@ -1,15 +1,16 @@
 package com.subcrowd.app;
 
-import android.app.Activity;
-
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Handler;
 import android.os.Bundle;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
 
-    public class SplashScreen extends AppCompatActivity {
+public class SplashScreen extends AppCompatActivity {
 
         @Override
     protected void onCreate(Bundle savedInstanceState) {
