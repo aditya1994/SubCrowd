@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         spinner = (ProgressBar)findViewById(R.id.pBar);
 
-        spinner.setVisibility(View.VISIBLE);
+        spinner.setVisibility(View.GONE);
 
 
         setupTopNavigationView();
@@ -386,7 +386,7 @@ public class MainActivity extends AppCompatActivity {
                         arrayAdapter.notifyDataSetChanged();
                     }
                 }
-                spinner.setVisibility(View.GONE);
+                //spinner.setVisibility(View.GONE);
 
 
                 //Display a banner when no cards are available to display
@@ -428,6 +428,13 @@ public class MainActivity extends AppCompatActivity {
         Menu menu = tvEx.getMenu();
         MenuItem menuItem = menu.getItem(1);
         menuItem.setChecked(true);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+        return;
     }
 
 }

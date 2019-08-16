@@ -397,6 +397,8 @@ public class ChatActivity extends AppCompatActivity {
                     }
                 }
 
+                // New changes
+
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
 
@@ -535,5 +537,12 @@ public class ChatActivity extends AppCompatActivity {
     private List<ChatObject> getDataSetChat() {
 
         return resultsChat;
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+        return;
     }
 }

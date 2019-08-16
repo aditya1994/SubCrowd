@@ -296,4 +296,11 @@ public class MatchesActivity extends AppCompatActivity {
         return resultsMatches;
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+        return;
+    }
+
 }
