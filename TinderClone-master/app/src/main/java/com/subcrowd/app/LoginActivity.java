@@ -27,37 +27,19 @@ public class LoginActivity extends AppCompatActivity {
     private Button mLogin;
     private EditText mEmail, mPassword;
     private TextView mForgotPassword;
-
+    private boolean loginBtnClicked;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener firebaseAuthStateListener;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
+        loginBtnClicked = false;
         spinner = (ProgressBar)findViewById(R.id.pBar);
         spinner.setVisibility(View.GONE);
 
         mAuth = FirebaseAuth.getInstance();
-        firebaseAuthStateListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                //uncomment this for production
-                if (user !=null && user.isEmailVerified()){
-    //              if (user !=null) {
-                      spinner.setVisibility(View.VISIBLE);
-                      Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                      startActivity(intent);
-                      finish();
-                      spinner.setVisibility(View.GONE);
-                      return;
-                }
-            }
-        };
-
         mLogin = (Button) findViewById(R.id.login);
-
         mEmail = (EditText) findViewById(R.id.email);
         mPassword = (EditText) findViewById(R.id.password);
         mForgotPassword = (TextView) findViewById(R.id.forgotPasswordButton);
@@ -65,6 +47,7 @@ public class LoginActivity extends AppCompatActivity {
         mLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                loginBtnClicked = true;
                 spinner.setVisibility(View.VISIBLE);
                 final String email = mEmail.getText().toString();
                 final String password = mPassword.getText().toString();
@@ -78,23 +61,20 @@ public class LoginActivity extends AppCompatActivity {
                             if (!task.isSuccessful()) {
                                 Toast.makeText(LoginActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                             } else {
-                                if(mAuth.getCurrentUser().isEmailVerified()) {
+                               if(mAuth.getCurrentUser().isEmailVerified()) {
                                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                     startActivity(intent);
                                     finish();
-
                                     return;
                                 } else {
                                     Toast.makeText(LoginActivity.this, "Please verify your email", Toast.LENGTH_SHORT).show();
                                 }
-
                             }
                         }
                     });
 
                 }
                 spinner.setVisibility(View.GONE);
-
             }
         });
         mForgotPassword.setOnClickListener(new View.OnClickListener() {
@@ -108,6 +88,22 @@ public class LoginActivity extends AppCompatActivity {
                 return;
             }
         });
+        firebaseAuthStateListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                //uncomment this for production
+                if (user !=null && user.isEmailVerified() && !loginBtnClicked){
+                    //if (user !=null) {
+                    spinner.setVisibility(View.VISIBLE);
+                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    startActivity(intent);
+                    finish();
+                    spinner.setVisibility(View.GONE);
+                    return;
+                }
+            }
+        };
     }
     private boolean isStringNull(String string) {
         Log.d(TAG, "isStringNull: checking string if null.");

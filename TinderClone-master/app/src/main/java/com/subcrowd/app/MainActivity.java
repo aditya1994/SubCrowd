@@ -6,6 +6,7 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Intent;
 
+import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -44,6 +45,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import ru.dimorinny.showcasecard.ShowCaseView;
+import ru.dimorinny.showcasecard.position.ShowCasePosition;
+import ru.dimorinny.showcasecard.position.TopLeft;
+import ru.dimorinny.showcasecard.position.TopLeftToolbar;
+import ru.dimorinny.showcasecard.position.TopRight;
+import ru.dimorinny.showcasecard.position.ViewPosition;
+import ru.dimorinny.showcasecard.radius.Radius;
+
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
     private cards cards_data[];
@@ -52,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
     private  String tag;
     private FirebaseAuth mAuth;
     private ProgressBar spinner;
-
+    boolean firstStart;
     private String currentUId, notification, sendMessageText;
 
     private DatabaseReference usersDb;
@@ -66,18 +75,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         spinner = (ProgressBar)findViewById(R.id.pBar);
-
         spinner.setVisibility(View.GONE);
-
-
-        setupTopNavigationView();
 //        String channelId  = getString(R.string.default_notification_channel_id);
 //        String channelName = getString(R.string.default_notification_channel_name);
 //        NotificationManager notificationManager =
 //                getSystemService(NotificationManager.class);
 //        notificationManager.createNotificationChannel(new NotificationChannel(channelId,
 //                channelName, NotificationManager.IMPORTANCE_LOW));
-
+        SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
+        firstStart = prefs.getBoolean("firstStart", true);
+        setupTopNavigationView();
 
         if (getIntent().getExtras() != null) {
             for (String key : getIntent().getExtras().keySet()) {
@@ -85,7 +92,6 @@ public class MainActivity extends AppCompatActivity {
                 Log.d(TAG, "Key: " + key + " Value: " + value);
             }
         }
-
 
         tag = "MainActivity";
         usersDb = FirebaseDatabase.getInstance().getReference().child("Users");
@@ -196,6 +202,23 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void showToolTip_profile(ShowCasePosition position) {
+        new ShowCaseView.Builder(MainActivity.this)
+                .withTypedPosition(position)
+                .withTypedRadius(new Radius(186F))
+                .withContent("Start off by choosing which streaming services you want to borrow and share!")
+                .build()
+                .show(MainActivity.this);
+    }
+    private void showToolTip_matches(ShowCasePosition position) {
+        new ShowCaseView.Builder(MainActivity.this)
+                .withTypedPosition(position)
+                .withTypedRadius(new Radius(186F))
+                .withContent("Find you matches and begin chatting!")
+                .build()
+                .show(MainActivity.this);
     }
 
     public void DislikeBtn(View v) {
@@ -428,6 +451,20 @@ public class MainActivity extends AppCompatActivity {
         Menu menu = tvEx.getMenu();
         MenuItem menuItem = menu.getItem(1);
         menuItem.setChecked(true);
+        //show tool tip
+        View profile_view = findViewById(R.id.ic_profile);
+        View matches_view = findViewById(R.id.ic_matched);
+
+        if (firstStart) {
+            showToolTip_profile(new ViewPosition(profile_view));
+            //showToolTip_matches(new ViewPosition(matches_view));
+        }
+        SharedPreferences newPref = getSharedPreferences("prefs", MODE_PRIVATE);
+        SharedPreferences.Editor editor = newPref.edit();
+        editor.putBoolean("firstStart", false);
+        editor.apply();
+
+
     }
 
     @Override

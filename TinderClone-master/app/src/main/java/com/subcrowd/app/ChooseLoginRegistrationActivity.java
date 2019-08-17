@@ -33,7 +33,7 @@ public class ChooseLoginRegistrationActivity extends AppCompatActivity {
         if(mAuth != null){
             final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
             if (user !=null && user.isEmailVerified()){  //uncomment for production
-          //  if (user !=null ){
+                //  if (user !=null ){
                 spinner.setVisibility(View.VISIBLE);
                 Intent intent = new Intent(ChooseLoginRegistrationActivity.this, MainActivity.class);
                 startActivity(intent);
