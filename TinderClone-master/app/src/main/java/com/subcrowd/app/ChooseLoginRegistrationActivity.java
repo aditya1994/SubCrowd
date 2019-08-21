@@ -14,6 +14,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.onesignal.OSNotificationAction;
+import com.onesignal.OSNotificationOpenResult;
+import com.onesignal.OneSignal;
+import com.subcrowd.app.Matches.MatchesActivity;
+
+import org.json.JSONObject;
 
 public class ChooseLoginRegistrationActivity extends AppCompatActivity {
 
@@ -81,4 +87,5 @@ public class ChooseLoginRegistrationActivity extends AppCompatActivity {
         finish();
         return;
     }
+
 }

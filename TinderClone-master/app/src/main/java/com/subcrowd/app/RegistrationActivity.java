@@ -210,6 +210,5 @@ public class RegistrationActivity extends AppCompatActivity {
         Intent btnClick = new Intent(RegistrationActivity.this, ChooseLoginRegistrationActivity.class);
         startActivity(btnClick);
         finish();
-        return;
     }
 }

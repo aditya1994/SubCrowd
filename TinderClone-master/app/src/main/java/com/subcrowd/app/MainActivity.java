@@ -4,9 +4,11 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
 
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -34,10 +36,15 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 import com.lorentzos.flingswipe.SwipeFlingAdapterView;
+import com.onesignal.OSNotificationAction;
+import com.onesignal.OSNotificationOpenResult;
 import com.onesignal.OneSignal;
 import com.subcrowd.app.Cards.arrayAdapter;
 import com.subcrowd.app.Cards.cards;
+import com.subcrowd.app.Chat.ChatActivity;
 import com.subcrowd.app.Matches.MatchesActivity;
+
+import org.json.JSONObject;
 
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -53,6 +60,8 @@ import ru.dimorinny.showcasecard.position.TopRight;
 import ru.dimorinny.showcasecard.position.ViewPosition;
 import ru.dimorinny.showcasecard.radius.Radius;
 
+import static com.onesignal.OneSignal.idsAvailable;
+
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
     private cards cards_data[];
@@ -63,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
     private ProgressBar spinner;
     boolean firstStart;
     private String currentUId, notification, sendMessageText;
-
+    private boolean activityStarted;
     private DatabaseReference usersDb;
 
 
@@ -73,6 +82,15 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+//        if (   activityStarted
+//                && getIntent() != null
+//                && (getIntent().getFlags() & Intent.FLAG_ACTIVITY_REORDER_TO_FRONT) != 0) {
+//            finish();
+//            return;
+//        }
+
+        activityStarted = true;
         setContentView(R.layout.activity_main);
         spinner = (ProgressBar)findViewById(R.id.pBar);
         spinner.setVisibility(View.GONE);
@@ -106,16 +124,29 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
-
-        OneSignal.startInit(this).init();
-        OneSignal.setSubscription(true);
+        OneSignal.startInit(this)
+                .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
+               // .setNotificationOpenedHandler(new NotificationOpenedHandler(this))
+                .unsubscribeWhenNotificationsAreDisabled(true)
+                .init();
         OneSignal.idsAvailable(new OneSignal.IdsAvailableHandler() {
             @Override
             public void idsAvailable(String userId, String registrationId) {
                 usersDb.child(currentUId).child("notificationKey").setValue(userId);
             }
         });
-        OneSignal.setInFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification);
+
+//
+//        OneSignal.startInit(this).init();
+//        OneSignal.setSubscription(true);
+//
+//        idsAvailable(new OneSignal.IdsAvailableHandler() {
+//            @Override
+//            public void idsAvailable(String userId, String registrationId) {
+//                usersDb.child(currentUId).child("notificationKey").setValue(userId);
+//            }
+//        });
+//        OneSignal.setInFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification);
 
         Log.d(tag, "onCreate " + currentUId);
 
@@ -320,7 +351,7 @@ public class MainActivity extends AppCompatActivity {
                                 if(snapshot.exists()) {
                                     notification = snapshot.getValue().toString();
                                     Log.d("sendChat", notification);
-                                    new SendNotification("You have a new match!", "", notification);
+                                    new SendNotification("You have a new match!", "", notification, null, null );
                                 }
                             }
                             @Override
@@ -473,5 +504,38 @@ public class MainActivity extends AppCompatActivity {
         finish();
         return;
     }
+    public  class NotificationOpenedHandler implements OneSignal.NotificationOpenedHandler {
+        private Context mContext;
+        public NotificationOpenedHandler(Context context) {
+            mContext = context;
+        }
+        @Override
+        public void notificationOpened(OSNotificationOpenResult result)
+        {
+            OSNotificationAction.ActionType actionType = result.action.type;
+            JSONObject data = result.notification.payload.additionalData;
+            String activityToBeOpened;
+            String activity;
+
+            if (data != null)
+            {
+                activityToBeOpened = data.optString("activityToBeOpened", null);
+                if (activityToBeOpened != null && activityToBeOpened.equals("MatchesActivity"))
+                {
+                    try {
+                        Intent intent3 = new Intent(getApplicationContext(), SettingsActivity.class);
+                        intent3.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_NEW_TASK);
+
+                        Log.i("OneSignal", "customkey set with value: " + activityToBeOpened);
+                        mContext.startActivity(intent3);
+                    }
+                    catch (Throwable t){
+                        t.printStackTrace();
+                    }
+                }
+            }
+        }
+    }
 
 }
+

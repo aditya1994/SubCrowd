@@ -196,7 +196,7 @@ public class ChatActivity extends AppCompatActivity {
                             // Send notification to the opposite user if he is not on the chat
 
 
-                            new SendNotification(text, "New message from: " + currentUserName, notification);
+                            new SendNotification(text, "New message from: " + currentUserName, notification, "activityToBeOpened", "MatchesActivity");
                         }
                         else {
                             // Mark that the chat has been read and remove notification dot
