@@ -1,0 +1,404 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="0b8f8a42-7e38-4375-a145-84f366fef805" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/.idea/assetWizardSettings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/.idea/caches/build_file_checksums.ser" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/.idea/caches/gradle_models.ser" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/.idea/encodings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/.idea/gradle.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/.idea/runConfigurations.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/LICENSE" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/build.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/font/AlexBrush-Regular.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/font/GreatVibes-Regular.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/font/Parisienne-Regular.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/font/Roboto-Black.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/font/Roboto-Bold.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/font/Roboto-Italic.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/font/Roboto-Light.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/font/Roboto-Medium.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/font/Roboto-Regular.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/font/roboto_bold.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/font/roboto_light.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/font/roboto_medium.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/font/roboto_regular.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/google-services.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/proguard-rules.pro" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/release/app.aab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/androidTest/java/com/subcrowd/app/ExampleInstrumentedTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/AndroidManifest.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/ic_launcher-web.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/java/com/subcrowd/app/BtnDislikeActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/java/com/subcrowd/app/BtnLikeActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/java/com/subcrowd/app/Cards/arrayAdapter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/java/com/subcrowd/app/Cards/cards.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/java/com/subcrowd/app/Chat/ChatActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/java/com/subcrowd/app/Chat/ChatAdapter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/java/com/subcrowd/app/Chat/ChatObject.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/java/com/subcrowd/app/Chat/ChatViewHolders.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/java/com/subcrowd/app/ChooseLoginRegistrationActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/java/com/subcrowd/app/CountryToPhonePrefix.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/java/com/subcrowd/app/ForgotPasswordActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/java/com/subcrowd/app/LoginActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/java/com/subcrowd/app/MainActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/java/com/subcrowd/app/Matches/MatchesActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/java/com/subcrowd/app/Matches/MatchesAdapter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/java/com/subcrowd/app/Matches/MatchesObject.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/java/com/subcrowd/app/Matches/MatchesViewHolders.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/java/com/subcrowd/app/RegistrationActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/java/com/subcrowd/app/SendNotification.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/java/com/subcrowd/app/SettingsActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/java/com/subcrowd/app/SplashScreen.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/java/com/subcrowd/app/TopNavigationViewHelper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/java/com/subcrowd/app/User/UserObject.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/res/color/bottom_navigation_item_color.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/res/color/bottom_navigation_item_ripple_color.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/res/color/button_ripple_color.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/res/color/button_text_color.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/res/color/card_foreground_color.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/res/color/card_ripple_color.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/res/color/chip_background_color.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/res/color/chip_text_color.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/res/color/text_field_background.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/res/drawable/amazon_prime_video.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/res/drawable/blue_dot.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/res/drawable/circle.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/res/drawable/default_man.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/res/drawable/default_woman.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/res/drawable/dislike_border.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/res/drawable/edit_text_focused_bg.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/res/drawable/gradient_2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/res/drawable/hbo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/res/drawable/hulu.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/res/drawable/ic_chat.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/res/drawable/ic_chevron_left_black_24dp.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/res/drawable/ic_dislike.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/res/drawable/ic_launcher_background.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/res/drawable/ic_like1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/res/drawable/ic_main.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/res/drawable/ic_matched.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/res/drawable/ic_person.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/res/drawable/ic_profile.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/res/drawable/ic_send.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/res/drawable/ic_user_profile.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/res/drawable/like_border.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/res/drawable/logo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/res/drawable/monkey.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/res/drawable/my_message.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/res/drawable/netflix.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/res/drawable/none.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/res/drawable/round_button_with_border.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/res/drawable/round_pic.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/res/drawable/rounded_corner_layout.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/res/drawable/transparent_button.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/res/drawable/vudu.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/res/drawable/white_grey_border_bottom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/res/drawable/white_rounded_button.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/res/drawable/youtube_tv.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/res/font/alexbrushbegular.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/res/font/greatvibesregular.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/res/font/open_sans.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/res/font/open_sans_light.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/res/font/open_sans_semibold.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/res/font/parisienneregular.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/res/font/roboto_bold.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/res/font/roboto_light.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/res/font/roboto_medium.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/res/font/roboto_mono_light.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/res/font/roboto_mono_medium.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/res/font/roboto_mono_regular.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/res/font/roboto_regular.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/res/font/strumpf_open.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/res/layout/activity_btn_dislike.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/res/layout/activity_btn_like.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/res/layout/activity_chat.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/res/layout/activity_choose_login_registration.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/res/layout/activity_forgot_password.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/res/layout/activity_login.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/res/layout/activity_main.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/res/layout/activity_matches.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/res/layout/activity_registration.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/res/layout/activity_settings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/res/layout/activity_splash_screen.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/res/layout/item.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/res/layout/item_chat.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/res/layout/item_matches.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/res/layout/item_profile.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/res/layout/layout_top_navigation_back.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/res/layout/layout_top_navigation_view.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/res/layout/toolbar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/res/layout/toolbar_matches.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/res/layout/toolbar_settings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/res/menu/chat_menu.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/res/menu/settings_menu.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/res/menu/top_navigation_toolbar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/res/mipmap-hdpi/ic_launcher.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/res/mipmap-hdpi/ic_launcher_foreground.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/res/mipmap-hdpi/ic_launcher_round.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/res/mipmap-mdpi/ic_launcher.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/res/mipmap-mdpi/ic_launcher_foreground.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/res/mipmap-mdpi/ic_launcher_round.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/res/mipmap-xhdpi/ic_launcher.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/res/mipmap-xhdpi/ic_launcher_foreground.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/res/mipmap-xhdpi/ic_launcher_round.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/res/mipmap-xxhdpi/ic_launcher.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/res/mipmap-xxhdpi/ic_launcher_foreground.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/res/mipmap-xxxhdpi/ic_launcher_foreground.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/res/values/colors.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/res/values/dimens.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/res/values/ic_launcher_background.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/res/values/strings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/main/res/values/styles.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/app/src/test/java/com/subcrowd/app/ExampleUnitTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/build.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/gradle.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/gradlew" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/gradlew.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TinderClone-master/settings.gradle" beforeDir="false" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <projects_view />
+      </state>
+    </system>
+  </component>
+  <component name="FileEditorManager">
+    <leaf>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/build.gradle">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
+          <provider editor-type-id="android-manifest" />
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/build.gradle">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/subcrowd/app/RegistrationActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectFrameBounds" fullScreen="true">
+    <option name="width" value="1680" />
+    <option name="height" value="1050" />
+  </component>
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane" />
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
+      <pane id="AndroidView">
+        <subPane>
+          <expand>
+            <path>
+              <item name="subcrowd" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+            </path>
+            <path>
+              <item name="subcrowd" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="manifests" type="f94875db:AndroidManifestsGroupNode" />
+            </path>
+            <path>
+              <item name="subcrowd" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+            </path>
+            <path>
+              <item name="subcrowd" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="generatedJava" type="edd41e36:AndroidSourceTypeNode" />
+            </path>
+            <path>
+              <item name="subcrowd" type="1abcf292:AndroidViewProjectNode" />
+              <item name="Gradle Scripts" type="ae0cef3a:AndroidBuildScriptsGroupNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="android.sdk.path" value="$USER_HOME$/Library/Android/sdk" />
+    <property name="device.picker.selection" value="Nexus_5X_API_28" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="AndroidJUnit" factoryName="Android JUnit">
+      <option name="TEST_OBJECT" value="class" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <method v="2">
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="app" type="AndroidRunConfigurationType" factoryName="Android App" activateToolWindowBeforeRun="false">
+      <module name="app" />
+      <option name="DEPLOY" value="true" />
+      <option name="DEPLOY_APK_FROM_BUNDLE" value="false" />
+      <option name="DEPLOY_AS_INSTANT" value="false" />
+      <option name="ARTIFACT_NAME" value="" />
+      <option name="PM_INSTALL_OPTIONS" value="" />
+      <option name="DYNAMIC_FEATURES_DISABLED_LIST" value="" />
+      <option name="ACTIVITY_EXTRA_FLAGS" value="" />
+      <option name="MODE" value="default_activity" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="false" />
+      <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
+      <option name="FORCE_STOP_RUNNING_APP" value="true" />
+      <option name="TARGET_SELECTION_MODE" value="SHOW_DIALOG" />
+      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="SELECTED_CLOUD_MATRIX_CONFIGURATION_ID" value="-1" />
+      <option name="SELECTED_CLOUD_MATRIX_PROJECT_ID" value="" />
+      <option name="DEBUGGER_TYPE" value="Auto" />
+      <Auto>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Auto>
+      <Hybrid>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Hybrid>
+      <Java />
+      <Native>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Native>
+      <Profilers>
+        <option name="ADVANCED_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_CONFIGURATION_NAME" value="Sample Java Methods" />
+      </Profilers>
+      <option name="DEEP_LINK" value="" />
+      <option name="ACTIVITY_CLASS" value="" />
+      <method v="2">
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="0b8f8a42-7e38-4375-a145-84f366fef805" name="Default Changelist" comment="" />
+      <created>1585532896399</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1585532896399</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="0" y="0" width="1680" height="1050" extended-state="0" />
+    <layout>
+      <window_info active="true" content_ui="combo" id="Project" visible="true" weight="0.32967034" />
+      <window_info id="Structure" side_tool="true" />
+      <window_info id="Build Variants" side_tool="true" />
+      <window_info id="Image Layers" />
+      <window_info id="Designer" />
+      <window_info id="Resources Explorer" />
+      <window_info id="Capture Tool" />
+      <window_info id="Favorites" side_tool="true" />
+      <window_info id="Captures" order="0" side_tool="true" weight="0.25" />
+      <window_info anchor="bottom" id="Logcat" />
+      <window_info anchor="bottom" id="Version Control" />
+      <window_info anchor="bottom" id="TODO" />
+      <window_info anchor="bottom" id="Android Profiler" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Terminal" />
+      <window_info anchor="bottom" id="Event Log" side_tool="true" />
+      <window_info anchor="bottom" id="Build" visible="true" weight="0.28061223" />
+      <window_info anchor="right" id="Device File Explorer" side_tool="true" />
+      <window_info anchor="right" id="Capture Analysis" />
+      <window_info anchor="right" id="Gradle" />
+      <window_info anchor="right" id="Theme Preview" />
+      <window_info anchor="right" id="Palette&#9;" />
+    </layout>
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/subcrowd/app/RegistrationActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/build.gradle">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build.gradle">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
+      <provider editor-type-id="android-manifest" />
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+  </component>
+</project>

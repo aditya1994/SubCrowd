@@ -1,2 +1,4 @@
-# subcrowd
-A platform for sharing subscriptions
+# SubCrowd
+
+Tinder for sharing online streaming services!
+
