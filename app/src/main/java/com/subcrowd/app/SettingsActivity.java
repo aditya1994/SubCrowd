@@ -1,11 +1,10 @@
-package com.subcrowd.app;
+package com.cureApp.app;
 
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.provider.MediaStore;
 
@@ -53,7 +52,6 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
 
 public class SettingsActivity extends AppCompatActivity {

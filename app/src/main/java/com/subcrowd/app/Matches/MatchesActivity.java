@@ -1,7 +1,6 @@
-package com.subcrowd.app.Matches;
+package com.cureApp.app.Matches;
 
 
-import android.app.DownloadManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.format.DateUtils;
@@ -9,7 +8,6 @@ import android.view.View;
 import android.widget.ImageButton;
 
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,18 +19,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.subcrowd.app.ChooseLoginRegistrationActivity;
-import com.subcrowd.app.MainActivity;
-import com.subcrowd.app.R;
-import com.subcrowd.app.SettingsActivity;
-import com.subcrowd.app.User.UserObject;
+import com.cureApp.app.MainActivity;
+import com.cureApp.app.R;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class MatchesActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;

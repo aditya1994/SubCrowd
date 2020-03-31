@@ -1,6 +1,6 @@
-package com.subcrowd.app.Matches;
+package com.cureApp.app.Matches;
 
-import com.subcrowd.app.User.UserObject;
+import com.cureApp.app.User.UserObject;
 
 import java.util.ArrayList;
 

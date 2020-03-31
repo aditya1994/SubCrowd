@@ -1,4 +1,4 @@
-package com.subcrowd.app;
+package com.cureApp.app;
 
 import android.content.Intent;
 
@@ -7,19 +7,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
-import android.widget.TabHost;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.onesignal.OSNotificationAction;
-import com.onesignal.OSNotificationOpenResult;
-import com.onesignal.OneSignal;
-import com.subcrowd.app.Matches.MatchesActivity;
-
-import org.json.JSONObject;
 
 public class ChooseLoginRegistrationActivity extends AppCompatActivity {
 

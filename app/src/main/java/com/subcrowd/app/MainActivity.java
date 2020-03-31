@@ -1,23 +1,14 @@
-package com.subcrowd.app;
+package com.cureApp.app;
 
-import android.annotation.TargetApi;
-import android.app.Activity;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
-import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -39,14 +30,11 @@ import com.lorentzos.flingswipe.SwipeFlingAdapterView;
 import com.onesignal.OSNotificationAction;
 import com.onesignal.OSNotificationOpenResult;
 import com.onesignal.OneSignal;
-import com.subcrowd.app.Cards.arrayAdapter;
-import com.subcrowd.app.Cards.cards;
-import com.subcrowd.app.Chat.ChatActivity;
-import com.subcrowd.app.Matches.MatchesActivity;
+import com.cureApp.app.Cards.arrayAdapter;
+import com.cureApp.app.Cards.cards;
 
 import org.json.JSONObject;
 
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -54,18 +42,13 @@ import java.util.Map;
 
 import ru.dimorinny.showcasecard.ShowCaseView;
 import ru.dimorinny.showcasecard.position.ShowCasePosition;
-import ru.dimorinny.showcasecard.position.TopLeft;
-import ru.dimorinny.showcasecard.position.TopLeftToolbar;
-import ru.dimorinny.showcasecard.position.TopRight;
 import ru.dimorinny.showcasecard.position.ViewPosition;
 import ru.dimorinny.showcasecard.radius.Radius;
-
-import static com.onesignal.OneSignal.idsAvailable;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
     private cards cards_data[];
-    private com.subcrowd.app.Cards.arrayAdapter arrayAdapter;
+    private com.cureApp.app.Cards.arrayAdapter arrayAdapter;
     private int i;
     private  String tag;
     private FirebaseAuth mAuth;

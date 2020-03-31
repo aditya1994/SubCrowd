@@ -1,4 +1,4 @@
-package com.subcrowd.app;
+package com.cureApp.app;
 
 import android.content.Context;
 import android.content.Intent;
@@ -9,7 +9,7 @@ import android.view.MenuItem;
 import androidx.annotation.NonNull;
 
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
-import com.subcrowd.app.Matches.MatchesActivity;
+import com.cureApp.app.Matches.MatchesActivity;
 
 /**
  * DatingApp

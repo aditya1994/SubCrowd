@@ -1,4 +1,4 @@
-package com.subcrowd.app.User;
+package com.cureApp.app.User;
 
 import java.io.Serializable;
 

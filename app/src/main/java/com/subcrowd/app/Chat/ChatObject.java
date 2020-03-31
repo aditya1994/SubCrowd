@@ -1,4 +1,4 @@
-package com.subcrowd.app.Chat;
+package com.cureApp.app.Chat;
 
 /**
  * Created by manel on 10/31/2017.

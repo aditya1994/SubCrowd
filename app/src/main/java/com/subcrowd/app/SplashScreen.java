@@ -1,14 +1,11 @@
-package com.subcrowd.app;
+package com.cureApp.app;
 
 
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.os.Handler;
 import android.os.Bundle;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.res.ResourcesCompat;
 
 public class SplashScreen extends AppCompatActivity {
 

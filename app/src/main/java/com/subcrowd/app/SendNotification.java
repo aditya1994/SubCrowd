@@ -1,4 +1,4 @@
-package com.subcrowd.app;
+package com.cureApp.app;
 
 import android.util.Log;
 

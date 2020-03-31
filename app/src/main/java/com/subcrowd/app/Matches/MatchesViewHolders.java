@@ -1,17 +1,16 @@
-package com.subcrowd.app.Matches;
+package com.cureApp.app.Matches;
 
 import android.content.Intent;
 import android.os.Bundle;
 
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.subcrowd.app.Chat.ChatActivity;
-import com.subcrowd.app.R;
+import com.cureApp.app.Chat.ChatActivity;
+import com.cureApp.app.R;
 
 /**
  * Created by manel on 10/31/2017.

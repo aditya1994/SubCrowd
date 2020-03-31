@@ -1,4 +1,4 @@
-package com.subcrowd.app;
+package com.cureApp.app;
 
 import android.content.Context;
 import android.content.Intent;

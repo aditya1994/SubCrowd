@@ -1,4 +1,4 @@
-package com.subcrowd.app.Matches;
+package com.cureApp.app.Matches;
 
  import android.content.Context;
 
@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.subcrowd.app.R;
+import com.cureApp.app.R;
 
 import java.util.List;
 
