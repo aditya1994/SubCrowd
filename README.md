@@ -3,7 +3,7 @@
 Tinder for sharing online streaming services!
 
 
-SubCrowd is an Android application for sharing online streaming services. It has a Tinder like UI of swiping cards to match with someone you want to exchange your Netflix, Hulu or any other streaming service. With people you match, you can chat in and find out if you want to proceed further.
+SubCrowd is an Android application for sharing online streaming services. It has a Tinder like UI of swiping cards to match you with someone to wants to exchange Netflix, Hulu or any other streaming service. With people you match, you can chat and find out if you want to proceed further.
 
 ## Play Store
 
