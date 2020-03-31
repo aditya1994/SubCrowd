@@ -1,4 +1,4 @@
-package com.cureApp.app.Chat;
+package com.subcrowd.app.Chat;
 
 
 import android.view.View;
@@ -7,7 +7,7 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.cureApp.app.R;
+import com.subcrowd.app.R;
 
 /**
  * Created by manel on 10/31/2017.

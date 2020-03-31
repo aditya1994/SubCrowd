@@ -1,4 +1,4 @@
-package com.cureApp.app;
+package com.subcrowd.app;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

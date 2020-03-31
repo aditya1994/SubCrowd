@@ -20,14 +20,14 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
 
-        <activity android:name=".MainActivity" android:windowSoftInputMode = "adjustResize" android:launchMode="singleTop" />
-        <activity android:name=".ChooseLoginRegistrationActivity">
+        <activity android:name="com.subcrowd.app.MainActivity" android:windowSoftInputMode = "adjustResize" android:launchMode="singleTop" />
+        <activity android:name="com.subcrowd.app.ChooseLoginRegistrationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".SplashScreen"
+        <activity android:name="com.subcrowd.app.SplashScreen"
             android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -35,14 +35,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".RegistrationActivity" />
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".SettingsActivity" />
-        <activity android:name=".BtnLikeActivity" />
-        <activity android:name=".Matches.MatchesActivity" />
-        <activity android:name=".ForgotPasswordActivity" />
-        <activity android:name=".BtnDislikeActivity"/>
-        <activity android:name=".Chat.ChatActivity" android:windowSoftInputMode = "adjustResize">
+        <activity android:name="com.subcrowd.app.RegistrationActivity" />
+        <activity android:name="com.subcrowd.app.LoginActivity" />
+        <activity android:name="com.subcrowd.app.SettingsActivity" />
+        <activity android:name="com.subcrowd.app.BtnLikeActivity" />
+        <activity android:name="com.subcrowd.app.Matches.MatchesActivity" />
+        <activity android:name="com.subcrowd.app.ForgotPasswordActivity" />
+        <activity android:name="com.subcrowd.app.BtnDislikeActivity"/>
+        <activity android:name="com.subcrowd.app.Chat.ChatActivity" android:windowSoftInputMode = "adjustResize">
         </activity>
 
 

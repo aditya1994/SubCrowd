@@ -1,4 +1,4 @@
-package com.cureApp.app.Chat;
+package com.subcrowd.app.Chat;
 
 
 import android.content.DialogInterface;
@@ -40,9 +40,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.cureApp.app.Matches.MatchesActivity;
-import com.cureApp.app.R;
-import com.cureApp.app.SendNotification;
+import com.subcrowd.app.Matches.MatchesActivity;
+import com.subcrowd.app.R;
+import com.subcrowd.app.SendNotification;
 
 import java.util.ArrayList;
 import java.util.HashMap;

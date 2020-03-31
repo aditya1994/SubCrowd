@@ -1,4 +1,4 @@
-package com.cureApp.app;
+package com.subcrowd.app;
 
 import java.util.HashMap;
 import java.util.Map;

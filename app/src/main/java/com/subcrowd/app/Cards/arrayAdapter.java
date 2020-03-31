@@ -1,4 +1,4 @@
-package com.cureApp.app.Cards;
+package com.subcrowd.app.Cards;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,7 +11,7 @@ import android.widget.TextView;
 import androidx.core.content.ContextCompat;
 
 import com.bumptech.glide.Glide;
-import com.cureApp.app.R;
+import com.subcrowd.app.R;
 
 import java.util.List;
 

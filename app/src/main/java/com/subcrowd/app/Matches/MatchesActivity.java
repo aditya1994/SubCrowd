@@ -1,4 +1,4 @@
-package com.cureApp.app.Matches;
+package com.subcrowd.app.Matches;
 
 
 import android.content.Intent;
@@ -19,8 +19,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.cureApp.app.MainActivity;
-import com.cureApp.app.R;
+import com.subcrowd.app.MainActivity;
+import com.subcrowd.app.R;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -1,4 +1,4 @@
-package com.cureApp.app.Cards;
+package com.subcrowd.app.Cards;
 
 /**
  * Created by manel on 9/5/2017.

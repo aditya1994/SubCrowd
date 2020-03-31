@@ -1,4 +1,4 @@
-package com.cureApp.app.Chat;
+package com.subcrowd.app.Chat;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.cureApp.app.R;
+import com.subcrowd.app.R;
 
 import java.util.List;
 

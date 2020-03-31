@@ -1,4 +1,4 @@
-package com.cureApp.app;
+package com.subcrowd.app;
 
 import android.content.Context;
 import android.content.Intent;
@@ -30,8 +30,8 @@ import com.lorentzos.flingswipe.SwipeFlingAdapterView;
 import com.onesignal.OSNotificationAction;
 import com.onesignal.OSNotificationOpenResult;
 import com.onesignal.OneSignal;
-import com.cureApp.app.Cards.arrayAdapter;
-import com.cureApp.app.Cards.cards;
+import com.subcrowd.app.Cards.arrayAdapter;
+import com.subcrowd.app.Cards.cards;
 
 import org.json.JSONObject;
 
@@ -48,7 +48,7 @@ import ru.dimorinny.showcasecard.radius.Radius;
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
     private cards cards_data[];
-    private com.cureApp.app.Cards.arrayAdapter arrayAdapter;
+    private com.subcrowd.app.Cards.arrayAdapter arrayAdapter;
     private int i;
     private  String tag;
     private FirebaseAuth mAuth;
