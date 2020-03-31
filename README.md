@@ -25,7 +25,7 @@ SubCrowd uses [Firebase](https://firebase.google.com/) for storage and authentic
 
 ## Notifications
 
-SubCrowd uses [OneSignal](https://onesignal.com/) for Notifications. Add your project there and drop the App ID in your build.gradle (app level) where 'onesignal_app_id' is mentioned.
+SubCrowd uses [OneSignal](https://onesignal.com/) for Notifications. Add your project there and drop the App ID in your build.gradle (app level) where 'onesignal_app_id' is mentioned. Refer the guide: [Adding OneSignal to your App](https://documentation.onesignal.com/docs/android-sdk-setup)
 
 
 ## Licence
@@ -34,9 +34,11 @@ SubCrowd uses [OneSignal](https://onesignal.com/) for Notifications. Add your pr
 
 
 
-## Reference:
+## References:
 
-Card View: https://github.com/dimorinny/show-case-card-view
+* Card View: https://github.com/dimorinny/show-case-card-view
 
-Bottom Card View: https://github.com/ittianyu/BottomNavigationViewEx
+* Bottom Card View: https://github.com/ittianyu/BottomNavigationViewEx
+
+* SimCoder TinderClone: https://github.com/SimCoderYoutube/TinderClone
 
